@@ -5,7 +5,8 @@ import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
 import { loadThemeFonts, useTheme } from './lib/theme'
 import { cameraFor, CameraRig } from './scene/CameraRig'
-import { ROWS, slot } from './scene/layout'
+import { CaseLine } from './scene/CaseLine'
+import { LINE_STEP, ROWS, slot } from './scene/layout'
 import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
 import { Shelf, type ScrollState } from './scene/Shelf'
@@ -24,6 +25,7 @@ type Phase = 'welcome' | 'loading' | 'shelf'
 interface Pulled {
   disc: Disc
   from: THREE.Vector3
+  fromRy?: number
   stage: CaseStage
 }
 
@@ -134,13 +136,22 @@ export default function App() {
   useEffect(() => {
     if (!highlightId) return
     const index = discs.findIndex((d) => d.id === highlightId)
-    scroll.target = slot(index, rows).x
-  }, [highlightId, discs, rows, scroll])
+    scroll.target = theme === 'street' ? index * LINE_STEP : slot(index, rows).x
+  }, [highlightId, discs, rows, scroll, theme])
+
+  // The two looks measure scrolling differently, so start from the beginning after switching.
+  useEffect(() => {
+    scroll.target = -Infinity
+    scroll.current = NaN
+  }, [theme, scroll])
+
+  // Street: the CD at the front of the line, named in a label above it.
+  const [focused, setFocused] = useState<Disc | null>(null)
 
   const pick = useCallback(
-    (disc: Disc, from: THREE.Vector3) => {
+    (disc: Disc, from: THREE.Vector3, fromRy?: number) => {
       if (pulled) return
-      setPulled({ disc, from, stage: 'out' })
+      setPulled({ disc, from, fromRy, stage: 'out' })
       setTracks(disc.tracks ?? null)
       setTrackError(null)
       setLine(rhymes.pulled(disc.title))
@@ -201,15 +212,20 @@ export default function App() {
       if ((e.target as HTMLElement).tagName === 'INPUT') return
       if (e.key === 'Escape') putBack()
       if (pulled) return
-      if (e.key === 'ArrowRight') scroll.target += 1.2
-      if (e.key === 'ArrowLeft') scroll.target -= 1.2
+      const step = theme === 'street' ? LINE_STEP : 1.2
+      if (e.key === 'ArrowRight' || (theme === 'street' && e.key === 'ArrowDown')) scroll.target += step
+      if (e.key === 'ArrowLeft' || (theme === 'street' && e.key === 'ArrowUp')) scroll.target -= step
+      if (theme === 'street' && e.key === 'Enter' && focused) {
+        // Same as tapping the front CD, without a 3D position: it flies out from the middle.
+        pick(focused, new THREE.Vector3(0, -1, 0), -0.3)
+      }
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
   })
 
   // Mouse wheel and drag (or swipe) slide along the shelf.
-  const drag = useRef<{ x: number; target: number } | null>(null)
+  const drag = useRef<{ x: number; y: number; target: number } | null>(null)
   const onWheel = (e: React.WheelEvent) => {
     if (pulled) return
     scroll.target += (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY) * 0.006
@@ -219,14 +235,20 @@ export default function App() {
     return (2 * c.z * Math.tan(THREE.MathUtils.degToRad(c.fov / 2))) / innerHeight
   }
   const onPointerDown = (e: React.PointerEvent) => {
-    if (!pulled) drag.current = { x: e.clientX, target: scroll.target }
+    if (pulled) return
+    drag.current = { x: e.clientX, y: e.clientY, target: scroll.target }
+    scroll.held = true
   }
   const onPointerMove = (e: React.PointerEvent) => {
     if (!drag.current) return
-    scroll.target = drag.current.target - (e.clientX - drag.current.x) * worldPerPixel() * 1.4
+    const dx = e.clientX - drag.current.x
+    // The street line runs diagonally, so swiping up or left both move along it.
+    const moved = theme === 'street' ? dx - (e.clientY - drag.current.y) : dx
+    scroll.target = drag.current.target - moved * worldPerPixel() * 1.4
   }
   const endDrag = () => {
     drag.current = null
+    scroll.held = false
   }
 
   // ---- Screens ---------------------------------------------------------------
@@ -295,22 +317,36 @@ export default function App() {
               <StreetBackdrop scroll={scroll} discs={discs} />
             </Suspense>
           )}
-          <Shelf
-            discs={discs}
-            rows={rows}
-            scroll={scroll}
-            selectedId={pulled?.disc.id ?? null}
-            highlightId={highlightId}
-            playing={playing}
-            theme={theme}
-            onPick={pick}
-          />
+          {theme === 'street' ? (
+            <Suspense fallback={null}>
+              <CaseLine
+                discs={discs}
+                scroll={scroll}
+                selectedId={pulled?.disc.id ?? null}
+                playing={playing}
+                onPick={pick}
+                onFocus={setFocused}
+              />
+            </Suspense>
+          ) : (
+            <Shelf
+              discs={discs}
+              rows={rows}
+              scroll={scroll}
+              selectedId={pulled?.disc.id ?? null}
+              highlightId={highlightId}
+              playing={playing}
+              onPick={pick}
+            />
+          )}
           {pulled && (
             <PulledCD
               key={pulled.disc.id}
               disc={pulled.disc}
               from={pulled.from}
+              fromRy={pulled.fromRy}
               stage={pulled.stage}
+              theme={theme}
               playing={playing && now.disc?.id === pulled.disc.id}
               songArtUrl={now.disc?.id === pulled.disc.id ? now.track?.imageUrl : undefined}
               onToggleOpen={toggleOpen}
@@ -379,7 +415,19 @@ export default function App() {
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}
-      {!pulled && <p className="hint">Scroll or swipe along the shelf · tap a CD to pull it out</p>}
+      {!pulled && theme === 'street' && focused && (
+        <div className="focus-label" key={focused.id}>
+          <strong>{focused.title}</strong>
+          <span>{focused.subtitle}</span>
+        </div>
+      )}
+      {!pulled && (
+        <p className="hint">
+          {theme === 'street'
+            ? 'Swipe through your CDs · tap the front one to pull it out'
+            : 'Scroll or swipe along the shelf · tap a CD to pull it out'}
+        </p>
+      )}
 
       {notice && (
         <div className="toast">

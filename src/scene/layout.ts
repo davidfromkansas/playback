@@ -18,3 +18,6 @@ export function slot(index: number, rows: number): { col: number; row: number; x
 export function columns(count: number, rows: number): number {
   return Math.max(1, Math.ceil(count / rows))
 }
+
+/** Street theme: scroll distance from one CD in the line to the next. */
+export const LINE_STEP = 0.6

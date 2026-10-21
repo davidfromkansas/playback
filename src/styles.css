@@ -950,3 +950,46 @@ select {
     display: none;
   }
 }
+
+/* Street: the title of the CD at the front of the line, as a slapped-on sticker. */
+.focus-label {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  max-width: min(440px, calc(100vw - 32px));
+  padding: 6px 16px 8px;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  text-align: center;
+  pointer-events: none;
+  animation: label-pop 0.3s cubic-bezier(0.3, 1.8, 0.5, 1);
+}
+
+@keyframes label-pop {
+  from { transform: translateX(-50%) rotate(-6deg) scale(0.6); opacity: 0; }
+}
+
+.focus-label strong,
+.focus-label span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.focus-label strong {
+  font-family: var(--comic);
+  font-weight: 400;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.focus-label span {
+  font-family: var(--marker);
+  font-size: 0.9rem;
+  color: var(--pink);
+}

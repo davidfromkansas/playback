@@ -6,11 +6,11 @@ import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { INK } from '../lib/colors'
 import type { Disc } from '../types'
+import { LINE_FLOOR_Y } from './CaseLine'
 import type { ScrollState } from './Shelf'
 import { billboardAd, billboardWithCover } from './streetArt'
 
 const MODEL = '/models/rooftop.glb'
-const FLOOR_Y = -2.78
 
 // Three flat bands of light: the classic cel-shaded look.
 const toonRamp = (() => {
@@ -21,7 +21,7 @@ const toonRamp = (() => {
   return t
 })()
 
-export function toonMaterial(color: THREE.ColorRepresentation, map?: THREE.Texture | null) {
+function toonMaterial(color: THREE.ColorRepresentation, map?: THREE.Texture | null) {
   return new THREE.MeshToonMaterial({ color, gradientMap: toonRamp, map: map ?? null })
 }
 
@@ -79,7 +79,7 @@ export function StreetBackdrop({ scroll, discs }: { scroll: ScrollState; discs: 
   })
 
   return (
-    <group ref={group} position-y={FLOOR_Y}>
+    <group ref={group} position-y={LINE_FLOOR_Y}>
       <ambientLight intensity={1.1} />
       <directionalLight position={[-20, 40, 30]} intensity={2.2} />
       {pieces.map((p) =>

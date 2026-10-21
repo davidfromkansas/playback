@@ -14,7 +14,6 @@ export const STREET = {
 }
 const SPRAY = Object.values(STREET)
 
-const TAG_FONT = '"Rubik Spray Paint", "Permanent Marker", "Bangers", sans-serif'
 const MARKER_FONT = '"Permanent Marker", "Bangers", sans-serif'
 const COMIC_FONT = '"Bangers", "Arial Black", sans-serif'
 
@@ -31,11 +30,10 @@ function canvas(w: number, h: number): [HTMLCanvasElement, CanvasRenderingContex
   return [c, c.getContext('2d')!]
 }
 
-function finish(c: HTMLCanvasElement, repeat = false): THREE.CanvasTexture {
+function finish(c: HTMLCanvasElement): THREE.CanvasTexture {
   const t = new THREE.CanvasTexture(c)
   t.colorSpace = THREE.SRGBColorSpace
   t.anisotropy = 8
-  if (repeat) t.wrapS = t.wrapT = THREE.RepeatWrapping
   return t
 }
 
@@ -45,99 +43,6 @@ function fit(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, size
     ctx.font = `${s}px ${font}`
     s -= 2
   } while (ctx.measureText(text).width > maxWidth && s > 10)
-}
-
-/** Soft spray dots around a stroke, plus paint drips running down. */
-function sprayStroke(ctx: CanvasRenderingContext2D, rand: () => number, x: number, y: number, w: number, color: string) {
-  ctx.save()
-  ctx.fillStyle = color
-  for (let i = 0; i < 260; i++) {
-    const a = rand() * Math.PI * 2
-    const r = Math.pow(rand(), 2) * w
-    ctx.globalAlpha = 0.08 + rand() * 0.15
-    ctx.fillRect(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.6, 2, 2)
-  }
-  ctx.globalAlpha = 0.9
-  for (let i = 0; i < 3; i++) {
-    const dx = x + (rand() - 0.5) * w
-    const len = 10 + rand() * 40
-    ctx.fillRect(dx, y, 3, len)
-    ctx.beginPath()
-    ctx.arc(dx + 1.5, y + len, 3, 0, Math.PI * 2)
-    ctx.fill()
-  }
-  ctx.restore()
-}
-
-function tag(ctx: CanvasRenderingContext2D, rand: () => number, text: string, x: number, y: number, size: number) {
-  const fill = SPRAY[(rand() * SPRAY.length) | 0]
-  let outline = SPRAY[(rand() * SPRAY.length) | 0]
-  if (outline === fill) outline = INK
-  ctx.save()
-  ctx.translate(x, y)
-  ctx.rotate((rand() - 0.5) * 0.35)
-  ctx.font = `${size}px ${TAG_FONT}`
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  ctx.lineJoin = 'round'
-  ctx.lineWidth = size * 0.22
-  ctx.strokeStyle = INK
-  ctx.strokeText(text, 4, 6)
-  ctx.lineWidth = size * 0.14
-  ctx.strokeStyle = outline
-  ctx.strokeText(text, 0, 0)
-  ctx.fillStyle = fill
-  ctx.fillText(text, 0, 0)
-  ctx.restore()
-  sprayStroke(ctx, rand, x, y + size * 0.4, size * 1.2, fill)
-}
-
-const TAGS = ['PLAYBACK', 'GG', 'FM', 'SPIN', 'LOUD', 'DIG', 'REWIND', 'B-SIDE', 'MIXTAPE', 'NO SKIP', 'VOLT']
-
-/** The back wall of the CD rack: painted plywood covered in tags. Tiles sideways. */
-export function graffitiWall(): THREE.CanvasTexture {
-  const W = 2048
-  const H = 1024
-  const [c, ctx] = canvas(W, H)
-  const rand = seeded('wall')
-  // Plywood base with a few painted blocks
-  ctx.fillStyle = '#3a3f55'
-  ctx.fillRect(0, 0, W, H)
-  for (let i = 0; i < 10; i++) {
-    ctx.fillStyle = SPRAY[(rand() * SPRAY.length) | 0]
-    ctx.globalAlpha = 0.85
-    const x = rand() * W
-    ctx.beginPath()
-    ctx.moveTo(x, 0)
-    ctx.lineTo(x + 200 + rand() * 300, 0)
-    ctx.lineTo(x + 100 + rand() * 300, H)
-    ctx.lineTo(x - 100, H)
-    ctx.fill()
-  }
-  ctx.globalAlpha = 1
-  for (let i = 0; i < 16; i++) {
-    tag(ctx, rand, TAGS[i % TAGS.length], (i % 8) * 260 + 120 + rand() * 60, i < 8 ? 260 + rand() * 120 : 700 + rand() * 120, 110 + rand() * 70)
-  }
-  // Wrap a copy of the edges so the texture tiles without a seam.
-  ctx.drawImage(c, 0, 0, 160, H, W - 160, 0, 160, H)
-  return finish(c, true)
-}
-
-/** Hazard-striped steel for the rack's shelves. */
-export function hazardTexture(): THREE.CanvasTexture {
-  const [c, ctx] = canvas(256, 64)
-  ctx.fillStyle = STREET.yellow
-  ctx.fillRect(0, 0, 256, 64)
-  ctx.fillStyle = INK
-  for (let x = -64; x < 256; x += 64) {
-    ctx.beginPath()
-    ctx.moveTo(x, 64)
-    ctx.lineTo(x + 32, 64)
-    ctx.lineTo(x + 64, 0)
-    ctx.lineTo(x + 32, 0)
-    ctx.fill()
-  }
-  return finish(c, true)
 }
 
 function sticker(ctx: CanvasRenderingContext2D, rand: () => number, x: number, y: number, r: number) {

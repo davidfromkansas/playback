@@ -8,10 +8,14 @@ export function SpeedLines({ scroll }: { scroll: ScrollState }) {
     let raf = 0
     let last = scroll.current
     let level = 0
-    const frame = () => {
-      const v = Number.isFinite(scroll.current) && Number.isFinite(last) ? scroll.current - last : 0
+    let then = performance.now()
+    const frame = (now: number) => {
+      const dt = Math.max(0.001, (now - then) / 1000)
+      then = now
+      const moved = Number.isFinite(scroll.current) && Number.isFinite(last) ? scroll.current - last : 0
       last = scroll.current
-      level += (Math.min(1, Math.abs(v) * 6) - level) * 0.15
+      // Fade in with speed (scroll units per second), and out again quickly once it stops.
+      level += (Math.min(1, Math.abs(moved / dt) / 8) - level) * Math.min(1, dt * 9)
       if (el.current) {
         el.current.style.opacity = level < 0.02 ? '0' : String(level)
         // Slide the streak pattern with the shelf so the lines rush past.
