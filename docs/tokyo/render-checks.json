@@ -1,0 +1,93 @@
+{
+  "round": 32,
+  "model": {
+    "triangles": 590640,
+    "mesh_batches": 88,
+    "bytes": 4164904,
+    "manifold_solids": 60,
+    "geometry_errors": [],
+    "ao": "sixteen stratified hemisphere rays per face corner",
+    "seed": 2000,
+    "note": "Open art/window quads excluded from manifold checks. Intersecting structural kit parts are intentional."
+  },
+  "views": [
+    {
+      "device": "desktop",
+      "sky": "day",
+      "errors": [],
+      "failures": [],
+      "stats": {
+        "bloom": false,
+        "pixelRatio": 2,
+        "backdropCalls": 181,
+        "backdropTriangles": 1159882,
+        "meshes": 88
+      }
+    },
+    {
+      "device": "desktop",
+      "sky": "sunset",
+      "errors": [],
+      "failures": [],
+      "stats": {
+        "bloom": false,
+        "pixelRatio": 2,
+        "backdropCalls": 181,
+        "backdropTriangles": 1159882,
+        "meshes": 88
+      }
+    },
+    {
+      "device": "desktop",
+      "sky": "night",
+      "errors": [],
+      "failures": [],
+      "stats": {
+        "bloom": true,
+        "pixelRatio": 2,
+        "backdropCalls": 198,
+        "backdropTriangles": 1159882,
+        "meshes": 88
+      }
+    },
+    {
+      "device": "phone",
+      "sky": "day",
+      "errors": [],
+      "failures": [],
+      "stats": {
+        "bloom": false,
+        "pixelRatio": 2,
+        "backdropCalls": 151,
+        "backdropTriangles": 935182,
+        "meshes": 88
+      }
+    },
+    {
+      "device": "phone",
+      "sky": "sunset",
+      "errors": [],
+      "failures": [],
+      "stats": {
+        "bloom": false,
+        "pixelRatio": 2,
+        "backdropCalls": 150,
+        "backdropTriangles": 935182,
+        "meshes": 88
+      }
+    },
+    {
+      "device": "phone",
+      "sky": "night",
+      "errors": [],
+      "failures": [],
+      "stats": {
+        "bloom": false,
+        "pixelRatio": 2,
+        "backdropCalls": 151,
+        "backdropTriangles": 935182,
+        "meshes": 88
+      }
+    }
+  ]
+}
