@@ -1,14 +1,14 @@
-// Loading states, drawn with Generative Loaders (generativeloaders.com, MIT).
+// Loading states. The big ones use Playback's own MixtapeLoader; small inline ones elsewhere use
+// Generative Loaders (generativeloaders.com, MIT).
 import { useProgress } from '@react-three/drei'
-import { ImageLoader, TextLoader } from 'generative-loaders'
 import { useEffect, useState } from 'react'
+import { MixtapeLoader } from './MixtapeLoader'
 
 /** A big animated loader with a line of text under it, centred on the screen. */
 export function LoadingCard({ text, className = '' }: { text: string; className?: string }) {
   return (
     <div className={`loading-card ${className}`}>
-      <ImageLoader variant="tiles" size="4.5rem" radius="50%" label={text} />
-      <TextLoader text={text} variant="wave" color="currentColor" />
+      <MixtapeLoader text={text} />
     </div>
   )
 }

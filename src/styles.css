@@ -1160,3 +1160,183 @@ select {
   vertical-align: -0.15em;
   margin-right: 6px;
 }
+
+/* MixtapeLoader: spinning CD + equalizer + sprayed-on message. */
+.mixtape {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.mx-deck {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.mx-cd {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  overflow: hidden;
+  /* Silver disc with a clear hub and a hole in the middle. */
+  background:
+    radial-gradient(circle, transparent 0 9%, rgba(255, 255, 255, 0.55) 9.5% 22%, #b9bec7 22.5% 24%, transparent 24.5%),
+    conic-gradient(from 20deg, #e9edf2, #aab1bb, #f6f8fb, #9aa2ad, #e9edf2, #b8bfc9, #f6f8fb, #aab1bb, #e9edf2);
+  -webkit-mask: radial-gradient(circle, transparent 0 8%, #000 8.5%);
+  mask: radial-gradient(circle, transparent 0 8%, #000 8.5%);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25);
+  will-change: transform;
+}
+
+/* The rainbow you see when light catches a CD, drifting round the other way. */
+.mx-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 8%,
+    rgba(255, 46, 147, 0.8) 12%,
+    rgba(255, 230, 0, 0.8) 17%,
+    rgba(34, 227, 162, 0.8) 22%,
+    rgba(46, 197, 255, 0.8) 27%,
+    rgba(163, 91, 255, 0.8) 32%,
+    transparent 37% 58%,
+    rgba(46, 197, 255, 0.7) 62%,
+    rgba(255, 46, 147, 0.7) 68%,
+    transparent 74%
+  );
+  mix-blend-mode: screen;
+  animation: mx-sheen 2.8s linear infinite reverse;
+}
+
+@keyframes mx-sheen {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mx-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 54px;
+}
+
+.mx-eq i {
+  width: 8px;
+  height: 100%;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: linear-gradient(to top, #22e3a2 0 45%, #ffe600 45% 75%, #ff2e93 75%);
+  transform-origin: bottom;
+  animation: mx-bar ease-out infinite;
+}
+
+@keyframes mx-bar {
+  0% {
+    transform: scaleY(var(--peak));
+  }
+  60% {
+    transform: scaleY(0.22);
+  }
+  100% {
+    transform: scaleY(var(--peak));
+  }
+}
+
+/* The message, sprayed on one letter at a time; some letters drip. */
+.mx-tag {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.3em;
+  max-width: 16em;
+  font-family: var(--comic, inherit);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: #ff2e93;
+  -webkit-text-stroke: 1px var(--ink);
+  text-transform: uppercase;
+}
+
+.mx-word {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.mx-word span {
+  position: relative;
+  display: inline-block;
+  animation: mx-spray 3.2s ease-out infinite both;
+}
+
+@keyframes mx-spray {
+  0% {
+    opacity: 0;
+    transform: scale(1.5);
+    filter: blur(5px);
+    text-shadow: 0 0 10px #ff2e93;
+  }
+  9% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    text-shadow: 0 0 4px rgba(255, 46, 147, 0.7);
+  }
+  85% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    text-shadow: 1px 1px 0 var(--ink);
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+    filter: blur(2px);
+  }
+}
+
+.mx-word .drip::after {
+  content: '';
+  position: absolute;
+  left: 45%;
+  top: 82%;
+  width: 5px;
+  height: var(--drip);
+  border: 1px solid var(--ink);
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+  background: #ff2e93;
+  transform-origin: top;
+  animation: mx-drip 3.2s ease-in infinite both;
+  animation-delay: inherit;
+}
+
+@keyframes mx-drip {
+  0%,
+  10% {
+    transform: scaleY(0);
+  }
+  40%,
+  85% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mx-sheen,
+  .mx-eq i,
+  .mx-word span,
+  .mx-word .drip::after {
+    animation: none;
+  }
+}

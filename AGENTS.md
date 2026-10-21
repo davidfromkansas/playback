@@ -91,7 +91,9 @@ src/
     Panels.tsx         Track list panel, now-playing bar, mood meter
     RhythmBar.tsx      Optional tap-along rhythm game
     SpeedLines.tsx     Street speed-line overlay
-    Loading.tsx        Loading states (generative-loaders package from generativeloaders.com): LoadingCard, SceneLoading
+    Loading.tsx        Loading states: LoadingCard (uses MixtapeLoader), SceneLoading
+    MixtapeLoader.tsx  Our own loader: spinning CD that revs up, beat-synced equalizer, sprayed-on graffiti text
+                       (small inline loaders elsewhere use the generative-loaders package)
 blender/               Python scripts that build the .glb models
 public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, shelf.glb
 ```
