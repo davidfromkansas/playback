@@ -32,7 +32,9 @@ for device in ('desktop','phone'):
 signs=sorted(root.glob('sign-*.png'))
 if signs:
     sheet=Image.new('RGB',(len(signs)*128,512),'#ffffff')
-    for i,path in enumerate(signs): sheet.paste(Image.open(path).convert('RGB').resize((128,512)),(i*128,0))
+    for i,path in enumerate(signs):
+        sign=ImageOps.contain(Image.open(path).convert('RGB'),(128,512),Image.Resampling.LANCZOS)
+        sheet.paste(sign,(i*128+(128-sign.width)//2,(512-sign.height)//2))
     sheet.save(root/'sign-proof.png')
 (root/'values.json').write_text(json.dumps(metrics,indent=2))
 print(json.dumps(metrics))

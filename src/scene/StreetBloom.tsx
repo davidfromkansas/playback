@@ -1,5 +1,4 @@
-import { Bloom, EffectComposer, ToneMapping } from '@react-three/postprocessing'
-import { ToneMappingMode } from 'postprocessing'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, type RefObject } from 'react'
 import * as THREE from 'three'
@@ -31,9 +30,8 @@ export default function StreetBloom({ backdrop }: { backdrop: RefObject<THREE.Gr
     gl.autoClear = autoClear
   }, 2)
   return (
-    <EffectComposer multisampling={0}>
-      <Bloom luminanceThreshold={1.3} luminanceSmoothing={0.15} intensity={0.3} mipmapBlur={false} />
-      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+    <EffectComposer multisampling={Math.min(4, gl.capabilities.maxSamples)}>
+      <Bloom luminanceThreshold={0.35} luminanceSmoothing={0.15} intensity={0.25} />
     </EffectComposer>
   )
 }
