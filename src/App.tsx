@@ -13,7 +13,7 @@ import { Shelf, type ScrollState } from './scene/Shelf'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
 import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
-import { loadRows, sampleRows, songsRow, startingRows, type ShelfRow } from './spotify/rows'
+import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow } from './spotify/rows'
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
@@ -69,6 +69,10 @@ export default function App() {
 
   // Street: rows of CDs stacked top to bottom, each remembering how far along it you've scrolled.
   const [rowList, setRowList] = useState<ShelfRow[]>([])
+  // The search results page: its own rows (Songs, Albums, Playlists) shown instead of yours.
+  const [results, setResults] = useState<{ query: string; rows: ShelfRow[] } | null>(null)
+  const homeRow = useRef(0) // the row you were on before searching, to come back to
+  const shownRows = results?.rows ?? rowList
   const [activeRow, setActiveRow] = useState(0)
   const stack = useRef<StackState>({ target: 0, current: NaN }).current
   const rowScrolls = useRef(new Map<string, ScrollState>()).current
@@ -80,16 +84,16 @@ export default function App() {
     },
     [rowScrolls],
   )
-  const currentRow = street ? rowList[activeRow] : undefined
+  const currentRow = street ? shownRows[activeRow] : undefined
   // Whatever the arrows, wheel and swipes move: the row you're on, or the Paper shelf.
   const scroll = currentRow ? scrollFor(currentRow.id) : shelfScroll
   const goToRow = useCallback(
     (k: number) => {
-      const next = Math.max(0, Math.min(rowList.length - 1, k))
+      const next = Math.max(0, Math.min(shownRows.length - 1, k))
       setActiveRow(next)
       stack.target = next
     },
-    [rowList.length, stack],
+    [shownRows.length, stack],
   )
   const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
   const playing = !!now.disc && !now.paused
@@ -105,6 +109,7 @@ export default function App() {
       setLibrary(list)
       shelfScroll.target = -Infinity
       rowScrolls.clear()
+      setResults(null)
       setActiveRow(0)
       stack.target = 0
       if (user) {
@@ -172,20 +177,29 @@ export default function App() {
     shelfScroll.target = slot(discs.findIndex((d) => d.id === highlightId), rows).x
   }, [highlightId, discs, rows, shelfScroll, street])
 
-  // Street: searching jumps to the first row and CD that match.
-  useEffect(() => {
-    const q = query.trim().toLowerCase()
-    if (!street || !q) return
-    for (const [k, row] of rowList.entries()) {
-      const i = row.discs.findIndex((d) => d.title.toLowerCase().includes(q) || d.subtitle.toLowerCase().includes(q))
-      if (i < 0) continue
-      goToRow(k)
-      scrollFor(row.id).target = i * LINE_STEP
-      return
-    }
-    // Only a new search should move things, not rows loading in.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, street])
+  // Street: pressing Enter in the search box opens the results page.
+  const runSearch = useCallback(
+    (raw: string) => {
+      const q = raw.trim()
+      if (!q) return
+      if (!results) homeRow.current = activeRow
+      for (const id of [...rowScrolls.keys()]) if (id.startsWith('search:') || id.startsWith('open:')) rowScrolls.delete(id)
+      setResults({ query: q, rows: [{ id: 'search:loading', title: 'Searching Spotify…', discs: [], loading: true }] })
+      setActiveRow(0)
+      stack.target = stack.current = 0
+      void searchRows(q, me, library)
+        .catch(() => [{ id: 'search:error', title: 'Search', discs: [], note: "Couldn't reach Spotify. Try again." }])
+        .then((rows) => setResults((r) => (r?.query === q ? { query: q, rows } : r)))
+    },
+    [results, activeRow, rowScrolls, stack, me, library],
+  )
+
+  const closeSearch = useCallback(() => {
+    setResults(null)
+    setQuery('')
+    setActiveRow(homeRow.current)
+    stack.target = stack.current = homeRow.current
+  }, [stack])
 
   // Switching looks starts the Paper shelf from the beginning again.
   useEffect(() => {
@@ -210,26 +224,28 @@ export default function App() {
     [pulled],
   )
 
-  // Tapping an album or playlist in Recently Played opens its songs as a new row just below it.
+  // Tapping an album or playlist in Recently Played or in search results opens its songs as a new
+  // row just below it.
   const openRow = useCallback(
-    (disc: Disc) => {
+    (fromId: string, disc: Disc) => {
       const id = `open:${disc.id}`
-      setRowList((list) => {
-        const rest = list.filter((r) => !r.id.startsWith('open:'))
-        return [rest[0], { id, title: disc.title, discs: [], loading: true }, ...rest.slice(1)]
-      })
-      setActiveRow(1)
-      stack.target = 1
+      const setShown = results ? (f: (rows: ShelfRow[]) => ShelfRow[]) => setResults((r) => r && { ...r, rows: f(r.rows) }) : setRowList
+      const rest = shownRows.filter((r) => !r.id.startsWith('open:'))
+      const at = rest.findIndex((r) => r.id === fromId) + 1
+      setShown(() => [...rest.slice(0, at), { id, title: disc.title, discs: [], loading: true }, ...rest.slice(at)])
+      setActiveRow(at)
+      stack.target = at
       void songsRow(disc, id)
         .catch(() => ({ id, title: disc.title, discs: [disc], note: "Couldn't load the songs" }))
-        .then((row) => setRowList((list) => list.map((r) => (r.id === id ? row : r))))
+        .then((row) => setShown((list) => list.map((r) => (r.id === id ? row : r))))
     },
-    [stack],
+    [stack, results, shownRows],
   )
 
   const tapRowDisc = useCallback(
     (row: ShelfRow, disc: Disc, from: THREE.Vector3, fromRy: number) => {
-      if (row.id === 'recent' && (disc.kind === 'album' || disc.kind === 'playlist')) openRow(disc)
+      const opens = row.id === 'recent' || row.id.startsWith('search:')
+      if (opens && (disc.kind === 'album' || disc.kind === 'playlist')) openRow(row.id, disc)
       else pick(disc, from, fromRy)
     },
     [openRow, pick],
@@ -283,7 +299,10 @@ export default function App() {
     if (phase !== 'shelf') return
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).tagName === 'INPUT') return
-      if (e.key === 'Escape') putBack()
+      if (e.key === 'Escape') {
+        if (pulled) putBack()
+        else if (results) closeSearch()
+      }
       if (pulled) return
       const step = street ? LINE_STEP : 1.2
       if (e.key === 'ArrowRight') scroll.target += step
@@ -422,7 +441,7 @@ export default function App() {
           {street ? (
             <Suspense fallback={null}>
               <RowStack
-                rows={rowList}
+                rows={shownRows}
                 active={activeRow}
                 stack={stack}
                 scrollFor={scrollFor}
@@ -470,10 +489,17 @@ export default function App() {
         <div className="brand">PLAYBACK</div>
         <input
           className="search"
-          placeholder="Find a CD…"
+          placeholder={street ? 'Search Spotify…' : 'Find a CD…'}
+          enterKeyHint="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === 'Escape' && setQuery('')}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setQuery('')
+            if (e.key === 'Enter' && street) {
+              runSearch(query)
+              e.currentTarget.blur()
+            }
+          }}
         />
         {!street && (
         <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} aria-label="Sort">
@@ -522,11 +548,19 @@ export default function App() {
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}
+      {!pulled && street && results && (
+        <div className="results-bar">
+          <button onClick={closeSearch}>← Back</button>
+          <span>
+            Results for <strong>{results.query}</strong>
+          </span>
+        </div>
+      )}
       {!pulled && street && currentRow && (
-        <div className="row-header" key={currentRow.id}>
+        <div className={`row-header ${results ? 'below-results' : ''}`} key={currentRow.id}>
           <strong>{currentRow.title}</strong>
           <span>
-            Row {activeRow + 1} of {rowList.length}
+            Row {activeRow + 1} of {shownRows.length}
           </span>
         </div>
       )}
@@ -537,7 +571,7 @@ export default function App() {
           </button>
           <button
             aria-label="Row below"
-            disabled={activeRow >= rowList.length - 1}
+            disabled={activeRow >= shownRows.length - 1}
             onClick={() => goToRow(activeRow + 1)}
           >
             ▼
@@ -545,7 +579,7 @@ export default function App() {
         </div>
       )}
       {!pulled && street && focused && currentRow?.discs.length ? (
-        <div className="focus-label" key={focused.id}>
+        <div className={`focus-label ${results ? 'below-results' : ''}`} key={focused.id}>
           <strong>{focused.title}</strong>
           <span>{focused.subtitle}</span>
         </div>

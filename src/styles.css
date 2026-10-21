@@ -1073,3 +1073,49 @@ select {
     height: 42px;
   }
 }
+
+/* Street: the search results page's bar, with the way back to your rows. */
+.results-bar {
+  position: absolute;
+  top: 66px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--marker);
+  pointer-events: none;
+}
+
+.results-bar button {
+  pointer-events: auto;
+  padding: 6px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  font-family: var(--comic);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.results-bar span {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-header.below-results {
+  top: 122px;
+}
+
+@media (max-width: 700px) {
+  .street .focus-label.below-results {
+    top: 186px;
+  }
+}
