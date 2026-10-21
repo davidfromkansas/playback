@@ -1,0 +1,995 @@
+:root {
+  --ink: #1b1b1b;
+  --paper: #fff7e8;
+  --pink: #ff7eb6;
+  --lemon: #ffe14d;
+  --sky: #7ee0ff;
+  --lime: #9dff8a;
+  --lilac: #c8a6ff;
+  --tomato: #ff5e5e;
+  --spotify: #1ed760;
+  --font: 'Baloo 2', 'Arial Rounded MT Bold', 'Trebuchet MS', system-ui, sans-serif;
+  --shadow: 4px 4px 0 var(--ink);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: #ffd6e8;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Paper-cutout room: pastel wall with big polka dots. */
+.room,
+.welcome {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.55) 0 14px, transparent 15px) 0 0 / 90px 90px,
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.55) 0 14px, transparent 15px) 0 0 / 90px 90px,
+    linear-gradient(#c8f1ff 0 72%, #ffd6e8 72% 100%);
+}
+
+.room.grooving {
+  animation: wall-hue 8s linear infinite;
+}
+
+@keyframes wall-hue {
+  50% {
+    filter: hue-rotate(25deg);
+  }
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+
+button,
+select,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.big,
+.chip,
+select,
+.search {
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  background: var(--paper);
+}
+
+.big {
+  padding: 10px 22px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  background: var(--lemon);
+  transition: transform 0.08s;
+}
+
+.big:active,
+.chip:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.big.spotify {
+  background: var(--spotify);
+}
+
+.big:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.chip {
+  padding: 4px 12px;
+  font-weight: 800;
+  background: var(--paper);
+}
+
+/* ---- Welcome ---- */
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.logo {
+  margin: 0;
+  font-size: clamp(3rem, 12vw, 6rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.logo span {
+  display: inline-block;
+  color: var(--paper);
+  -webkit-text-stroke: 3px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 5px 5px 0 var(--ink);
+  animation: hop 1.2s ease-in-out infinite;
+}
+
+.logo span:nth-child(4n + 1) { color: var(--pink); }
+.logo span:nth-child(4n + 2) { color: var(--lemon); animation-delay: 0.1s; }
+.logo span:nth-child(4n + 3) { color: var(--sky); animation-delay: 0.2s; }
+.logo span:nth-child(4n + 4) { color: var(--lime); animation-delay: 0.3s; }
+
+@keyframes hop {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+
+.tagline {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.welcome .host {
+  position: static;
+  flex-direction: row;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  max-width: 420px;
+}
+
+.note {
+  margin: 0;
+  padding: 8px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: var(--paper);
+  font-weight: 600;
+}
+
+.fine {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* ---- Top bar ---- */
+
+.topbar {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  left: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.topbar > * {
+  pointer-events: auto;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--pink);
+  -webkit-text-stroke: 1.5px var(--ink);
+  text-shadow: 3px 3px 0 var(--ink);
+  margin-right: auto;
+}
+
+.search {
+  width: min(220px, 34vw);
+  padding: 4px 10px;
+}
+
+select {
+  padding: 4px 6px;
+}
+
+/* ---- Host ---- */
+
+.host {
+  position: absolute;
+  left: 12px;
+  bottom: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  pointer-events: none;
+  max-width: min(360px, 70vw);
+}
+
+.host-figure {
+  width: 110px;
+  height: 178px;
+  overflow: visible;
+}
+
+.bubble {
+  position: relative;
+  padding: 8px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  background: var(--paper);
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  animation: pop 0.35s cubic-bezier(0.3, 1.8, 0.5, 1);
+}
+
+@keyframes pop {
+  from { transform: scale(0.5) rotate(-6deg); opacity: 0; }
+}
+
+/* ---- Hints and toast ---- */
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 86px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 247, 232, 0.85);
+  border: 2px solid var(--ink);
+  font-weight: 800;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.toast {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, calc(100vw - 32px));
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: var(--lemon);
+  box-shadow: var(--shadow);
+  font-weight: 700;
+}
+
+.toast span {
+  flex: 1;
+}
+
+.toast a {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.toast button {
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+}
+
+/* ---- Track panel (the case insert) ---- */
+
+.panel {
+  position: absolute;
+  top: 64px;
+  right: 12px;
+  bottom: 92px;
+  width: min(360px, 40vw);
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+  overflow: hidden;
+  animation: slide-in 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes slide-in {
+  from { transform: translateX(110%) rotate(6deg); }
+}
+
+.panel header {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px 14px 8px;
+  border-bottom: 3px solid var(--ink);
+  background: var(--sky);
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.panel header p {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+.panel .note {
+  margin: 10px 14px 0;
+  font-size: 0.9rem;
+}
+
+.tracks {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.tracks button {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.tracks button:hover {
+  background: #ffe9a8;
+}
+
+.tracks li.now button {
+  background: var(--pink);
+}
+
+.tracks .num {
+  width: 22px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.tracks .name {
+  flex: 1;
+  font-weight: 800;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.tracks small {
+  display: block;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.tracks .dur {
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.panel footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-top: 3px solid var(--ink);
+}
+
+.spotify-link {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* ---- Now playing bar ---- */
+
+.nowbar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  background: var(--lilac);
+  box-shadow: var(--shadow);
+}
+
+.now-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.now-text strong,
+.now-text span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-text span {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.progress {
+  height: 8px;
+  margin-top: 4px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.progress div {
+  height: 100%;
+  background: var(--pink);
+}
+
+.now-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.now-buttons button {
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  font-size: 1rem;
+}
+
+.now-buttons .play {
+  background: var(--lemon);
+}
+
+/* ---- Rhythm bar and mood meter ---- */
+
+.rhythm {
+  position: absolute;
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 24px));
+  pointer-events: none;
+}
+
+.rhythm-track {
+  position: relative;
+  height: 54px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: rgba(255, 247, 232, 0.9);
+  overflow: hidden;
+}
+
+.rhythm-line {
+  position: absolute;
+  left: calc(12% - 22px);
+  top: 3px;
+  width: 44px;
+  height: 42px;
+  border: 3px dashed var(--ink);
+  border-radius: 50%;
+}
+
+.rhythm-prompt {
+  position: absolute;
+  top: 6px;
+  width: 38px;
+  height: 36px;
+  margin-left: -19px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.rhythm-flash {
+  position: absolute;
+  right: 14px;
+  top: 6px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--pink);
+  -webkit-text-stroke: 1.5px var(--ink);
+  animation: pop 0.3s;
+}
+
+.rhythm-flash.bad {
+  color: var(--sky);
+}
+
+.rhythm-buttons {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  pointer-events: auto;
+}
+
+.rhythm-buttons button {
+  width: 52px;
+  height: 52px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  box-shadow: var(--shadow);
+  touch-action: manipulation;
+}
+
+@media (pointer: coarse) {
+  .rhythm-buttons {
+    display: flex;
+  }
+}
+
+.mood {
+  position: absolute;
+  right: 12px;
+  top: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 6px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: var(--paper);
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.mood-title {
+  font-size: 0.7rem;
+}
+
+.mood-step {
+  padding: 0 6px;
+  border-radius: 6px;
+  opacity: 0.3;
+}
+
+.mood-step.on {
+  opacity: 1;
+  border: 2px solid var(--ink);
+}
+
+.mood-step.cool.on { background: var(--pink); }
+.mood-step.good.on { background: var(--lemon); }
+.mood-step.bad.on { background: var(--sky); }
+
+/* With the case open, the mood meter would sit on the panel. */
+.panel ~ .mood,
+.room:has(.panel) .mood {
+  display: none;
+}
+
+/* ---- Phones ---- */
+
+@media (max-width: 700px) {
+  .brand {
+    display: none;
+  }
+
+  .search {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  select {
+    max-width: 120px;
+  }
+
+  .bubble {
+    font-size: 0.85rem;
+  }
+
+  .panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 86px;
+    width: auto;
+    max-height: 34vh;
+    animation-name: slide-up;
+  }
+
+  @keyframes slide-up {
+    from { transform: translateY(110%); }
+  }
+
+  .host {
+    bottom: 90px;
+  }
+
+  .host-figure {
+    width: 76px;
+    height: 123px;
+  }
+
+  .room:has(.panel) .host {
+    display: none;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    white-space: normal;
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    text-align: center;
+  }
+
+  .mood {
+    top: auto;
+    bottom: 90px;
+  }
+
+  .rhythm {
+    top: 54px;
+  }
+}
+
+/* ======================================================================
+   Street theme: Jet Set Radio-style rooftop. Bold primaries, chunky ink
+   outlines, tilted sticker buttons, comic lettering and spray tags.
+   ====================================================================== */
+
+.street {
+  --ink: #111018;
+  --paper: #ffffff;
+  --pink: #ff2e93;
+  --lemon: #ffe600;
+  --sky: #00d0ff;
+  --lime: #c6ff00;
+  --lilac: #8a4dff;
+  --orange: #ff8a1f;
+  --font: 'Baloo 2', system-ui, sans-serif;
+  --comic: 'Bangers', 'Arial Black', sans-serif;
+  --marker: 'Permanent Marker', 'Bangers', sans-serif;
+  --tag: 'Rubik Spray Paint', 'Permanent Marker', sans-serif;
+  --shadow: 5px 5px 0 var(--ink);
+}
+
+/* Big summer sky with puffy cel clouds; the 3D city fills the bottom. */
+.room.street,
+.welcome.street {
+  background:
+    radial-gradient(ellipse 120px 46px at 18% 20%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 80px 40px at 23% 16%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 150px 50px at 76% 12%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 90px 44px at 71% 8%, #fff 98%, transparent) no-repeat,
+    linear-gradient(#0aa8ff 0%, #34c6ff 45%, #bfefff 75%);
+}
+
+.room.street.grooving {
+  animation: none;
+}
+
+/* Halftone dots fade in toward the screen edges, like a comic panel. */
+.room.street::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(rgba(17, 16, 24, 0.16) 1.2px, transparent 1.6px) 0 0 / 9px 9px;
+  mask-image: radial-gradient(ellipse at center, transparent 55%, #000 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 55%, #000 100%);
+}
+
+.street .big,
+.street .chip,
+.street select,
+.street .search {
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+.street .big,
+.street .chip {
+  font-family: var(--comic);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: skew(-8deg);
+}
+
+.street .big:active,
+.street .chip:active {
+  transform: skew(-8deg) translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.street .big {
+  font-size: 1.4rem;
+  background: var(--lime);
+}
+
+.street .big.spotify {
+  background: var(--spotify);
+}
+
+.street .chip {
+  background: var(--lemon);
+}
+
+.street .theme-toggle {
+  background: var(--pink);
+  color: #fff;
+  -webkit-text-stroke: 0.6px var(--ink);
+}
+
+.street .search,
+.street select {
+  font-family: var(--marker);
+  background: #fff;
+}
+
+/* Logo: chunky spray-paint letters, each one tilted and a different color. */
+.welcome.street .logo {
+  font-family: var(--tag);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 14vw, 7rem);
+  letter-spacing: 0;
+  filter: drop-shadow(6px 6px 0 var(--ink));
+}
+
+.welcome.street .logo span {
+  -webkit-text-stroke: 3px var(--ink);
+}
+
+.welcome.street .logo span:nth-child(odd) { transform: rotate(-6deg) translateY(4px); }
+.welcome.street .logo span:nth-child(even) { transform: rotate(5deg) translateY(-4px); }
+.welcome.street .logo span:nth-child(4n + 1) { color: var(--lime); }
+.welcome.street .logo span:nth-child(4n + 2) { color: var(--pink); }
+.welcome.street .logo span:nth-child(4n + 3) { color: var(--lemon); }
+.welcome.street .logo span:nth-child(4n + 4) { color: var(--sky); }
+
+.welcome.street .tagline {
+  font-family: var(--marker);
+  font-size: 1.15rem;
+  color: #fff;
+  -webkit-text-stroke: 1px var(--ink);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.welcome.street .fine,
+.welcome.street .note {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.street .brand {
+  font-family: var(--tag);
+  font-weight: 400;
+  font-size: 1.9rem;
+  color: var(--lime);
+  -webkit-text-stroke: 2px var(--ink);
+  text-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(-4deg);
+}
+
+/* Radio-host speech bubble: a jagged comic shout box. */
+.street .bubble {
+  font-family: var(--comic);
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
+  background: var(--lemon);
+  transform: rotate(-2deg);
+}
+
+.street .bubble::before {
+  content: 'PLAYBACK FM';
+  position: absolute;
+  top: -14px;
+  left: 10px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  color: #fff;
+  background: var(--pink);
+  border: 2px solid var(--ink);
+  transform: rotate(-3deg);
+}
+
+.street .hint {
+  font-family: var(--marker);
+  font-weight: 400;
+  border-radius: 4px;
+  background: #fff;
+  border-width: 3px;
+  transform: translateX(-50%) rotate(-1.5deg);
+}
+
+.street .toast {
+  border-radius: 6px;
+  font-family: var(--marker);
+  font-weight: 400;
+}
+
+.street .panel {
+  border-radius: 6px;
+  border-width: 4px;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.street .panel header {
+  background: var(--lime);
+}
+
+.street .panel h2 {
+  font-family: var(--comic);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.street .tracks li.now button {
+  background: var(--pink);
+  color: #fff;
+}
+
+.street .nowbar {
+  border-radius: 6px;
+  border-width: 4px;
+  background: var(--sky);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.street .now-text strong {
+  font-family: var(--comic);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.street .progress {
+  border-radius: 0;
+}
+
+.street .progress div {
+  background: repeating-linear-gradient(-45deg, var(--lime) 0 8px, var(--lemon) 8px 16px);
+}
+
+.street .now-buttons button {
+  border-radius: 6px;
+  transform: skew(-8deg);
+  background: #fff;
+}
+
+.street .now-buttons .play {
+  background: var(--lime);
+}
+
+.street .host-figure {
+  filter: drop-shadow(4px 4px 0 rgba(17, 16, 24, 0.35));
+}
+
+/* Speed lines: thin white streaks that appear while the shelf is whizzing by. */
+.speedlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 23px,
+      rgba(255, 255, 255, 0.8) 23px 25px,
+      transparent 25px 61px,
+      rgba(255, 255, 255, 0.55) 61px 62px,
+      transparent 62px 97px
+    ),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25) 50%, transparent);
+  mask-image: repeating-linear-gradient(90deg, #000 0 140px, transparent 140px 260px, #000 260px 330px, transparent 330px 420px);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 140px, transparent 140px 260px, #000 260px 330px, transparent 330px 420px);
+}
+
+@media (max-width: 700px) {
+  .street .theme-toggle {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .street .bubble {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .wide-only {
+    display: none;
+  }
+}
+
+/* Street: the title of the CD at the front of the line, as a slapped-on sticker. */
+.focus-label {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  max-width: min(440px, calc(100vw - 32px));
+  padding: 6px 16px 8px;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  text-align: center;
+  pointer-events: none;
+  animation: label-pop 0.3s cubic-bezier(0.3, 1.8, 0.5, 1);
+}
+
+@keyframes label-pop {
+  from { transform: translateX(-50%) rotate(-6deg) scale(0.6); opacity: 0; }
+}
+
+.focus-label strong,
+.focus-label span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.focus-label strong {
+  font-family: var(--comic);
+  font-weight: 400;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.focus-label span {
+  font-family: var(--marker);
+  font-size: 0.9rem;
+  color: var(--pink);
+}
