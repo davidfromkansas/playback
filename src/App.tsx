@@ -19,6 +19,7 @@ import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
 import { MoodMeter, NowPlayingBar, TrackPanel } from './ui/Panels'
 import { RhythmBar, type Hit } from './ui/RhythmBar'
+import { LoadingCard, SceneLoading } from './ui/Loading'
 import { SpeedLines } from './ui/SpeedLines'
 
 type Phase = 'welcome' | 'loading' | 'shelf'
@@ -63,6 +64,7 @@ export default function App() {
   const [line, setLine] = useState(rhymes.welcome())
   const [notice, setNotice] = useState<{ text: string; openUrl?: string } | null>(null)
   const [mood, setMood] = useState(50)
+  const [starting, setStarting] = useState(false)
   const shelfScroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
   const rows = ROWS
   const street = theme === 'street'
@@ -263,10 +265,12 @@ export default function App() {
   }
 
   const playIndex = async (index: number) => {
-    if (!pulled) return
+    if (!pulled || starting) return
     if (pulled.stage !== 'open') setPulled({ ...pulled, stage: 'open' })
     const list = tracks ?? []
-    const result = await player.play(pulled.disc, list, index)
+    // Spotify can take a few seconds to start, especially on another device.
+    setStarting(true)
+    const result = await player.play(pulled.disc, list, index).finally(() => setStarting(false))
     if (result.ok) {
       restartBeat()
       setLine(rhymes.playing(list[index]?.name ?? pulled.disc.title))
@@ -389,6 +393,7 @@ export default function App() {
         </h1>
         <p className="tagline">Your whole Spotify library, as a shelf of CDs.</p>
         <Host line={line} bouncing={false} theme={theme} />
+        {phase === 'loading' && <LoadingCard text="Stacking up your CDs…" />}
         {phase === 'welcome' && (
           <div className="actions">
             <button className="big spotify" disabled={!auth.isConfigured()} onClick={() => void auth.login()}>
@@ -483,6 +488,7 @@ export default function App() {
         </Canvas>
       </div>
 
+      <SceneLoading text={street ? 'Building the rooftop…' : 'Setting up the shelf…'} />
       {theme === 'street' && <SpeedLines scroll={scroll} />}
 
       <header className="topbar">
@@ -545,9 +551,17 @@ export default function App() {
           nowUri={now.disc?.id === pulled.disc.id ? (now.track?.uri ?? null) : null}
           onPlay={(i) => void playIndex(i)}
           onClose={putBack}
+          starting={starting}
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}
+      {!pulled && street && currentRow?.loading && (
+        <LoadingCard
+          className="row-loading"
+          key={currentRow.id}
+          text={currentRow.id === 'search:loading' ? 'Searching Spotify…' : `Loading ${currentRow.title}…`}
+        />
+      )}
       {!pulled && street && results && (
         <div className="results-bar">
           <button onClick={closeSearch}>← Back</button>

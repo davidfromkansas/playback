@@ -1,3 +1,4 @@
+import { InlineLoader, TextLoader } from 'generative-loaders'
 import { useEffect, useState } from 'react'
 import { livePosition, type NowPlaying, type PlayerMode } from '../spotify/player'
 import type { Disc, Track } from '../types'
@@ -14,10 +15,12 @@ interface TrackPanelProps {
   nowUri: string | null
   onPlay: (index: number) => void
   onClose: () => void
+  /** Waiting for Spotify to start playing. */
+  starting?: boolean
 }
 
 /** The case insert: song list for the open CD. */
-export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose }: TrackPanelProps) {
+export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose, starting }: TrackPanelProps) {
   return (
     <aside className="panel">
       <header>
@@ -35,7 +38,11 @@ export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose }: Tra
           Spotify only shares the song list for playlists you made or help edit. You can still play the whole thing.
         </p>
       )}
-      {!tracks && !error && disc.tracksAvailable && <p className="note">Reading the song list…</p>}
+      {!tracks && !error && disc.tracksAvailable && (
+        <p className="note">
+          <TextLoader text="Reading the song list…" variant="skeleton" color="currentColor" />
+        </p>
+      )}
       {tracks && tracks.length > 0 && (
         <ol className="tracks">
           {tracks.map((t, i) => (
@@ -53,8 +60,14 @@ export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose }: Tra
         </ol>
       )}
       <footer>
-        <button className="big" onClick={() => onPlay(0)}>
-          ▶ Play CD
+        <button className="big" onClick={() => onPlay(0)} disabled={starting}>
+          {starting ? (
+            <>
+              <InlineLoader variant="signal" /> Starting…
+            </>
+          ) : (
+            '▶ Play CD'
+          )}
         </button>
         <a className="spotify-link" href={disc.spotifyUrl} target="_blank" rel="noreferrer">
           Open in Spotify
