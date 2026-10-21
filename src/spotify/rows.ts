@@ -6,7 +6,7 @@
 //      played ten lately, the rest are your most recently saved ones.
 import type { Disc, Track } from '../types'
 import { spotify, SpotifyError } from './api'
-import { bestImage, loadTracks, playlistDisc, toTrack, type ApiPlaylist, type ApiTrack, type Me } from './library'
+import { bestImage, loadTracks, playlistDisc, toTrack, type ApiAlbum, type ApiPlaylist, type ApiTrack, type Me } from './library'
 
 export interface ShelfRow {
   id: string
@@ -179,4 +179,67 @@ export function sampleRows(library: Disc[]): ShelfRow[] {
     liked ? { ...songs(liked, 'liked'), title: 'Liked Songs' } : { id: 'liked', title: 'Liked Songs', discs: [] },
     ...recentContexts.map((d) => songs(d)),
   ]
+}
+
+/**
+ * The search results page: everything on Spotify matching `query`, as rows of Songs, Albums and
+ * Playlists (best match first). In sample mode it searches the sample CDs instead.
+ */
+export async function searchRows(query: string, me: Me | null, library: Disc[]): Promise<ShelfRow[]> {
+  let songs: Disc[], albums: Disc[], playlists: Disc[]
+  if (!me) ({ songs, albums, playlists } = sampleSearch(query, library))
+  else {
+    const q = new URLSearchParams({ q: query, type: 'track,album,playlist', limit: '10' })
+    const found = await spotify<{
+      tracks?: { items: (ApiTrack | null)[] }
+      albums?: { items: (ApiSearchAlbum | null)[] }
+      playlists?: { items: (ApiPlaylist | null)[] }
+    }>(`/search?${q}`)
+    // Spotify sometimes leaves gaps (null) in the results.
+    songs = (found.tracks?.items ?? [])
+      .filter((t): t is ApiTrack => !!t && !t.is_local)
+      .map((t) => trackDisc(toTrack(t), { contextUri: t.album?.uri, spotifyUrl: t.external_urls?.spotify }))
+    albums = (found.albums?.items ?? []).filter((a): a is ApiSearchAlbum => !!a).map((a) => albumDisc(a, library))
+    playlists = (found.playlists?.items ?? [])
+      .filter((p): p is ApiPlaylist => !!p)
+      .map((p) => library.find((d) => d.uri === p.uri) ?? playlistDisc(p, me))
+  }
+  const rows = [
+    { id: 'search:songs', title: 'Songs', discs: songs },
+    { id: 'search:albums', title: 'Albums', discs: albums },
+    { id: 'search:playlists', title: 'Playlists', discs: playlists },
+  ].filter((r) => r.discs.length)
+  return rows.length ? rows : [{ id: 'search:none', title: 'No results', discs: [], note: `Nothing found for "${query}"` }]
+}
+
+type ApiSearchAlbum = Omit<ApiAlbum, 'tracks'>
+
+function albumDisc(a: ApiSearchAlbum, library: Disc[]): Disc {
+  return (
+    library.find((d) => d.uri === a.uri) ?? {
+      id: a.id,
+      kind: 'album',
+      title: a.name,
+      subtitle: a.artists.map((x) => x.name).join(', '),
+      uri: a.uri,
+      spotifyUrl: a.external_urls.spotify,
+      imageUrl: bestImage(a.images),
+      trackCount: a.total_tracks,
+      tracksAvailable: true,
+    }
+  )
+}
+
+function sampleSearch(query: string, library: Disc[]) {
+  const q = query.toLowerCase()
+  const has = (s: string) => s.toLowerCase().includes(q)
+  const match = (kind: Disc['kind']) => library.filter((d) => d.kind === kind && (has(d.title) || has(d.subtitle)))
+  const songs = library
+    .filter((d) => d.kind === 'album')
+    .flatMap((d) =>
+      (d.tracks ?? [])
+        .filter((t) => has(t.name) || has(t.artists))
+        .map((t) => trackDisc(t, { contextUri: d.uri, image: d.imageUrl })),
+    )
+  return { songs: songs.slice(0, 10), albums: match('album').slice(0, 10), playlists: match('playlist').slice(0, 10) }
 }

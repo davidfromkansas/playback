@@ -67,7 +67,8 @@ src/
     api.ts             fetch wrapper: 429 Retry-After handling, paging (allPages), SpotifyError
     library.ts         Loads albums, playlists, Liked Songs and track lists; 12 h localStorage cache
     player.ts          Playback store (useSyncExternalStore) and the four play modes (below)
-    rows.ts            Street rows: Recently Played, Liked Songs, 10 recent albums/playlists (one CD per song)
+    rows.ts            Street rows: Recently Played, Liked Songs, 10 recent albums/playlists (one CD per song),
+                       and the search results page (searchRows: Songs, Albums, Playlists from Spotify search)
     lyrics.ts          Song lyrics from LRCLIB (lrclib.net): free, no key, callable from the browser
   scene/               Everything inside the three.js <Canvas>
     CameraRig.tsx      Camera position per theme and screen shape (cameraFor)
@@ -105,6 +106,9 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, 
   its songs as a new row 2. Row 2 is Liked Songs, then up to 10 rows for the most recently played albums and
   playlists, topped up with recently saved ones (Spotify only keeps the last 50 plays). Each row has its own
   ScrollState; App keeps the active row index and a `StackState` for the vertical slide.
+- **Search**: in Street, Enter in the search box searches all of Spotify and shows a separate results page
+  (its own rows, swapped in for yours) with a Back button (or Escape) that returns to the row you were on.
+  Tapping an album/playlist there opens its songs as a row below. Paper's search only finds CDs on its shelf.
 - **Pulling out a CD**: the view calls `onPick(disc, worldPosition, rotationY)`, and App sets `pulled`.
   `PulledCD` animates from that pose and back again when it's put back.
 - **Animation at 60/120 fps**: per-frame work happens in `useFrame` (3D) or `useRig` (SVG) by writing to
