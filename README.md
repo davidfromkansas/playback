@@ -1,8 +1,13 @@
 # Playback
 
-Your Spotify library as a 3D shelf of CDs. Sign in with Spotify, slide along the shelf,
-pull a CD out, open the case and play it. Styled like a paper-cutout rhythm game, with an
-dancing host character, tap-along rhythm buttons and a mood meter.
+Your Spotify library as a 3D collection of CDs. Sign in with Spotify, swipe through your CDs,
+pull one out, open the case and play it. A dancing host character keeps you company.
+
+Two looks, switched from the top bar:
+- **Street** (default): a Jet Set Radio-style rooftop with a swipeable line of real-looking jewel cases.
+- **Paper**: a pastel paper-cutout room with a shelf of CD spines, tap-along rhythm buttons and a mood meter.
+
+Working on the code? Start with [AGENTS.md](AGENTS.md).
 
 Built with Vite, React, Three.js (React Three Fiber) and React Spring.
 
