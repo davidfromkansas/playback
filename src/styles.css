@@ -1160,3 +1160,36 @@ select {
   vertical-align: -0.15em;
   margin-right: 6px;
 }
+
+/* The sky changes locally; scene lights stay constant so covers remain readable. */
+.room.street[data-sky='sunset'],
+.welcome.street[data-sky='sunset'] {
+  background:
+    radial-gradient(circle 46px at var(--sun-x, 40%) var(--sun-y, 14%), #fff0a1 98%, transparent),
+    radial-gradient(ellipse 130px 22px at 19% 18%, #ffb3be 98%, transparent),
+    radial-gradient(ellipse 95px 18px at 74% 12%, #fa96bd 98%, transparent),
+    linear-gradient(#513783 0%, #d55091 22%, #ff966d 48%, #f6d6a5 76%);
+}
+
+.room.street[data-sky='night'],
+.welcome.street[data-sky='night'] {
+  background:
+    radial-gradient(circle 23px at 28% 14%, #fff3d2 96%, transparent),
+    radial-gradient(circle 1px at 18% 8%, #edf4ff 80%, transparent),
+    radial-gradient(circle 1.5px at 43% 19%, #edf4ff 80%, transparent),
+    radial-gradient(circle 1px at 65% 7%, #edf4ff 80%, transparent),
+    radial-gradient(circle 1px at 77% 24%, #edf4ff 80%, transparent),
+    radial-gradient(circle 1.5px at 87% 11%, #edf4ff 80%, transparent),
+    radial-gradient(circle 1px at 34% 5%, #edf4ff 80%, transparent),
+    linear-gradient(#080e29 0%, #171b49 32%, #462954 58%, #28364e 85%);
+}
+
+.welcome.street[data-sky='night'] .fine,
+.welcome.street[data-sky='night'] .note { color: #f6e8ff; }
+
+@media (max-width: 600px) {
+  .room.street[data-sky='sunset'], .welcome.street[data-sky='sunset'] {
+    --sun-x: 86%;
+    --sun-y: 18%;
+  }
+}

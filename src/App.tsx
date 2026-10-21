@@ -3,6 +3,7 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExt
 import * as THREE from 'three'
 import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
+import { useTimeOfDay } from './lib/timeOfDay'
 import { loadThemeFonts, useTheme } from './lib/theme'
 import { cameraFor, CameraRig } from './scene/CameraRig'
 import { RowStack, type StackState } from './scene/RowStack'
@@ -52,6 +53,7 @@ function sortDiscs(discs: Disc[], key: SortKey): Disc[] {
 
 export default function App() {
   const [theme, setTheme] = useTheme()
+  const sky = useTimeOfDay()
   const rhymes = rhymesFor(theme)
   const [phase, setPhase] = useState<Phase>('welcome')
   const [me, setMe] = useState<Me | null>(null)
@@ -383,7 +385,7 @@ export default function App() {
 
   if (phase !== 'shelf') {
     return (
-      <main className={`welcome ${theme}`}>
+      <main className={`welcome ${theme}`} data-sky={street ? sky : undefined}>
         <h1 className="logo">
           <span>P</span>
           <span>L</span>
@@ -417,7 +419,7 @@ export default function App() {
   }
 
   return (
-    <main className={`room ${theme} ${playing ? 'grooving' : ''}`}>
+    <main className={`room ${theme} ${playing ? 'grooving' : ''}`} data-sky={street ? sky : undefined}>
       <div
         className="stage"
         onWheel={onWheel}
@@ -443,7 +445,7 @@ export default function App() {
           <DiscLighting />
           {theme === 'street' && (
             <Suspense fallback={null}>
-              <StreetBackdrop scroll={scroll} discs={discs} />
+              <StreetBackdrop scroll={scroll} discs={discs} sky={sky} />
             </Suspense>
           )}
           {street ? (
