@@ -1,19 +1,23 @@
 import { Canvas } from '@react-three/fiber'
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import * as THREE from 'three'
 import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
-import { CAMERA_Z, ROWS, slot } from './scene/layout'
+import { loadThemeFonts, useTheme } from './lib/theme'
+import { cameraFor, CameraRig } from './scene/CameraRig'
+import { ROWS, slot } from './scene/layout'
 import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
 import { Shelf, type ScrollState } from './scene/Shelf'
+import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
 import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
-import { Host, rhymes } from './ui/Host'
+import { Host, rhymesFor } from './ui/Host'
 import { MoodMeter, NowPlayingBar, TrackPanel } from './ui/Panels'
 import { RhythmBar, type Hit } from './ui/RhythmBar'
+import { SpeedLines } from './ui/SpeedLines'
 
 type Phase = 'welcome' | 'loading' | 'shelf'
 
@@ -43,6 +47,8 @@ function sortDiscs(discs: Disc[], key: SortKey): Disc[] {
 }
 
 export default function App() {
+  const [theme, setTheme] = useTheme()
+  const rhymes = rhymesFor(theme)
   const [phase, setPhase] = useState<Phase>('welcome')
   const [me, setMe] = useState<Me | null>(null)
   const [library, setLibrary] = useState<Disc[]>([])
@@ -63,14 +69,17 @@ export default function App() {
 
   // ---- Sign-in and loading -------------------------------------------------
 
-  const startShelf = useCallback(async (signedIn: boolean, list: Disc[]) => {
-    await document.fonts?.ready
-    player.initPlayer(signedIn)
-    setLibrary(list)
-    scroll.target = -Infinity
-    setPhase('shelf')
-    setLine(rhymes.welcome())
-  }, [scroll])
+  const startShelf = useCallback(
+    async (signedIn: boolean, list: Disc[]) => {
+      await Promise.all([document.fonts?.ready, loadThemeFonts()])
+      player.initPlayer(signedIn)
+      setLibrary(list)
+      scroll.target = -Infinity
+      setPhase('shelf')
+      setLine(rhymes.welcome())
+    },
+    [scroll, rhymes],
+  )
 
   const loadFromSpotify = useCallback(
     async (force = false) => {
@@ -168,14 +177,17 @@ export default function App() {
     }
   }
 
-  const onHit = useCallback((hit: Hit) => {
-    setMood((m) => {
-      const next = Math.max(0, Math.min(100, m + (hit === 'perfect' ? 7 : hit === 'good' ? 3 : -6)))
-      if (m < 75 && next >= 75) setLine(rhymes.cool())
-      if (m >= 40 && next < 40) setLine(rhymes.bad())
-      return next
-    })
-  }, [])
+  const onHit = useCallback(
+    (hit: Hit) => {
+      setMood((m) => {
+        const next = Math.max(0, Math.min(100, m + (hit === 'perfect' ? 7 : hit === 'good' ? 3 : -6)))
+        if (m < 75 && next >= 75) setLine(rhymes.cool())
+        if (m >= 40 && next < 40) setLine(rhymes.bad())
+        return next
+      })
+    },
+    [rhymes],
+  )
 
   const skip = (dir: 1 | -1) => {
     void player.skip(dir)
@@ -202,7 +214,10 @@ export default function App() {
     if (pulled) return
     scroll.target += (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY) * 0.006
   }
-  const worldPerPixel = () => (2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(20))) / innerHeight
+  const worldPerPixel = () => {
+    const c = cameraFor(theme)
+    return (2 * c.z * Math.tan(THREE.MathUtils.degToRad(c.fov / 2))) / innerHeight
+  }
   const onPointerDown = (e: React.PointerEvent) => {
     if (!pulled) drag.current = { x: e.clientX, target: scroll.target }
   }
@@ -218,7 +233,7 @@ export default function App() {
 
   if (phase !== 'shelf') {
     return (
-      <main className="welcome">
+      <main className={`welcome ${theme}`}>
         <h1 className="logo">
           <span>P</span>
           <span>L</span>
@@ -230,7 +245,7 @@ export default function App() {
           <span>K</span>
         </h1>
         <p className="tagline">Your whole Spotify library, as a shelf of CDs.</p>
-        <Host line={line} bouncing={false} />
+        <Host line={line} bouncing={false} theme={theme} />
         {phase === 'welcome' && (
           <div className="actions">
             <button className="big spotify" disabled={!auth.isConfigured()} onClick={() => void auth.login()}>
@@ -251,7 +266,7 @@ export default function App() {
   }
 
   return (
-    <main className={`room ${playing ? 'grooving' : ''}`}>
+    <main className={`room ${theme} ${playing ? 'grooving' : ''}`}>
       <div
         className="stage"
         onWheel={onWheel}
@@ -262,7 +277,10 @@ export default function App() {
         onPointerCancel={endDrag}
       >
         <Canvas
-          camera={{ position: [0, 0, CAMERA_Z], fov: 40 }}
+          camera={{
+            position: [0, cameraFor(theme).y, cameraFor(theme).z],
+            fov: cameraFor(theme).fov,
+          }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: true }}
           onPointerMissed={() => {
@@ -270,7 +288,13 @@ export default function App() {
             if (pulled?.stage === 'out') putBack()
           }}
         >
+          <CameraRig theme={theme} />
           <DiscLighting />
+          {theme === 'street' && (
+            <Suspense fallback={null}>
+              <StreetBackdrop scroll={scroll} discs={discs} />
+            </Suspense>
+          )}
           <Shelf
             discs={discs}
             rows={rows}
@@ -278,6 +302,7 @@ export default function App() {
             selectedId={pulled?.disc.id ?? null}
             highlightId={highlightId}
             playing={playing}
+            theme={theme}
             onPick={pick}
           />
           {pulled && (
@@ -298,6 +323,8 @@ export default function App() {
         </Canvas>
       </div>
 
+      {theme === 'street' && <SpeedLines scroll={scroll} />}
+
       <header className="topbar">
         <div className="brand">PLAYBACK</div>
         <input
@@ -313,6 +340,13 @@ export default function App() {
           <option value="artist">Artist</option>
           <option value="kind">Type</option>
         </select>
+        <button
+          className="chip theme-toggle"
+          onClick={() => setTheme(theme === 'street' ? 'paper' : 'street')}
+          title="Switch look"
+        >
+          {theme === 'street' ? 'Paper' : 'Street'}<span className="wide-only"> look</span>
+        </button>
         {me ? (
           <>
             <button className="chip" onClick={() => void loadFromSpotify(true)} title="Reload from Spotify">
@@ -332,7 +366,7 @@ export default function App() {
       {playing && <RhythmBar onHit={onHit} />}
       {now.disc && <MoodMeter score={mood} />}
 
-      <Host line={line} bouncing={playing} />
+      <Host line={line} bouncing={playing} theme={theme} />
 
       {pulled && pulled.stage === 'open' && (
         <TrackPanel

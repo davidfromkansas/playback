@@ -6,6 +6,9 @@ import { pulse } from '../lib/beat'
 import { colorFor, INK } from '../lib/colors'
 import type { Disc } from '../types'
 import { CASE_H, CASE_W, columns, ROW_GAP, slot, SPACING, SPINE } from './layout'
+import type { Theme } from '../lib/theme'
+import { graffitiWall, hazardTexture, STREET, streetSpineTexture } from './streetArt'
+import { toonMaterial } from './StreetBackdrop'
 import { spineTexture } from './textures'
 
 export interface ScrollState {
@@ -21,12 +24,13 @@ interface ShelfProps {
   selectedId: string | null
   highlightId: string | null
   playing: boolean
+  theme: Theme
   onPick: (disc: Disc, from: THREE.Vector3) => void
 }
 
 const WINDOW_CHUNK = 16
 
-export function Shelf({ discs, rows, scroll, selectedId, highlightId, playing, onPick }: ShelfProps) {
+export function Shelf({ discs, rows, scroll, selectedId, highlightId, playing, theme, onPick }: ShelfProps) {
   const group = useRef<THREE.Group>(null)
   const { viewport } = useThree()
   const cols = columns(discs.length, rows)
@@ -67,7 +71,7 @@ export function Shelf({ discs, rows, scroll, selectedId, highlightId, playing, o
 
   return (
     <group ref={group}>
-      <ShelfFrame rows={rows} width={width} />
+      {theme === 'street' ? <StreetRack rows={rows} width={width} /> : <ShelfFrame rows={rows} width={width} />}
       {visible.map((disc, i) => (
         <Spine
           key={disc.id}
@@ -76,6 +80,7 @@ export function Shelf({ discs, rows, scroll, selectedId, highlightId, playing, o
           rows={rows}
           hidden={disc.id === selectedId}
           highlighted={disc.id === highlightId}
+          theme={theme}
           onPick={onPick}
         />
       ))}
@@ -83,13 +88,68 @@ export function Shelf({ discs, rows, scroll, selectedId, highlightId, playing, o
   )
 }
 
-function ShelfFrame({ rows, width }: { rows: number; width: number }) {
+function frameSize(rows: number, width: number) {
   const plankW = width + 1.2
   const cx = width / 2 - SPACING / 2
   const totalH = rows * ROW_GAP
   // Plank k sits under row k-1 (plank 0 is the roof above the top row).
   const plankY = (k: number) => ((rows + 1) / 2 - k) * ROW_GAP - CASE_H / 2 - 0.06
   const midY = (plankY(0) + plankY(rows)) / 2
+  return { plankW, cx, totalH, plankY, midY }
+}
+
+/** Street theme: a steel rack bolted to a tagged-up plywood wall, standing on the roof. */
+function StreetRack({ rows, width }: { rows: number; width: number }) {
+  const { plankW, cx, totalH, plankY, midY } = frameSize(rows, width)
+  const mats = useMemo(() => {
+    const wall = graffitiWall()
+    wall.repeat.set(plankW / ((totalH + 0.2) * 2), 1)
+    const hazard = hazardTexture()
+    hazard.repeat.set(plankW / 0.6, 1)
+    return {
+      wall: toonMaterial('#ffffff', wall),
+      plank: toonMaterial('#ffffff', hazard),
+      steel: toonMaterial(STREET.pink),
+    }
+  }, [plankW, totalH])
+  useEffect(
+    () => () => Object.values(mats).forEach((m) => (m.map?.dispose(), m.dispose())),
+    [mats],
+  )
+  const bottom = plankY(rows) - 0.06
+  return (
+    <group>
+      {Array.from({ length: rows + 1 }, (_, k) => (
+        <mesh key={k} position={[cx, plankY(k), 0]} material={mats.plank}>
+          <boxGeometry args={[plankW, 0.12, CASE_W + 0.2]} />
+          <Outlines thickness={0.03} color={INK} />
+        </mesh>
+      ))}
+      <mesh position={[cx, midY, -CASE_W / 2 - 0.12]} material={mats.wall}>
+        <boxGeometry args={[plankW, totalH + 0.2, 0.08]} />
+        <Outlines thickness={0.04} color={INK} />
+      </mesh>
+      {[-1, 1].map((side) => (
+        <group key={side}>
+          <mesh position={[cx + (side * plankW) / 2, midY, 0]} material={mats.steel}>
+            <boxGeometry args={[0.16, totalH + 0.2, CASE_W + 0.2]} />
+            <Outlines thickness={0.03} color={INK} />
+          </mesh>
+          {/* Feet down to the roof */}
+          {[-1, 1].map((d) => (
+            <mesh key={d} position={[cx + (side * plankW) / 2, bottom - 0.25, (d * CASE_W) / 2]} material={mats.steel}>
+              <boxGeometry args={[0.16, 0.5, 0.16]} />
+              <Outlines thickness={0.03} color={INK} />
+            </mesh>
+          ))}
+        </group>
+      ))}
+    </group>
+  )
+}
+
+function ShelfFrame({ rows, width }: { rows: number; width: number }) {
+  const { plankW, cx, totalH, plankY, midY } = frameSize(rows, width)
   return (
     <group>
       {Array.from({ length: rows + 1 }, (_, k) => {
@@ -125,19 +185,20 @@ interface SpineProps {
   rows: number
   hidden: boolean
   highlighted: boolean
+  theme: Theme
   onPick: (disc: Disc, from: THREE.Vector3) => void
 }
 
-const Spine = memo(function Spine({ disc, index, rows, hidden, highlighted, onPick }: SpineProps) {
+const Spine = memo(function Spine({ disc, index, rows, hidden, highlighted, theme, onPick }: SpineProps) {
   const mesh = useRef<THREE.Mesh>(null)
   const [hover, setHover] = useState(false)
   const { x, y } = slot(index, rows)
   const materials = useMemo(() => {
     const side = new THREE.MeshBasicMaterial({ color: colorFor(disc.id + disc.title) })
-    const front = new THREE.MeshBasicMaterial({ map: spineTexture(disc) })
+    const front = new THREE.MeshBasicMaterial({ map: theme === 'street' ? streetSpineTexture(disc) : spineTexture(disc) })
     // Box faces: +x, -x, +y, -y, +z (toward camera), -z
     return [side, side, side, side, front, side]
-  }, [disc])
+  }, [disc, theme])
   useEffect(
     () => () => {
       materials[4].map?.dispose()

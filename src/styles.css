@@ -675,3 +675,278 @@ select {
     top: 54px;
   }
 }
+
+/* ======================================================================
+   Street theme: Jet Set Radio-style rooftop. Bold primaries, chunky ink
+   outlines, tilted sticker buttons, comic lettering and spray tags.
+   ====================================================================== */
+
+.street {
+  --ink: #111018;
+  --paper: #ffffff;
+  --pink: #ff2e93;
+  --lemon: #ffe600;
+  --sky: #00d0ff;
+  --lime: #c6ff00;
+  --lilac: #8a4dff;
+  --orange: #ff8a1f;
+  --font: 'Baloo 2', system-ui, sans-serif;
+  --comic: 'Bangers', 'Arial Black', sans-serif;
+  --marker: 'Permanent Marker', 'Bangers', sans-serif;
+  --tag: 'Rubik Spray Paint', 'Permanent Marker', sans-serif;
+  --shadow: 5px 5px 0 var(--ink);
+}
+
+/* Big summer sky with puffy cel clouds; the 3D city fills the bottom. */
+.room.street,
+.welcome.street {
+  background:
+    radial-gradient(ellipse 120px 46px at 18% 20%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 80px 40px at 23% 16%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 150px 50px at 76% 12%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 90px 44px at 71% 8%, #fff 98%, transparent) no-repeat,
+    linear-gradient(#0aa8ff 0%, #34c6ff 45%, #bfefff 75%);
+}
+
+.room.street.grooving {
+  animation: none;
+}
+
+/* Halftone dots fade in toward the screen edges, like a comic panel. */
+.room.street::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(rgba(17, 16, 24, 0.16) 1.2px, transparent 1.6px) 0 0 / 9px 9px;
+  mask-image: radial-gradient(ellipse at center, transparent 55%, #000 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 55%, #000 100%);
+}
+
+.street .big,
+.street .chip,
+.street select,
+.street .search {
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+.street .big,
+.street .chip {
+  font-family: var(--comic);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: skew(-8deg);
+}
+
+.street .big:active,
+.street .chip:active {
+  transform: skew(-8deg) translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.street .big {
+  font-size: 1.4rem;
+  background: var(--lime);
+}
+
+.street .big.spotify {
+  background: var(--spotify);
+}
+
+.street .chip {
+  background: var(--lemon);
+}
+
+.street .theme-toggle {
+  background: var(--pink);
+  color: #fff;
+  -webkit-text-stroke: 0.6px var(--ink);
+}
+
+.street .search,
+.street select {
+  font-family: var(--marker);
+  background: #fff;
+}
+
+/* Logo: chunky spray-paint letters, each one tilted and a different color. */
+.welcome.street .logo {
+  font-family: var(--tag);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 14vw, 7rem);
+  letter-spacing: 0;
+  filter: drop-shadow(6px 6px 0 var(--ink));
+}
+
+.welcome.street .logo span {
+  -webkit-text-stroke: 3px var(--ink);
+}
+
+.welcome.street .logo span:nth-child(odd) { transform: rotate(-6deg) translateY(4px); }
+.welcome.street .logo span:nth-child(even) { transform: rotate(5deg) translateY(-4px); }
+.welcome.street .logo span:nth-child(4n + 1) { color: var(--lime); }
+.welcome.street .logo span:nth-child(4n + 2) { color: var(--pink); }
+.welcome.street .logo span:nth-child(4n + 3) { color: var(--lemon); }
+.welcome.street .logo span:nth-child(4n + 4) { color: var(--sky); }
+
+.welcome.street .tagline {
+  font-family: var(--marker);
+  font-size: 1.15rem;
+  color: #fff;
+  -webkit-text-stroke: 1px var(--ink);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.welcome.street .fine,
+.welcome.street .note {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.street .brand {
+  font-family: var(--tag);
+  font-weight: 400;
+  font-size: 1.9rem;
+  color: var(--lime);
+  -webkit-text-stroke: 2px var(--ink);
+  text-shadow: 4px 4px 0 var(--ink);
+  transform: rotate(-4deg);
+}
+
+/* Radio-host speech bubble: a jagged comic shout box. */
+.street .bubble {
+  font-family: var(--comic);
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
+  background: var(--lemon);
+  transform: rotate(-2deg);
+}
+
+.street .bubble::before {
+  content: 'PLAYBACK FM';
+  position: absolute;
+  top: -14px;
+  left: 10px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  color: #fff;
+  background: var(--pink);
+  border: 2px solid var(--ink);
+  transform: rotate(-3deg);
+}
+
+.street .hint {
+  font-family: var(--marker);
+  font-weight: 400;
+  border-radius: 4px;
+  background: #fff;
+  border-width: 3px;
+  transform: translateX(-50%) rotate(-1.5deg);
+}
+
+.street .toast {
+  border-radius: 6px;
+  font-family: var(--marker);
+  font-weight: 400;
+}
+
+.street .panel {
+  border-radius: 6px;
+  border-width: 4px;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.street .panel header {
+  background: var(--lime);
+}
+
+.street .panel h2 {
+  font-family: var(--comic);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.street .tracks li.now button {
+  background: var(--pink);
+  color: #fff;
+}
+
+.street .nowbar {
+  border-radius: 6px;
+  border-width: 4px;
+  background: var(--sky);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.street .now-text strong {
+  font-family: var(--comic);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.street .progress {
+  border-radius: 0;
+}
+
+.street .progress div {
+  background: repeating-linear-gradient(-45deg, var(--lime) 0 8px, var(--lemon) 8px 16px);
+}
+
+.street .now-buttons button {
+  border-radius: 6px;
+  transform: skew(-8deg);
+  background: #fff;
+}
+
+.street .now-buttons .play {
+  background: var(--lime);
+}
+
+.street .host-figure {
+  filter: drop-shadow(4px 4px 0 rgba(17, 16, 24, 0.35));
+}
+
+/* Speed lines: thin white streaks that appear while the shelf is whizzing by. */
+.speedlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 23px,
+      rgba(255, 255, 255, 0.8) 23px 25px,
+      transparent 25px 61px,
+      rgba(255, 255, 255, 0.55) 61px 62px,
+      transparent 62px 97px
+    ),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25) 50%, transparent);
+  mask-image: repeating-linear-gradient(90deg, #000 0 140px, transparent 140px 260px, #000 260px 330px, transparent 330px 420px);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 140px, transparent 140px 260px, #000 260px 330px, transparent 330px 420px);
+}
+
+@media (max-width: 700px) {
+  .street .theme-toggle {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .street .bubble {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .wide-only {
+    display: none;
+  }
+}
