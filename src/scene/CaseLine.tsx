@@ -1,5 +1,5 @@
-// Street theme: the library as one long line of jewel cases standing on the roof, angled so
-// you see their covers. Swipe (or scroll) along the line; the CD in front slides out.
+// Street theme: one row of CDs as a line of jewel cases on a ledge, angled so you see their
+// covers. Swipe (or scroll) along the line; the CD in front slides out. RowStack stacks the rows.
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
@@ -9,50 +9,43 @@ import { JewelCase } from './JewelCase'
 import { CASE_H, CASE_W, LINE_STEP } from './layout'
 import type { ScrollState } from './Shelf'
 
-/** Where the line stands: the roof surface, in world space. */
-export const LINE_FLOOR_Y = -1.75
-
 // The line runs to the right and away from the camera; each case is turned to face front-left.
-// On a tall phone screen it heads further back, so it climbs up the screen instead of across.
-const LAYOUTS = {
-  wide: {
-    dir: new THREE.Vector3(0.78, 0, -0.62).normalize(),
-    pop: new THREE.Vector3(0.35, 0.06, 0.9), // how far the CD in front slides out
-    origin: new THREE.Vector3(-0.75, LINE_FLOOR_Y + CASE_H / 2, 0),
-  },
-  tall: {
-    dir: new THREE.Vector3(0.4, 0, -0.92).normalize(),
-    pop: new THREE.Vector3(0.7, 0.06, 0.65),
-    origin: new THREE.Vector3(-0.35, LINE_FLOOR_Y + CASE_H / 2, 0),
-  },
-}
-type Layout = (typeof LAYOUTS)['wide']
+const DIR = new THREE.Vector3(0.78, 0, -0.62).normalize()
+const POP = new THREE.Vector3(0.35, 0.06, 0.6) // how far the CD in front slides out
 const GAP = 0.42 // between neighbouring cases
 const SPREAD = 0.6 // extra room either side of the CD in front
 const TURN = -0.95 // how far each case is turned
 const FOCUS_TURN = -0.28
 const BEHIND = 6 // cases drawn before the one in front
-const AHEAD = 16 // and after it
+const AHEAD = 16 // and after it, in the row you're on
+const AHEAD_IDLE = 9 // and in the rows above and below
 
 interface Props {
   discs: Disc[]
   scroll: ScrollState
+  /** The row you're on: it settles on a CD, reports it, and lets you pull CDs out. */
+  active: boolean
   selectedId: string | null
   playing: boolean
-  onPick: (disc: Disc, from: THREE.Vector3, fromRy: number) => void
-  onFocus: (disc: Disc | null) => void
+  /** Tapping the CD in front of the active row. */
+  onTap: (disc: Disc, from: THREE.Vector3, fromRy: number) => void
+  /** Tapping any CD in a row you're not on. */
+  onActivate: () => void
+  onFocus?: (disc: Disc | null) => void
 }
 
-export function CaseLine({ discs, scroll, selectedId, playing, onPick, onFocus }: Props) {
+export function CaseLine({ discs, scroll, active, selectedId, playing, onTap, onActivate, onFocus }: Props) {
   const max = Math.max(0, (discs.length - 1) * LINE_STEP)
   scroll.max = max
   const [focus, setFocus] = useState(0)
   const idle = useRef({ last: NaN, time: 0 })
-  const layout = useThree((s) => (s.size.width < s.size.height * 0.8 ? LAYOUTS.tall : LAYOUTS.wide))
+  // Phones show less of the line, so it starts nearer the middle of the screen.
+  const tall = useThree((s) => s.size.width < s.size.height)
+  const origin = useMemo(() => new THREE.Vector3(tall ? -0.45 : -0.75, 0, 0), [tall])
 
   useEffect(() => {
-    onFocus(discs[focus] ?? null)
-  }, [discs, focus, onFocus])
+    if (active) onFocus?.(discs[focus] ?? null)
+  }, [active, discs, focus, onFocus])
 
   useFrame((_, dt) => {
     scroll.target = THREE.MathUtils.clamp(scroll.target, 0, max)
@@ -71,27 +64,55 @@ export function CaseLine({ discs, scroll, selectedId, playing, onPick, onFocus }
   })
 
   const start = Math.max(0, focus - BEHIND)
-  const visible = discs.slice(start, focus + AHEAD)
+  const visible = discs.slice(start, focus + (active ? AHEAD : AHEAD_IDLE))
 
   return (
     <group>
+      <Ledge origin={origin} length={Math.min(discs.length, focus + AHEAD) * GAP + SPREAD * 2 + 2} />
       {visible.map((disc, i) => (
         <LineCase
           key={disc.id}
           disc={disc}
           index={start + i}
           scroll={scroll}
+          origin={origin}
           hidden={disc.id === selectedId}
-          playing={playing}
-          layout={layout}
-          onPick={onPick}
+          playing={active && playing}
+          onClick={(group, front) => {
+            if (!active) return onActivate()
+            const index = start + i
+            // Tapping the CD in front pulls it out; tapping another one brings it to the front.
+            if (front) onTap(disc, group.getWorldPosition(new THREE.Vector3()), group.rotation.y)
+            else scroll.target = index * LINE_STEP
+          }}
         />
       ))}
     </group>
   )
 }
 
-/** Soft dark blob under each case, so they read as standing on the roof. */
+// The ledge each row of CDs stands on: a chunky painted plank with a hazard-yellow edge.
+const ledgeTop = new THREE.MeshToonMaterial({ color: '#ff2e93' })
+const ledgeEdge = new THREE.MeshToonMaterial({ color: '#ffe600' })
+const LEDGE_W = 1.9
+const LEDGE_H = 0.12
+
+function Ledge({ origin, length }: { origin: THREE.Vector3; length: number }) {
+  const start = origin.clone().addScaledVector(DIR, -1.6)
+  const centre = start.clone().addScaledVector(DIR, length / 2)
+  return (
+    <group position={[centre.x, -CASE_H / 2 - LEDGE_H / 2, centre.z + 0.15]} rotation-y={Math.atan2(-DIR.z, DIR.x)}>
+      <mesh material={ledgeTop}>
+        <boxGeometry args={[length, LEDGE_H, LEDGE_W]} />
+      </mesh>
+      <mesh material={ledgeEdge} position={[0, -LEDGE_H / 2 - 0.03, 0]}>
+        <boxGeometry args={[length, 0.06, LEDGE_W + 0.04]} />
+      </mesh>
+    </group>
+  )
+}
+
+/** Soft dark blob under each case, so they read as standing on the ledge. */
 const shadowTexture = (() => {
   const c = document.createElement('canvas')
   c.width = 128
@@ -112,13 +133,13 @@ interface CaseProps {
   disc: Disc
   index: number
   scroll: ScrollState
+  origin: THREE.Vector3
   hidden: boolean
   playing: boolean
-  layout: Layout
-  onPick: Props['onPick']
+  onClick: (group: THREE.Group, front: boolean) => void
 }
 
-const LineCase = memo(function LineCase({ disc, index, scroll, hidden, playing, layout, onPick }: CaseProps) {
+const LineCase = memo(function LineCase({ disc, index, scroll, origin, hidden, playing, onClick }: CaseProps) {
   const group = useRef<THREE.Group>(null)
   const tmp = useMemo(() => new THREE.Vector3(), [])
 
@@ -129,7 +150,7 @@ const LineCase = memo(function LineCase({ disc, index, scroll, hidden, playing, 
     // 1 for the CD in front, easing to 0 for its neighbours.
     const front = THREE.MathUtils.smoothstep(1 - Math.abs(u), 0, 1)
     const along = u * GAP + Math.sign(u) * Math.min(1, Math.abs(u)) * SPREAD
-    tmp.copy(layout.dir).multiplyScalar(along).add(layout.origin).addScaledVector(layout.pop, front)
+    tmp.copy(DIR).multiplyScalar(along).add(origin).addScaledVector(POP, front)
     // The front CD bobs on the beat while music plays.
     if (playing) tmp.y += front * 0.05 * pulse()
     g.position.copy(tmp)
@@ -139,10 +160,7 @@ const LineCase = memo(function LineCase({ disc, index, scroll, hidden, playing, 
   const click = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation()
     if (e.delta > 8 || !group.current) return
-    const front = Math.abs(index - scroll.current / LINE_STEP) < 0.5
-    // Tapping the CD in front pulls it out; tapping another one brings it to the front.
-    if (front) onPick(disc, group.current.getWorldPosition(new THREE.Vector3()), group.current.rotation.y)
-    else scroll.target = index * LINE_STEP
+    onClick(group.current, Math.abs(index - scroll.current / LINE_STEP) < 0.5)
   }
 
   return (

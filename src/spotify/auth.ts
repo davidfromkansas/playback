@@ -15,6 +15,7 @@ const SCOPES = [
   'user-read-private',
   'user-read-playback-state',
   'user-modify-playback-state',
+  'user-read-recently-played',
 ]
 
 const STORE_KEY = 'playback.auth'
