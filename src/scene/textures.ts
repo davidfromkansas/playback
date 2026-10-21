@@ -114,36 +114,6 @@ export function generatedCover(disc: Disc): THREE.CanvasTexture {
   return finish(c)
 }
 
-/** The printed face of the disc itself: rings in the CD's colors, title around the hub. */
-export function discLabelTexture(disc: Disc): THREE.CanvasTexture {
-  const S = 512
-  const [c, ctx] = canvas(S, S)
-  const mid = S / 2
-  const ring = (r: number, color: string) => {
-    ctx.beginPath()
-    ctx.arc(mid, mid, r, 0, Math.PI * 2)
-    ctx.fillStyle = color
-    ctx.fill()
-    ctx.lineWidth = 8
-    ctx.strokeStyle = INK
-    ctx.stroke()
-  }
-  ctx.fillStyle = '#d8d8e8'
-  ctx.fillRect(0, 0, S, S)
-  ring(S / 2 - 6, colorFor(disc.title))
-  ring(S * 0.36, accentFor(disc.id))
-  ring(S * 0.17, '#fff7e8')
-  ring(S * 0.06, '#d8d8e8')
-  ctx.fillStyle = INK
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  fitText(ctx, disc.title, S * 0.6, 40, 900)
-  ctx.fillText(disc.title, mid, mid - S * 0.27)
-  fitText(ctx, disc.subtitle, S * 0.55, 26, 700)
-  ctx.fillText(disc.subtitle, mid, mid + S * 0.27)
-  return finish(c)
-}
-
 /** Inside of the lid: the back of the little booklet, seen when the case is open. */
 export function bookletTexture(disc: Disc): THREE.CanvasTexture {
   const W = 512
@@ -177,24 +147,27 @@ export function bookletTexture(disc: Disc): THREE.CanvasTexture {
 const loader = new THREE.TextureLoader()
 loader.setCrossOrigin('anonymous')
 
-/** The real Spotify cover, falling back to a generated one if there's none or it fails to load. */
-export function useCover(disc: Disc | null): THREE.Texture | null {
+/**
+ * Loads an image URL as a texture, using a generated one when there's no URL or it fails.
+ * `key` says when the fallback needs remaking (e.g. the disc changed).
+ */
+export function useArt(url: string | undefined, makeFallback: () => THREE.Texture, key: string): THREE.Texture | null {
   const [tex, setTex] = useState<THREE.Texture | null>(null)
   useEffect(() => {
-    if (!disc) return
     let alive = true
     let made: THREE.Texture | null = null
     const fallback = () => {
       if (!alive) return
-      made = generatedCover(disc)
+      made = makeFallback()
       setTex(made)
     }
-    if (disc.imageUrl) {
+    if (url) {
       loader.load(
-        disc.imageUrl,
+        url,
         (t) => {
           if (!alive) return t.dispose()
           t.colorSpace = THREE.SRGBColorSpace
+          t.anisotropy = 8
           made = t
           setTex(t)
         },
@@ -208,6 +181,13 @@ export function useCover(disc: Disc | null): THREE.Texture | null {
       alive = false
       made?.dispose()
     }
-  }, [disc])
+    // makeFallback is recreated each render; `key` covers what it depends on.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url, key])
   return tex
+}
+
+/** The real Spotify cover, falling back to a generated one if there's none or it fails to load. */
+export function useCover(disc: Disc): THREE.Texture | null {
+  return useArt(disc.imageUrl, () => generatedCover(disc), disc.id)
 }

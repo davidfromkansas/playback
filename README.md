@@ -2,7 +2,7 @@
 
 Your Spotify library as a 3D shelf of CDs. Sign in with Spotify, slide along the shelf,
 pull a CD out, open the case and play it. Styled like a paper-cutout rhythm game, with an
-original host (MC Tape), tap-along rhythm buttons and a mood meter.
+dancing host character, tap-along rhythm buttons and a mood meter.
 
 Built with Vite, React, Three.js (React Three Fiber) and React Spring.
 

@@ -234,9 +234,9 @@ select {
 }
 
 .host-figure {
-  width: 96px;
-  height: 104px;
-  transform-origin: 50% 100%;
+  width: 110px;
+  height: 178px;
+  overflow: visible;
 }
 
 .bubble {
@@ -650,8 +650,8 @@ select {
   }
 
   .host-figure {
-    width: 64px;
-    height: 70px;
+    width: 76px;
+    height: 123px;
   }
 
   .room:has(.panel) .host {

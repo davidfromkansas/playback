@@ -60,7 +60,21 @@ export function isPhone(): boolean {
 
 // ---- Web Playback SDK (desktop) -------------------------------------------
 
-interface SdkTrack { uri: string; name: string; duration_ms: number; artists: { name: string }[] }
+interface SdkTrack {
+  uri: string
+  name: string
+  duration_ms: number
+  artists: { name: string }[]
+  album?: { images: { url: string }[] }
+}
+
+const trackFrom = (t: SdkTrack): Track => ({
+  uri: t.uri,
+  name: t.name,
+  artists: t.artists.map((a) => a.name).join(', '),
+  durationMs: t.duration_ms,
+  imageUrl: t.album?.images?.[0]?.url,
+})
 interface SdkState { paused: boolean; position: number; duration: number; track_window: { current_track: SdkTrack | null } }
 interface SdkPlayer {
   connect(): Promise<boolean>
@@ -128,7 +142,7 @@ function startSdk(): void {
         paused: s.paused,
         positionMs: s.position,
         durationMs: s.duration,
-        track: t ? { uri: t.uri, name: t.name, artists: t.artists.map((a) => a.name).join(', '), durationMs: t.duration_ms } : null,
+        track: t ? trackFrom(t) : null,
       })
     })
     void sdk.connect()
@@ -161,7 +175,7 @@ async function pollPhone(): Promise<void> {
         paused: !p.is_playing,
         positionMs: p.progress_ms ?? 0,
         durationMs: p.item.duration_ms,
-        track: { uri: p.item.uri, name: p.item.name, artists: p.item.artists.map((a) => a.name).join(', '), durationMs: p.item.duration_ms },
+        track: trackFrom(p.item),
       })
     }
   } catch {

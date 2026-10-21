@@ -3,7 +3,14 @@ import { allPages, spotify } from './api'
 
 interface Image { url: string; width?: number | null }
 interface Artist { name: string }
-interface ApiTrack { uri: string; name: string; artists: Artist[]; duration_ms: number; is_local?: boolean }
+interface ApiTrack {
+  uri: string
+  name: string
+  artists: Artist[]
+  duration_ms: number
+  is_local?: boolean
+  album?: { images: Image[] }
+}
 interface ApiAlbum {
   id: string
   name: string
@@ -35,14 +42,15 @@ export interface Me {
 const CACHE_KEY = 'playback.library.v1'
 const CACHE_MAX_AGE = 12 * 60 * 60 * 1000
 
+const bestImage = (images: Image[] | null | undefined) => images?.[0]?.url
+
 const toTrack = (t: ApiTrack): Track => ({
   uri: t.uri,
   name: t.name,
   artists: t.artists.map((a) => a.name).join(', '),
   durationMs: t.duration_ms,
+  imageUrl: bestImage(t.album?.images),
 })
-
-const bestImage = (images: Image[] | null | undefined) => images?.[0]?.url
 
 export async function fetchMe(): Promise<Me> {
   return spotify<Me>('/me')

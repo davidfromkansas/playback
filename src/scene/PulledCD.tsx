@@ -7,7 +7,8 @@ import { pulse } from '../lib/beat'
 import { colorFor, INK } from '../lib/colors'
 import type { Disc } from '../types'
 import { CASE_H, CASE_W } from './layout'
-import { bookletTexture, discLabelTexture, spineTexture, useCover } from './textures'
+import { Disc3D } from './Disc3D'
+import { bookletTexture, spineTexture, useCover } from './textures'
 
 export type CaseStage = 'out' | 'open' | 'returning'
 
@@ -16,6 +17,8 @@ interface Props {
   from: THREE.Vector3
   stage: CaseStage
   playing: boolean
+  /** Cover of the song playing from this CD, if any. */
+  songArtUrl?: string
   onToggleOpen: () => void
   onReturned: () => void
 }
@@ -26,12 +29,11 @@ const TRAY_D = 0.065
 // Bouncy, cartoon-y spring.
 const WOBBLY = { mass: 1, tension: 190, friction: 15 }
 
-export function PulledCD({ disc, from, stage, playing, onToggleOpen, onReturned }: Props) {
+export function PulledCD({ disc, from, stage, playing, songArtUrl, onToggleOpen, onReturned }: Props) {
   const { viewport, camera, size } = useThree()
   const cover = useCover(disc)
   const spine = useMemo(() => spineTexture(disc), [disc])
-  const label = useMemo(() => discLabelTexture(disc), [disc])
-  useEffect(() => () => void (spine.dispose(), label.dispose()), [spine, label])
+  useEffect(() => () => spine.dispose(), [spine])
 
   // Fit the open case (lid folded out to the left, about two cases wide) on any screen.
   const front = viewport.getCurrentViewport(camera, new THREE.Vector3(0, 0, FRONT_Z))
@@ -62,10 +64,8 @@ export function PulledCD({ disc, from, stage, playing, onToggleOpen, onReturned 
   })
   const { lid, lift } = useSpring({ lid: open ? -2.75 : 0, lift: open ? 1 : 0, config: WOBBLY })
 
-  const discRef = useRef<THREE.Mesh>(null)
   const hostGroup = useRef<THREE.Group>(null)
-  useFrame((_, dt) => {
-    if (discRef.current) discRef.current.rotation.y += dt * (playing ? 4.5 : open ? 0.4 : 0)
+  useFrame(() => {
     // A little squash-and-stretch on the beat while playing.
     if (hostGroup.current) {
       const p = playing ? pulse() : 0
@@ -113,15 +113,14 @@ export function PulledCD({ disc, from, stage, playing, onToggleOpen, onReturned 
           <meshBasicMaterial color="#2d2a3a" />
           <Outlines thickness={0.02} color={INK} />
         </mesh>
+        {/* Spindle the disc clips onto */}
+        <mesh position={[0, 0, 0.004]} rotation-x={Math.PI / 2}>
+          <cylinderGeometry args={[0.11, 0.11, 0.01, 32]} />
+          <meshBasicMaterial color="#4a4560" />
+        </mesh>
         {/* Disc */}
         <animated.group position-z={lift.to((v) => 0.01 + v * 0.18)} position-x={lift.to((v) => v * 0.08)}>
-          <mesh ref={discRef} rotation={[Math.PI / 2, 0, 0]}>
-            <cylinderGeometry args={[0.58, 0.58, 0.014, 64]} />
-            <meshBasicMaterial attach="material-0" color="#d8d8e8" />
-            <meshBasicMaterial attach="material-1" map={label} />
-            <meshBasicMaterial attach="material-2" color="#c9c9da" />
-            <Outlines thickness={0.015} color={INK} />
-          </mesh>
+          <Disc3D disc={disc} artUrl={songArtUrl ?? disc.imageUrl} spin={playing ? 0.9 : open ? 0.05 : 0} />
         </animated.group>
         {/* Spine strip on the hinge side */}
         <mesh position={[-CASE_W / 2 - 0.01, 0, -0.01]} material={spineMaterials}>

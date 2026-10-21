@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
 import { CAMERA_Z, ROWS, slot } from './scene/layout'
+import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
 import { Shelf, type ScrollState } from './scene/Shelf'
 import * as auth from './spotify/auth'
@@ -229,7 +230,7 @@ export default function App() {
           <span>K</span>
         </h1>
         <p className="tagline">Your whole Spotify library, as a shelf of CDs.</p>
-        <Host line={line} bouncing />
+        <Host line={line} bouncing={false} />
         {phase === 'welcome' && (
           <div className="actions">
             <button className="big spotify" disabled={!auth.isConfigured()} onClick={() => void auth.login()}>
@@ -269,6 +270,7 @@ export default function App() {
             if (pulled?.stage === 'out') putBack()
           }}
         >
+          <DiscLighting />
           <Shelf
             discs={discs}
             rows={rows}
@@ -285,6 +287,7 @@ export default function App() {
               from={pulled.from}
               stage={pulled.stage}
               playing={playing && now.disc?.id === pulled.disc.id}
+              songArtUrl={now.disc?.id === pulled.disc.id ? now.track?.imageUrl : undefined}
               onToggleOpen={toggleOpen}
               onReturned={() => {
                 setPulled(null)

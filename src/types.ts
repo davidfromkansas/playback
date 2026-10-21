@@ -26,6 +26,8 @@ export interface Track {
   name: string
   artists: string
   durationMs: number
+  /** The song's own album cover, when Spotify gives one. */
+  imageUrl?: string
 }
 
 export type SortKey = 'added' | 'title' | 'artist' | 'kind'
