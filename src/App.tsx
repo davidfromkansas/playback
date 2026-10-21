@@ -5,7 +5,7 @@ import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
 import { loadThemeFonts, useTheme } from './lib/theme'
 import { cameraFor, CameraRig } from './scene/CameraRig'
-import { CaseLine } from './scene/CaseLine'
+import { RowStack, type StackState } from './scene/RowStack'
 import { LINE_STEP, ROWS, slot } from './scene/layout'
 import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
@@ -13,6 +13,7 @@ import { Shelf, type ScrollState } from './scene/Shelf'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
 import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
+import { loadRows, sampleRows, songsRow, startingRows, type ShelfRow } from './spotify/rows'
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
@@ -29,7 +30,7 @@ interface Pulled {
   stage: CaseStage
 }
 
-const KIND_ORDER = { liked: 0, album: 1, playlist: 2 }
+const KIND_ORDER = { liked: 0, album: 1, playlist: 2, track: 3 }
 
 function sortDiscs(discs: Disc[], key: SortKey): Disc[] {
   const list = [...discs]
@@ -62,8 +63,34 @@ export default function App() {
   const [line, setLine] = useState(rhymes.welcome())
   const [notice, setNotice] = useState<{ text: string; openUrl?: string } | null>(null)
   const [mood, setMood] = useState(50)
-  const scroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
+  const shelfScroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
   const rows = ROWS
+  const street = theme === 'street'
+
+  // Street: rows of CDs stacked top to bottom, each remembering how far along it you've scrolled.
+  const [rowList, setRowList] = useState<ShelfRow[]>([])
+  const [activeRow, setActiveRow] = useState(0)
+  const stack = useRef<StackState>({ target: 0, current: NaN }).current
+  const rowScrolls = useRef(new Map<string, ScrollState>()).current
+  const scrollFor = useCallback(
+    (id: string) => {
+      let s = rowScrolls.get(id)
+      if (!s) rowScrolls.set(id, (s = { target: 0, current: NaN, max: 0 }))
+      return s
+    },
+    [rowScrolls],
+  )
+  const currentRow = street ? rowList[activeRow] : undefined
+  // Whatever the arrows, wheel and swipes move: the row you're on, or the Paper shelf.
+  const scroll = currentRow ? scrollFor(currentRow.id) : shelfScroll
+  const goToRow = useCallback(
+    (k: number) => {
+      const next = Math.max(0, Math.min(rowList.length - 1, k))
+      setActiveRow(next)
+      stack.target = next
+    },
+    [rowList.length, stack],
+  )
   const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
   const playing = !!now.disc && !now.paused
 
@@ -72,15 +99,22 @@ export default function App() {
   // ---- Sign-in and loading -------------------------------------------------
 
   const startShelf = useCallback(
-    async (signedIn: boolean, list: Disc[]) => {
+    async (user: Me | null, list: Disc[]) => {
       await Promise.all([document.fonts?.ready, loadThemeFonts()])
-      player.initPlayer(signedIn)
+      player.initPlayer(!!user)
       setLibrary(list)
-      scroll.target = -Infinity
+      shelfScroll.target = -Infinity
+      rowScrolls.clear()
+      setActiveRow(0)
+      stack.target = 0
+      if (user) {
+        setRowList(startingRows())
+        void loadRows(user, list, setRowList)
+      } else setRowList(sampleRows(list))
       setPhase('shelf')
       setLine(rhymes.welcome())
     },
-    [scroll, rhymes],
+    [shelfScroll, rowScrolls, stack, rhymes],
   )
 
   const loadFromSpotify = useCallback(
@@ -91,7 +125,7 @@ export default function App() {
         setMe(user)
         const cached = force ? null : cachedLibrary(user.id)
         const list = cached ?? (await loadLibrary(user, setLine))
-        await startShelf(true, list)
+        await startShelf(user, list)
       } catch (e) {
         const err = e as Error & { status?: number }
         setPhase('welcome')
@@ -114,7 +148,7 @@ export default function App() {
     })()
   }, [loadFromSpotify])
 
-  const trySample = () => void startShelf(false, sampleLibrary())
+  const trySample = () => void startShelf(null, sampleLibrary())
 
   const signOut = () => {
     player.stop()
@@ -134,16 +168,30 @@ export default function App() {
   }, [query, discs])
 
   useEffect(() => {
-    if (!highlightId) return
-    const index = discs.findIndex((d) => d.id === highlightId)
-    scroll.target = theme === 'street' ? index * LINE_STEP : slot(index, rows).x
-  }, [highlightId, discs, rows, scroll, theme])
+    if (!highlightId || street) return
+    shelfScroll.target = slot(discs.findIndex((d) => d.id === highlightId), rows).x
+  }, [highlightId, discs, rows, shelfScroll, street])
 
-  // The two looks measure scrolling differently, so start from the beginning after switching.
+  // Street: searching jumps to the first row and CD that match.
   useEffect(() => {
-    scroll.target = -Infinity
-    scroll.current = NaN
-  }, [theme, scroll])
+    const q = query.trim().toLowerCase()
+    if (!street || !q) return
+    for (const [k, row] of rowList.entries()) {
+      const i = row.discs.findIndex((d) => d.title.toLowerCase().includes(q) || d.subtitle.toLowerCase().includes(q))
+      if (i < 0) continue
+      goToRow(k)
+      scrollFor(row.id).target = i * LINE_STEP
+      return
+    }
+    // Only a new search should move things, not rows loading in.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, street])
+
+  // Switching looks starts the Paper shelf from the beginning again.
+  useEffect(() => {
+    shelfScroll.target = -Infinity
+    shelfScroll.current = NaN
+  }, [theme, shelfScroll])
 
   // Street: the CD at the front of the line, named in a label above it.
   const [focused, setFocused] = useState<Disc | null>(null)
@@ -160,6 +208,31 @@ export default function App() {
         .catch((e: Error) => setTrackError(`Couldn't read the song list: ${e.message}`))
     },
     [pulled],
+  )
+
+  // Tapping an album or playlist in Recently Played opens its songs as a new row just below it.
+  const openRow = useCallback(
+    (disc: Disc) => {
+      const id = `open:${disc.id}`
+      setRowList((list) => {
+        const rest = list.filter((r) => !r.id.startsWith('open:'))
+        return [rest[0], { id, title: disc.title, discs: [], loading: true }, ...rest.slice(1)]
+      })
+      setActiveRow(1)
+      stack.target = 1
+      void songsRow(disc, id)
+        .catch(() => ({ id, title: disc.title, discs: [disc], note: "Couldn't load the songs" }))
+        .then((row) => setRowList((list) => list.map((r) => (r.id === id ? row : r))))
+    },
+    [stack],
+  )
+
+  const tapRowDisc = useCallback(
+    (row: ShelfRow, disc: Disc, from: THREE.Vector3, fromRy: number) => {
+      if (row.id === 'recent' && (disc.kind === 'album' || disc.kind === 'playlist')) openRow(disc)
+      else pick(disc, from, fromRy)
+    },
+    [openRow, pick],
   )
 
   const toggleOpen = () => {
@@ -212,23 +285,41 @@ export default function App() {
       if ((e.target as HTMLElement).tagName === 'INPUT') return
       if (e.key === 'Escape') putBack()
       if (pulled) return
-      const step = theme === 'street' ? LINE_STEP : 1.2
-      if (e.key === 'ArrowRight' || (theme === 'street' && e.key === 'ArrowDown')) scroll.target += step
-      if (e.key === 'ArrowLeft' || (theme === 'street' && e.key === 'ArrowUp')) scroll.target -= step
-      if (theme === 'street' && e.key === 'Enter' && focused) {
+      const step = street ? LINE_STEP : 1.2
+      if (e.key === 'ArrowRight') scroll.target += step
+      if (e.key === 'ArrowLeft') scroll.target -= step
+      if (street && e.key === 'ArrowDown') goToRow(activeRow + 1)
+      if (street && e.key === 'ArrowUp') goToRow(activeRow - 1)
+      if (currentRow && e.key === 'Enter' && focused) {
         // Same as tapping the front CD, without a 3D position: it flies out from the middle.
-        pick(focused, new THREE.Vector3(0, -1, 0), -0.3)
+        tapRowDisc(currentRow, focused, new THREE.Vector3(0, -0.5, 0), -0.3)
       }
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
   })
 
-  // Mouse wheel and drag (or swipe) slide along the shelf.
-  const drag = useRef<{ x: number; y: number; target: number } | null>(null)
+  // Mouse wheel and drag (or swipe) slide along the shelf. In Street, up and down change rows.
+  const drag = useRef<{ x: number; y: number; target: number; axis?: 'x' | 'y' } | null>(null)
+  const wheelRows = useRef({ total: 0, at: 0, moved: 0 })
   const onWheel = (e: React.WheelEvent) => {
     if (pulled) return
-    scroll.target += (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY) * 0.006
+    const sideways = Math.abs(e.deltaX) > Math.abs(e.deltaY)
+    if (!street || sideways || e.shiftKey) {
+      scroll.target += (sideways ? e.deltaX : e.deltaY) * 0.006
+      return
+    }
+    // One row per flick of the wheel, however many events the flick sends.
+    const w = wheelRows.current
+    const now = performance.now()
+    if (now - w.at > 250) w.total = 0
+    w.at = now
+    w.total += e.deltaY
+    if (Math.abs(w.total) > 60 && now - w.moved > 450) {
+      goToRow(activeRow + Math.sign(w.total))
+      w.total = 0
+      w.moved = now
+    }
   }
   const worldPerPixel = () => {
     const c = cameraFor(theme)
@@ -236,19 +327,30 @@ export default function App() {
   }
   const onPointerDown = (e: React.PointerEvent) => {
     if (pulled) return
-    drag.current = { x: e.clientX, y: e.clientY, target: scroll.target }
-    scroll.held = true
+    drag.current = { x: e.clientX, y: e.clientY, target: scroll.target, axis: street ? undefined : 'x' }
   }
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!drag.current) return
-    const dx = e.clientX - drag.current.x
-    // The street line runs diagonally, so swiping up or left both move along it.
-    const moved = theme === 'street' ? dx - (e.clientY - drag.current.y) : dx
-    scroll.target = drag.current.target - moved * worldPerPixel() * 1.4
+    const d = drag.current
+    if (!d) return
+    const dx = e.clientX - d.x
+    const dy = e.clientY - d.y
+    // A swipe goes either along the row or between rows, decided by its first few pixels.
+    if (!d.axis && Math.hypot(dx, dy) > 10) d.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
+    if (d.axis === 'x') {
+      scroll.held = true
+      scroll.target = d.target - dx * worldPerPixel() * 1.4
+    } else if (d.axis === 'y') {
+      // The stack follows the finger; swiping up brings the row below into view.
+      stack.target = activeRow + Math.max(-1, Math.min(1, -dy / 240))
+    }
   }
-  const endDrag = () => {
+  const endDrag = (e: React.PointerEvent) => {
+    const d = drag.current
     drag.current = null
     scroll.held = false
+    if (d?.axis !== 'y') return
+    const dy = e.clientY - d.y
+    goToRow(Math.abs(dy) > 50 ? activeRow + (dy < 0 ? 1 : -1) : activeRow)
   }
 
   // ---- Screens ---------------------------------------------------------------
@@ -317,14 +419,17 @@ export default function App() {
               <StreetBackdrop scroll={scroll} discs={discs} />
             </Suspense>
           )}
-          {theme === 'street' ? (
+          {street ? (
             <Suspense fallback={null}>
-              <CaseLine
-                discs={discs}
-                scroll={scroll}
+              <RowStack
+                rows={rowList}
+                active={activeRow}
+                stack={stack}
+                scrollFor={scrollFor}
                 selectedId={pulled?.disc.id ?? null}
                 playing={playing}
-                onPick={pick}
+                onTap={tapRowDisc}
+                onActivate={goToRow}
                 onFocus={setFocused}
               />
             </Suspense>
@@ -332,7 +437,7 @@ export default function App() {
             <Shelf
               discs={discs}
               rows={rows}
-              scroll={scroll}
+              scroll={shelfScroll}
               selectedId={pulled?.disc.id ?? null}
               highlightId={highlightId}
               playing={playing}
@@ -370,12 +475,14 @@ export default function App() {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Escape' && setQuery('')}
         />
+        {!street && (
         <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} aria-label="Sort">
           <option value="added">Recently added</option>
           <option value="title">Title</option>
           <option value="artist">Artist</option>
           <option value="kind">Type</option>
         </select>
+        )}
         <button
           className="chip theme-toggle"
           onClick={() => setTheme(theme === 'street' ? 'paper' : 'street')}
@@ -415,16 +522,38 @@ export default function App() {
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}
-      {!pulled && theme === 'street' && focused && (
+      {!pulled && street && currentRow && (
+        <div className="row-header" key={currentRow.id}>
+          <strong>{currentRow.title}</strong>
+          <span>
+            Row {activeRow + 1} of {rowList.length}
+          </span>
+        </div>
+      )}
+      {!pulled && street && (
+        <div className="row-arrows">
+          <button aria-label="Row above" disabled={activeRow === 0} onClick={() => goToRow(activeRow - 1)}>
+            ▲
+          </button>
+          <button
+            aria-label="Row below"
+            disabled={activeRow >= rowList.length - 1}
+            onClick={() => goToRow(activeRow + 1)}
+          >
+            ▼
+          </button>
+        </div>
+      )}
+      {!pulled && street && focused && currentRow?.discs.length ? (
         <div className="focus-label" key={focused.id}>
           <strong>{focused.title}</strong>
           <span>{focused.subtitle}</span>
         </div>
-      )}
+      ) : null}
       {!pulled && (
         <p className="hint">
           {theme === 'street'
-            ? 'Swipe through your CDs · tap the front one to pull it out'
+            ? 'Swipe left/right through CDs · up/down to change rows · tap the front one'
             : 'Scroll or swipe along the shelf · tap a CD to pull it out'}
         </p>
       )}

@@ -27,7 +27,7 @@ export function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: n
   } while (ctx.measureText(text).width > maxWidth && s > 10)
 }
 
-const KIND_MARK: Record<Disc['kind'], string> = { album: '', playlist: '✦ ', liked: '♥ ' }
+const KIND_MARK: Record<Disc['kind'], string> = { album: '', playlist: '✦ ', liked: '♥ ', track: '♪ ' }
 
 /** The thin edge of the case you see on the shelf: title and artist written sideways. */
 export function spineTexture(disc: Disc): THREE.CanvasTexture {

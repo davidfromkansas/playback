@@ -6,11 +6,12 @@ import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { INK } from '../lib/colors'
 import type { Disc } from '../types'
-import { LINE_FLOOR_Y } from './CaseLine'
 import type { ScrollState } from './Shelf'
 import { billboardAd, billboardWithCover } from './streetArt'
 
 const MODEL = '/models/rooftop.glb'
+// The roof sits well below the rows of CDs, so they float above it.
+const FLOOR_Y = -4.3
 
 // Three flat bands of light: the classic cel-shaded look.
 const toonRamp = (() => {
@@ -79,7 +80,7 @@ export function StreetBackdrop({ scroll, discs }: { scroll: ScrollState; discs: 
   })
 
   return (
-    <group ref={group} position-y={LINE_FLOOR_Y}>
+    <group ref={group} position-y={FLOOR_Y}>
       <ambientLight intensity={1.1} />
       <directionalLight position={[-20, 40, 30]} intensity={2.2} />
       {pieces.map((p) =>

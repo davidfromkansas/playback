@@ -3,15 +3,16 @@ import { allPages, spotify } from './api'
 
 interface Image { url: string; width?: number | null }
 interface Artist { name: string }
-interface ApiTrack {
+export interface ApiTrack {
   uri: string
   name: string
   artists: Artist[]
   duration_ms: number
   is_local?: boolean
-  album?: { images: Image[] }
+  album?: { id: string; name: string; uri: string; images: Image[]; artists: Artist[]; external_urls: { spotify: string } }
+  external_urls?: { spotify: string }
 }
-interface ApiAlbum {
+export interface ApiAlbum {
   id: string
   name: string
   uri: string
@@ -21,7 +22,7 @@ interface ApiAlbum {
   external_urls: { spotify: string }
   tracks?: { items: ApiTrack[]; next: string | null }
 }
-interface ApiPlaylist {
+export interface ApiPlaylist {
   id: string
   name: string
   uri: string
@@ -42,9 +43,9 @@ export interface Me {
 const CACHE_KEY = 'playback.library.v1'
 const CACHE_MAX_AGE = 12 * 60 * 60 * 1000
 
-const bestImage = (images: Image[] | null | undefined) => images?.[0]?.url
+export const bestImage = (images: Image[] | null | undefined) => images?.[0]?.url
 
-const toTrack = (t: ApiTrack): Track => ({
+export const toTrack = (t: ApiTrack): Track => ({
   uri: t.uri,
   name: t.name,
   artists: t.artists.map((a) => a.name).join(', '),
@@ -97,23 +98,24 @@ export async function loadLibrary(me: Me, onProgress: (text: string) => void): P
       tracksAvailable: true,
     })
   }
-  for (const p of playlists) {
-    if (!p) continue
-    discs.push({
-      id: p.id,
-      kind: 'playlist',
-      title: p.name,
-      subtitle: p.owner.display_name ?? p.owner.id,
-      uri: p.uri,
-      spotifyUrl: p.external_urls.spotify,
-      imageUrl: bestImage(p.images),
-      trackCount: p.items?.total ?? p.tracks?.total ?? 0,
-      // Spotify only lists songs for playlists you own or co-edit.
-      tracksAvailable: p.owner.id === me.id || p.collaborative,
-    })
-  }
+  for (const p of playlists) if (p) discs.push(playlistDisc(p, me))
   saveCache(me.id, discs)
   return discs
+}
+
+export function playlistDisc(p: ApiPlaylist, me: Me): Disc {
+  return {
+    id: p.id,
+    kind: 'playlist',
+    title: p.name,
+    subtitle: p.owner.display_name ?? p.owner.id,
+    uri: p.uri,
+    spotifyUrl: p.external_urls.spotify,
+    imageUrl: bestImage(p.images),
+    trackCount: p.items?.total ?? p.tracks?.total ?? 0,
+    // Spotify only lists songs for playlists you own or co-edit.
+    tracksAvailable: p.owner.id === me.id || p.collaborative,
+  }
 }
 
 /** Loads the song list for a CD the first time it's opened. */

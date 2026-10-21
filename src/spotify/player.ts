@@ -207,6 +207,9 @@ export function initPlayer(signedIn: boolean): void {
 }
 
 function playBody(disc: Disc, tracks: Track[], index: number): Record<string, unknown> {
+  if (disc.kind === 'track') {
+    return disc.contextUri ? { context_uri: disc.contextUri, offset: { uri: disc.uri } } : { uris: [disc.uri] }
+  }
   if (disc.kind === 'liked') return { uris: tracks.map((t) => t.uri), offset: { position: index } }
   return { context_uri: disc.uri, offset: { position: index } }
 }

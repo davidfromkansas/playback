@@ -42,7 +42,7 @@ A top-bar button switches between them. The choice is saved in `localStorage` ke
 | | **Street** (default) | **Paper** |
 | --- | --- | --- |
 | Inspired by | Jet Set Radio Future: graffiti, cel-shaded, bright, comic lettering | PaRappa the Rapper: pastel paper cut-outs |
-| Library view | One diagonal, swipeable line of realistic jewel cases on a rooftop (`scene/CaseLine.tsx`) | Three-row shelf of CD spines (`scene/Shelf.tsx`) |
+| Library view | Rows of realistic jewel cases on stainless steel shelves (`scene/SteelShelf.tsx`) floating over a rooftop, swipe up/down between rows (`scene/RowStack.tsx`, `scene/CaseLine.tsx`) | Three-row shelf of CD spines (`scene/Shelf.tsx`) |
 | Case model | Blender jewel case (`scene/JewelCase.tsx`) | Simple boxes in `scene/PulledCD.tsx` |
 | Background | Blender rooftop + city with toon shading and outlines (`scene/StreetBackdrop.tsx`) | CSS polka-dot wall |
 | Host | DJ Volt, roller-skating radio DJ (`ui/DJ.tsx`) | PaRappa-style rapper (`ui/Rapper.tsx`) |
@@ -55,7 +55,7 @@ David has said he has permission to reuse the PaRappa character design.
 ```
 src/
   App.tsx              Screens (welcome / loading / shelf), all state, input (wheel, drag/swipe, keys), wiring
-  types.ts             Disc (album | playlist | liked), Track, SortKey
+  types.ts             Disc (album | playlist | liked | track), Track, SortKey
   styles.css           All CSS. Paper styles first; Street overrides are scoped under `.street`
   data/sample.ts       Fake library for sample mode
   lib/
@@ -67,12 +67,14 @@ src/
     api.ts             fetch wrapper: 429 Retry-After handling, paging (allPages), SpotifyError
     library.ts         Loads albums, playlists, Liked Songs and track lists; 12 h localStorage cache
     player.ts          Playback store (useSyncExternalStore) and the four play modes (below)
+    rows.ts            Street rows: Recently Played, Liked Songs, 10 recent albums/playlists (one CD per song)
     lyrics.ts          Song lyrics from LRCLIB (lrclib.net): free, no key, callable from the browser
   scene/               Everything inside the three.js <Canvas>
     CameraRig.tsx      Camera position per theme and screen shape (cameraFor)
     layout.ts          Case sizes (1 unit = 100 mm, CASE_W 1.42 x CASE_H 1.25), shelf slots, LINE_STEP
     Shelf.tsx          Paper shelf. Also exports the ScrollState type both views share
-    CaseLine.tsx       Street line of cases: layout, snapping to the nearest CD, focus, tap to pull out
+    RowStack.tsx       Street: stacks the rows vertically and slides between them
+    CaseLine.tsx       One Street row: layout, snapping to the nearest CD, focus, tap to pull out
     JewelCase.tsx      Loads jewelcase.glb, bakes parts, applies plastic/tray/cover materials
     PulledCD.tsx       The case you pulled out: flies to the camera, opens, disc lifts and spins
     Disc3D.tsx         The CD itself (shiny print, mirror band, clear hub) + DiscLighting environment
@@ -89,7 +91,7 @@ src/
     RhythmBar.tsx      Optional tap-along rhythm game
     SpeedLines.tsx     Street speed-line overlay
 blender/               Python scripts that build the .glb models
-public/models/         Exported models (committed): rooftop.glb, jewelcase.glb
+public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, shelf.glb
 ```
 
 ### How the main pieces fit
@@ -98,6 +100,11 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb
   `App.tsx` and read every frame by the active view. Input handlers only move `target`; the view eases
   `current` toward it. The two views use different units: Paper uses shelf x-position, Street uses
   `index * LINE_STEP`. App resets scroll when the theme changes.
+- **Street rows** (`spotify/rows.ts`): row 1 is Recently Played (newest first; songs played from an album or
+  playlist show as that album/playlist, anything else as a single song). Tapping an album/playlist there opens
+  its songs as a new row 2. Row 2 is Liked Songs, then up to 10 rows for the most recently played albums and
+  playlists, topped up with recently saved ones (Spotify only keeps the last 50 plays). Each row has its own
+  ScrollState; App keeps the active row index and a `StackState` for the vertical slide.
 - **Pulling out a CD**: the view calls `onPick(disc, worldPosition, rotationY)`, and App sets `pulled`.
   `PulledCD` animates from that pose and back again when it's put back.
 - **Animation at 60/120 fps**: per-frame work happens in `useFrame` (3D) or `useRig` (SVG) by writing to
@@ -115,6 +122,8 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb
   beat is a fixed 100 BPM.
 - **Lyrics**: Spotify's API has none, so `spotify/lyrics.ts` asks LRCLIB by song name, first artist, album and
   length, preferring time-stamped (synced) lyrics. Results are cached per song for the visit.
+- Recently Played needs the `user-read-recently-played` scope (added Oct 2026). People who signed in before
+  that must sign out and back in.
 - Play modes (`player.ts`): **browser** (Web Playback SDK, desktop + Premium), **phone** (Spotify Connect:
   tells the Spotify app on the device to play), **link** (free accounts: open in Spotify), **sample** (pretend).
 
@@ -126,6 +135,7 @@ Models are generated by scripts, not hand-edited. Change the script, re-run it, 
 pip install bpy            # Blender as a Python module (5.x); needs a matching Python version
 python blender/jewelcase.py   # -> public/models/jewelcase.glb
 python blender/rooftop.py     # -> public/models/rooftop.glb
+python blender/shelf.py       # -> public/models/shelf.glb (stretched to each row's length in the app)
 ```
 
 - Scripts are written in three.js coordinates (y up, +z toward the viewer) and convert to Blender's z-up.

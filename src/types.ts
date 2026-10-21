@@ -1,6 +1,6 @@
-export type DiscKind = 'album' | 'playlist' | 'liked'
+export type DiscKind = 'album' | 'playlist' | 'liked' | 'track'
 
-/** One CD on the shelf: an album, a playlist, or the Liked Songs collection. */
+/** One CD on the shelf: an album, a playlist, the Liked Songs collection, or a single song. */
 export interface Disc {
   id: string
   kind: DiscKind
@@ -19,6 +19,8 @@ export interface Disc {
   tracks?: Track[]
   /** False when Spotify won't list the songs (followed playlists). */
   tracksAvailable: boolean
+  /** For a single song: the album or playlist it plays from, so music carries on after it. */
+  contextUri?: string
 }
 
 export interface Track {
