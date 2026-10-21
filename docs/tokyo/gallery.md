@@ -1,6 +1,6 @@
 # Tokyo Street background
 
-Current review pass (round 30): desktop 1280×760 and touch phone 390×800, using sample CDs. The source screenshots and automated output remain in `output/tokyo-verification/round-30/` locally.
+Current review pass (round 32): desktop 1280×760 and touch phone 390×800, using sample CDs. The source screenshots and automated output remain in `output/tokyo-verification/round-32/` locally.
 
 ## Day
 

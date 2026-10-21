@@ -434,7 +434,7 @@ export default function App() {
             position: [0, cameraFor(theme).y, cameraFor(theme).z],
             fov: cameraFor(theme).fov,
           }}
-          dpr={[1, 2]}
+          dpr={theme === 'street' ? 2 : [1, 2]}
           gl={{ antialias: true, alpha: true }}
           onPointerMissed={() => {
             // Tapping empty space puts a closed CD back; an open one stays until "Put it back".

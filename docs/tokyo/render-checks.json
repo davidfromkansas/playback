@@ -1,5 +1,5 @@
 {
-  "round": 30,
+  "round": 32,
   "model": {
     "triangles": 590640,
     "mesh_batches": 88,
@@ -18,7 +18,7 @@
       "failures": [],
       "stats": {
         "bloom": false,
-        "pixelRatio": 1,
+        "pixelRatio": 2,
         "backdropCalls": 181,
         "backdropTriangles": 1159882,
         "meshes": 88
@@ -31,7 +31,7 @@
       "failures": [],
       "stats": {
         "bloom": false,
-        "pixelRatio": 1,
+        "pixelRatio": 2,
         "backdropCalls": 181,
         "backdropTriangles": 1159882,
         "meshes": 88
@@ -44,7 +44,7 @@
       "failures": [],
       "stats": {
         "bloom": true,
-        "pixelRatio": 1,
+        "pixelRatio": 2,
         "backdropCalls": 198,
         "backdropTriangles": 1159882,
         "meshes": 88
@@ -57,7 +57,7 @@
       "failures": [],
       "stats": {
         "bloom": false,
-        "pixelRatio": 1,
+        "pixelRatio": 2,
         "backdropCalls": 151,
         "backdropTriangles": 935182,
         "meshes": 88
@@ -70,7 +70,7 @@
       "failures": [],
       "stats": {
         "bloom": false,
-        "pixelRatio": 1,
+        "pixelRatio": 2,
         "backdropCalls": 150,
         "backdropTriangles": 935182,
         "meshes": 88
@@ -83,7 +83,7 @@
       "failures": [],
       "stats": {
         "bloom": false,
-        "pixelRatio": 1,
+        "pixelRatio": 2,
         "backdropCalls": 151,
         "backdropTriangles": 935182,
         "meshes": 88

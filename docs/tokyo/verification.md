@@ -41,15 +41,17 @@ David rejected the round-10 result as too gray and below the approved concepts, 
 | 23 | 9,8,8,8,9,8,9,9,8,8 | 8.4 | Sixteen-ray AO, metal bevels and ramp tag. Reviewer requests readable equipment shading, unobscured posters and integrated cracks. |
 | 24 | Not scored | — | Open tower/sun gap, warmer sunset windows and restored floor vertex AO. |
 | 25 | 9,8,8,8,9,9,9,9,8,8 | 8.5 | Clear sun gap, warm windows, unobscured posters and controlled night spill. Lighting approved; foreground finish remains. |
-| 26 | 9,9,8,8,9,9,9,9,8,8 | 8.6 | Distinct equipment top/side shading, modeled panels, mounts and canopy supports. Shape detail approved; surface and shadow edges remain. |
+| 26 | 9,9,8,8,9,9,9,9,8,8 | 8.6 | Distinct equipment shading, panels, mounts and canopy supports. Shape detail approved. The intended DPR increase was later found to be reset by Canvas. |
 | 27 | Not scored | — | Stable 25-sample shadow filtering replaces randomized five-tap borders. |
 | 28 | 9,9,9,8,9,9,9,9,9,8 | 8.8 | Surface detail and technical finish pass. Remaining gap: cel-cloud silhouette and selective illustrated edge treatment. |
 | 29 | Not scored | — | Lobed cel clouds replace the exposed ellipse. |
-| 30 | Pending | — | Selective foreground ink, colored ramp/stairwell edges, bevel highlights and moon/tower separation. |
+| 30 | 9,9,9,9,9,9,9,10,9,8 | 9.0 | First qualifying primary art review. Cel clouds, selective ink and colored highlights pass the style criterion. |
+| 31 | 9,9,9,9,9,9,9,10,9,8 | 9.0 | Corrected Canvas-owned DPR2. All six views confirm the render scale; no art regression. Starts confirmation for this configuration. |
+| 32 | 9,9,9,9,9,9,9,10,9,8 | 9.0 | Unchanged confirmation passes. Primary reviewer grants rubric sign-off after consecutive rounds 31 and 32. |
 
-A second reviewer assessed round 28 without seeing previous scores: 8,8,8,9,9,8,9,9,9,8 (8.5). It confirmed clean geometry and distinct colors, and requested more architectural hierarchy, selective light integration and separation between moon and tower. This additional review is retained rather than substituted for the primary review.
+A second reviewer assessed round 28 without seeing previous scores: 8,8,8,9,9,8,9,9,9,8 (8.5). It confirmed clean geometry and distinct colors, and requested more architectural hierarchy, selective light integration and separation between moon and tower. The same fresh reviewer reassessed round 30 at 8.5, retaining its architectural-depth and lighting-integration reservations. These additional reviews are retained rather than substituted for the primary review.
 
-The current implementation is still under art review. Automated validation is recorded separately from visual acceptance.
+Rounds 31 and 32 meet the primary rubric threshold on the same final rendering configuration, and the primary reviewer grants visual sign-off. Concept fidelity remains its weakest category at 8/10, with more regular geometry and less painterly treatment than the targets. Automated validation is recorded separately from visual acceptance.
 
 ## Validation
 
@@ -59,7 +61,7 @@ The current implementation is still under art review. Automated validation is re
 - Desktop: row button, CD pull/open/play/return, moving train, Paper switch and return to Street all pass.
 - Phone 390×800: actual touch swipe between rows, CD tap/open/play/return, moving train, Paper switch and return all pass.
 - Blender checks pass for 60 solid mesh batches: manifold edges, consistent edge winding, nonzero areas. Open art/window quads are excluded. Structural kit parts intersect intentionally; this is not a complete proof against all overlapping faces. Visible surfaces were reviewed in screenshots and close-ups.
-- Grayscale captures preserve the sampled CD area mean at 192/255 desktop and 189/255 phone across all three skies. Round-30 background means range 64–95, and 5th–95th percentile ranges exceed 200. These measurements support CD contrast, but do not replace the reviewer's silhouette/squint judgment.
+- Grayscale captures preserve the sampled CD area mean at 190.3/255 desktop and 186.9/255 phone across all three skies. Round-32 background means range 64–95, and 5th–95th percentile ranges exceed 200. These measurements support CD contrast, but do not replace the reviewer's silhouette/squint judgment.
 - Blender Workbench render and raw screenshots/JSON are local under `output/tokyo-verification/`. Compressed final evidence is committed in `images/`.
 
 ## Recorded cost, for later optimization
@@ -70,7 +72,7 @@ The current asset contains 590,640 triangles in 88 mesh batches, 4,164,904 bytes
 
 The model uses a fixed seed, material batches, vertex AO (sixteen stratified hemisphere rays per face corner), beveled shapes and Draco compression. Decoder and Japanese font are self-hosted. All eight sign labels are deterministic canvas type over generated backgrounds, including vertical long-vowel marks.
 
-The daytime lights that illuminate CDs remain constant. A separate zero-intensity light supplies city shadow maps with a stable 25-sample PCF filter; only its position changes at sunset. City materials control the mood. Desktop night renders city bloom first and then CDs with their original tone mapping. Phone uses unlit neon without the composer. Street renders at a minimum pixel ratio of two to preserve thin ink and shadow edges; Paper restores its own pixel ratio. Train movement and sign pulses use frame callbacks, with no per-frame React state. Reduced motion freezes the train and suppresses flickering/pulsing. Screens continue to cycle available album artwork and idle ads; real Spotify sign-in and cover delivery were not exercised.
+The daytime lights that illuminate CDs remain constant. A separate zero-intensity light supplies city shadow maps with a stable 25-sample PCF filter; only its position changes at sunset. City materials control the mood. Desktop night renders city bloom first and then CDs with their original tone mapping. Phone uses unlit neon without the composer. Street renders at pixel ratio two to preserve thin ink and shadow edges; Paper keeps its original adaptive ratio. Round-32 metrics confirm DPR2 in all six Street views; the flow test confirms DPR1 in Paper on the DPR1 test device. Earlier child-level DPR attempts were reset by Canvas and did not affect rounds 26–30. Train movement and sign pulses use frame callbacks, with no per-frame React state. Reduced motion freezes the train and suppresses flickering/pulsing. Screens continue to cycle available album artwork and idle ads; real Spotify sign-in and cover delivery were not exercised.
 
 ## Reproduce
 

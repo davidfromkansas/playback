@@ -68,13 +68,7 @@ export function StreetBackdrop({ scroll, discs, sky }: { scroll: ScrollState; di
   const { scene: gltf } = useGLTF(MODEL, '/draco/')
   const group = useRef<THREE.Group>(null)
   const train = useRef<THREE.Group>(null)
-  const { scene, gl, size, camera, setDpr } = useThree()
-  useEffect(() => {
-    // Supersample fine ink and shadow edges; restore Paper's own pixel ratio on exit.
-    const previous = gl.getPixelRatio()
-    setDpr(Math.max(2, previous))
-    return () => setDpr(previous)
-  }, [gl, setDpr])
+  const { scene, gl, size, camera } = useThree()
   const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
   const compact = size.width / size.height < 0.8
   const bloom = sky === 'night' && size.width >= 800 && gl.capabilities.maxTextureSize >= 8192 && !window.matchMedia('(pointer: coarse)').matches
