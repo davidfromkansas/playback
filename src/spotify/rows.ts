@@ -77,43 +77,20 @@ export async function loadRows(me: Me, library: Disc[], update: (rows: ShelfRow[
     update(rows)
   }
 
-  // 1. Recently played
-  let recent: RecentItem[] = []
-  let recentNote: string | undefined
-  try {
-    recent = (await spotify<{ items: RecentItem[] }>('/me/player/recently-played?limit=50')).items
-  } catch (e) {
-    recentNote =
-      e instanceof SpotifyError && (e.status === 401 || e.status === 403)
-        ? 'Sign out and back in to let Playback see what you played'
-        : "Couldn't load what you played lately"
-  }
-  const contexts: Disc[] = []
-  const recentDiscs: Disc[] = []
-  const seen = new Set<string>()
-  for (const { track, context } of recent) {
-    if (!track || track.is_local) continue
-    const ctx = context && (context.type === 'album' || context.type === 'playlist') ? context : null
-    const key = ctx?.uri ?? track.uri
-    if (seen.has(key)) continue
-    seen.add(key)
-    if (!ctx) {
-      recentDiscs.push(trackDisc(toTrack(track), { contextUri: track.album?.uri, spotifyUrl: track.external_urls?.spotify }))
-      continue
-    }
-    const disc = await contextDisc(ctx, track, library, me)
-    if (!disc) continue
-    recentDiscs.push(disc)
-    contexts.push(disc)
-  }
-  put({ id: 'recent', title: 'Recently Played', discs: recentDiscs, note: recentNote ?? (recentDiscs.length ? undefined : 'Nothing played lately') })
-
-  // 2. Liked Songs
+  // Recently Played and Liked Songs load side by side; neither waits for the other.
+  const recentDone = recentRow(me, library).catch(() => ({
+    row: { id: 'recent', title: 'Recently Played', discs: [], note: "Couldn't load what you played lately" },
+    contexts: [] as Disc[],
+  }))
   const liked = library.find((d) => d.kind === 'liked')
-  if (liked) {
-    const row = await songsRow(liked, 'liked').catch(() => ({ id: 'liked', title: 'Liked Songs', discs: [], note: "Couldn't load your Liked Songs" }))
-    put({ ...row, title: 'Liked Songs' })
-  } else put({ id: 'liked', title: 'Liked Songs', discs: [], note: 'No liked songs yet' })
+  const likedDone = (
+    liked
+      ? songsRow(liked, 'liked').catch(() => ({ id: 'liked', title: '', discs: [], note: "Couldn't load your Liked Songs" }))
+      : Promise.resolve({ id: 'liked', title: '', discs: [], note: 'No liked songs yet' })
+  ).then((row) => put({ ...row, title: 'Liked Songs' }))
+
+  const { row, contexts } = await recentDone
+  put(row)
 
   // 3-12. Recently played albums and playlists, topped up with recently saved ones.
   for (const d of library) {
@@ -122,13 +99,61 @@ export async function loadRows(me: Me, library: Disc[], update: (rows: ShelfRow[
   }
   const picks = contexts.slice(0, CONTEXT_ROWS)
   picks.forEach((d) => put({ id: `songs:${d.id}`, title: d.title, discs: [], loading: true }))
-  await Promise.all(
-    picks.map((d) =>
+  await Promise.all([
+    likedDone,
+    ...picks.map((d) =>
       songsRow(d)
         .catch(() => ({ id: `songs:${d.id}`, title: d.title, discs: [d], note: "Couldn't load the songs" }))
         .then(put),
     ),
+  ])
+}
+
+/** Row 1, plus the albums and playlists in it (newest first) for the rows further down. */
+async function recentRow(me: Me, library: Disc[]): Promise<{ row: ShelfRow; contexts: Disc[] }> {
+  let recent: RecentItem[] = []
+  let note: string | undefined
+  try {
+    recent = (await withTimeout(spotify<{ items: RecentItem[] }>('/me/player/recently-played?limit=50'), 15000)).items
+  } catch (e) {
+    note =
+      e instanceof SpotifyError && (e.status === 401 || e.status === 403)
+        ? 'Sign out and back in to let Playback see what you played'
+        : "Couldn't load what you played lately"
+  }
+  // One CD per album, playlist or lone song, in the order they were played.
+  const picks: { track: ApiTrack; ctx: { type: string; uri: string } | null }[] = []
+  const seen = new Set<string>()
+  for (const { track, context } of recent ?? []) {
+    if (!track || track.is_local) continue
+    const ctx = context && (context.type === 'album' || context.type === 'playlist') ? context : null
+    const key = ctx?.uri ?? track.uri
+    if (seen.has(key)) continue
+    seen.add(key)
+    picks.push({ track, ctx })
+  }
+  const asSong = (track: ApiTrack) =>
+    trackDisc(toTrack(track), { contextUri: track.album?.uri, spotifyUrl: track.external_urls?.spotify })
+  // Look the albums and playlists up together, and don't let a slow one hold up the row: if one
+  // can't be found in time, the song itself stands in for it.
+  const discs = await Promise.all(
+    picks.map(async ({ track, ctx }) => {
+      if (!ctx) return { disc: asSong(track), context: false }
+      const disc = await withTimeout(contextDisc(ctx, track, library, me), 6000).catch(() => null)
+      return disc ? { disc, context: true } : { disc: asSong(track), context: false }
+    }),
   )
+  const row = {
+    id: 'recent',
+    title: 'Recently Played',
+    discs: discs.map((d) => d.disc),
+    note: note ?? (discs.length ? undefined : 'Nothing played lately'),
+  }
+  return { row, contexts: discs.filter((d) => d.context).map((d) => d.disc) }
+}
+
+function withTimeout<T>(work: Promise<T>, ms: number): Promise<T> {
+  return Promise.race([work, new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timed out')), ms))])
 }
 
 /** The album or playlist a song was played from, as a CD. */
@@ -142,9 +167,9 @@ async function contextDisc(ctx: { type: string; uri: string }, track: ApiTrack, 
       id: a.id,
       kind: 'album',
       title: a.name,
-      subtitle: a.artists.map((x) => x.name).join(', '),
+      subtitle: (a.artists ?? []).map((x) => x.name).join(', '),
       uri: a.uri,
-      spotifyUrl: a.external_urls.spotify,
+      spotifyUrl: a.external_urls?.spotify ?? `https://open.spotify.com/album/${a.id}`,
       imageUrl: bestImage(a.images),
       trackCount: 0,
       tracksAvailable: true,

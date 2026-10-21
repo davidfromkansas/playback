@@ -48,7 +48,7 @@ export const bestImage = (images: Image[] | null | undefined) => images?.[0]?.ur
 export const toTrack = (t: ApiTrack): Track => ({
   uri: t.uri,
   name: t.name,
-  artists: t.artists.map((a) => a.name).join(', '),
+  artists: (t.artists ?? []).map((a) => a.name).join(', '),
   durationMs: t.duration_ms,
   imageUrl: bestImage(t.album?.images),
 })

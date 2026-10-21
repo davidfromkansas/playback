@@ -116,7 +116,10 @@ export default function App() {
       stack.target = 0
       if (user) {
         setRowList(startingRows())
-        void loadRows(user, list, setRowList)
+        // Whatever goes wrong, no row should be left saying it's loading forever.
+        void loadRows(user, list, setRowList).catch(() =>
+          setRowList((rows) => rows.map((r) => (r.loading ? { ...r, loading: false, note: "Couldn't load this row" } : r))),
+        )
       } else setRowList(sampleRows(list))
       setPhase('shelf')
       setLine(rhymes.welcome())
@@ -558,7 +561,9 @@ export default function App() {
       {!pulled && street && currentRow?.loading && (
         <LoadingCard
           className="row-loading"
-          key={currentRow.id}
+          // Keys on these overlays must differ from each other: they're siblings, and a shared key
+          // makes React lose track of one, leaving it stuck on screen.
+          key={`loading:${currentRow.id}`}
           text={currentRow.id === 'search:loading' ? 'Searching Spotify…' : `Loading ${currentRow.title}…`}
         />
       )}
@@ -571,7 +576,7 @@ export default function App() {
         </div>
       )}
       {!pulled && street && currentRow && (
-        <div className={`row-header ${results ? 'below-results' : ''}`} key={currentRow.id}>
+        <div className={`row-header ${results ? 'below-results' : ''}`} key={`header:${currentRow.id}`}>
           <strong>{currentRow.title}</strong>
           <span>
             Row {activeRow + 1} of {shownRows.length}
@@ -593,7 +598,7 @@ export default function App() {
         </div>
       )}
       {!pulled && street && focused && currentRow?.discs.length ? (
-        <div className={`focus-label ${results ? 'below-results' : ''}`} key={focused.id}>
+        <div className={`focus-label ${results ? 'below-results' : ''}`} key={`focus:${focused.id}`}>
           <strong>{focused.title}</strong>
           <span>{focused.subtitle}</span>
         </div>
