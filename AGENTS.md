@@ -10,7 +10,7 @@ with Spotify, browse their albums, playlists and Liked Songs as CD cases, pull o
 A cartoon host character dances while music plays.
 
 - Live site: https://playback-phi.vercel.app (Vercel project `playback`)
-- Repo: https://github.com/davidfromkansas/playback. Work so far is on branch `claude/playback-v1` (PR #1).
+- Repo: https://github.com/davidfromkansas/playback. `main` is the live version; do new work on a branch and open a PR.
 - Owner: David. He prefers short, plain-language updates, and screenshots over descriptions.
 
 There is **no backend**. Everything runs in the browser: Spotify login, data loading and playback.
@@ -67,6 +67,7 @@ src/
     api.ts             fetch wrapper: 429 Retry-After handling, paging (allPages), SpotifyError
     library.ts         Loads albums, playlists, Liked Songs and track lists; 12 h localStorage cache
     player.ts          Playback store (useSyncExternalStore) and the four play modes (below)
+    lyrics.ts          Song lyrics from LRCLIB (lrclib.net): free, no key, callable from the browser
   scene/               Everything inside the three.js <Canvas>
     CameraRig.tsx      Camera position per theme and screen shape (cameraFor)
     layout.ts          Case sizes (1 unit = 100 mm, CASE_W 1.42 x CASE_H 1.25), shelf slots, LINE_STEP
@@ -76,7 +77,8 @@ src/
     PulledCD.tsx       The case you pulled out: flies to the camera, opens, disc lifts and spins
     Disc3D.tsx         The CD itself (shiny print, mirror band, clear hub) + DiscLighting environment
     StreetBackdrop.tsx Loads rooftop.glb, swaps in toon materials + outlines, billboards show your covers
-    textures.ts        Canvas textures (spines, generated covers, booklet) and useArt/useCover loaders
+    textures.ts        Canvas textures (spines, generated covers) and useArt/useCover loaders
+    lyricsPage.ts      Inside of the booklet: the playing song's lyrics, scrolling in time with the music
     streetArt.ts       Street canvas art: spray-paint spines, billboard ads
     discArt.ts         Disc print styles
   ui/                  Plain DOM overlays
@@ -111,6 +113,8 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb
 - Spotify renamed playlist `tracks` to `items` in 2026; `library.ts` handles both.
 - Spotify only lists tracks for playlists the user owns or co-edits. It no longer gives tempo data, so the
   beat is a fixed 100 BPM.
+- **Lyrics**: Spotify's API has none, so `spotify/lyrics.ts` asks LRCLIB by song name, first artist, album and
+  length, preferring time-stamped (synced) lyrics. Results are cached per song for the visit.
 - Play modes (`player.ts`): **browser** (Web Playback SDK, desktop + Premium), **phone** (Spotify Connect:
   tells the Spotify app on the device to play), **link** (free accounts: open in Spotify), **sample** (pretend).
 
@@ -143,8 +147,7 @@ python blender/rooftop.py     # -> public/models/rooftop.glb
 
 - Vercel is linked to the GitHub repo. Merges to the default branch deploy to production automatically,
   and every push makes a preview deployment.
-- Until PR #1 merges, production has been updated by creating a production deployment of the branch at a
-  specific commit (Vercel project `playback`). With the Vercel MCP tools, leave out `teamId` (it returns 403).
+- With the Vercel MCP tools, leave out `teamId` (it returns 403).
 
 ## Conventions
 

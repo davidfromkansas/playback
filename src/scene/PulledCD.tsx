@@ -10,7 +10,8 @@ import { CASE_H, CASE_W } from './layout'
 import { Disc3D } from './Disc3D'
 import { HUB_X, JewelCase } from './JewelCase'
 import type { Theme } from '../lib/theme'
-import { bookletTexture, spineTexture, useCover } from './textures'
+import { useLyricsPage } from './lyricsPage'
+import { spineTexture, useCover } from './textures'
 
 export type CaseStage = 'out' | 'open' | 'returning'
 
@@ -92,8 +93,8 @@ export function PulledCD({
   })
 
   const caseColor = colorFor(disc.id + disc.title)
-  const booklet = useMemo(() => bookletTexture(disc), [disc])
-  useEffect(() => () => booklet.dispose(), [booklet])
+  // Inside the booklet: the lyrics of the song playing. Street's booklet is square; Paper's fills the lid.
+  const booklet = useLyricsPage(disc, 640, theme === 'street' ? 640 : 563)
   const lidMaterials = useMemo(() => {
     const edge = new THREE.MeshBasicMaterial({ color: '#e9f7ff' })
     const art = new THREE.MeshBasicMaterial({ color: '#ffffff' })
@@ -126,12 +127,12 @@ export function PulledCD({
     >
       <group ref={hostGroup}>
         {theme === 'street' ? (
-          <JewelCase disc={disc} lid={lid} detailed>
+          <JewelCase disc={disc} lid={lid} inside={booklet}>
             {/* The disc only needs drawing once the lid starts to open. */}
             <animated.group
               visible={lift.to((v) => v > 0.01)}
-              position-z={lift.to((v) => -0.008 + v * 0.2)}
-              position-x={lift.to((v) => HUB_X + v * 0.08)}
+              position-x={HUB_X}
+              position-z={lift.to((v) => -0.008 + v * 0.03)}
             >
               <Disc3D disc={disc} artUrl={songArtUrl ?? disc.imageUrl} spin={playing ? 0.9 : open ? 0.05 : 0} />
             </animated.group>

@@ -17,9 +17,9 @@ function finish(c: HTMLCanvasElement): THREE.CanvasTexture {
   return tex
 }
 
-const FONT = '"Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif'
+export const FONT = '"Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif'
 
-function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, size: number, weight = 800): void {
+export function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, size: number, weight = 800): void {
   let s = size
   do {
     ctx.font = `${weight} ${s}px ${FONT}`
@@ -111,36 +111,6 @@ export function generatedCover(disc: Disc): THREE.CanvasTexture {
   fitText(ctx, disc.subtitle, S - 48, 32, 700)
   ctx.fillText(disc.subtitle, 24, S - 24)
   ctx.strokeRect(6, 6, S - 12, S - 12)
-  return finish(c)
-}
-
-/** Inside of the lid: the back of the little booklet, seen when the case is open. */
-export function bookletTexture(disc: Disc): THREE.CanvasTexture {
-  const W = 512
-  const H = 450
-  const [c, ctx] = canvas(W, H)
-  ctx.fillStyle = '#fff7e8'
-  ctx.fillRect(0, 0, W, H)
-  ctx.fillStyle = accentFor(disc.id)
-  ctx.fillRect(0, 0, W, 90)
-  ctx.lineWidth = 8
-  ctx.strokeStyle = INK
-  ctx.strokeRect(4, 4, W - 8, H - 8)
-  ctx.beginPath()
-  ctx.moveTo(0, 90)
-  ctx.lineTo(W, 90)
-  ctx.stroke()
-  ctx.save()
-  ctx.fillStyle = INK
-  ctx.textBaseline = 'middle'
-  fitText(ctx, disc.title, W - 60, 46, 800)
-  ctx.fillText(disc.title, 30, 46)
-  ctx.globalAlpha = 0.25
-  for (let i = 0; i < 9; i++) {
-    const w = 140 + ((i * 97) % 220)
-    ctx.fillRect(30, 130 + i * 32, w, 12)
-  }
-  ctx.restore()
   return finish(c)
 }
 
