@@ -1,4 +1,4 @@
-// Street theme: one row of CDs as a line of jewel cases on a ledge, angled so you see their
+// Street theme: one row of CDs as a line of jewel cases on a steel shelf, angled so you see their
 // covers. Swipe (or scroll) along the line; the CD in front slides out. RowStack stacks the rows.
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
@@ -6,6 +6,7 @@ import * as THREE from 'three'
 import { pulse } from '../lib/beat'
 import type { Disc } from '../types'
 import { JewelCase } from './JewelCase'
+import { SteelShelf } from './SteelShelf'
 import { CASE_H, CASE_W, LINE_STEP } from './layout'
 import type { ScrollState } from './Shelf'
 
@@ -91,28 +92,18 @@ export function CaseLine({ discs, scroll, active, selectedId, playing, onTap, on
   )
 }
 
-// The ledge each row of CDs stands on: a chunky painted plank with a hazard-yellow edge.
-const ledgeTop = new THREE.MeshToonMaterial({ color: '#ff2e93' })
-const ledgeEdge = new THREE.MeshToonMaterial({ color: '#ffe600' })
-const LEDGE_W = 1.9
-const LEDGE_H = 0.12
-
+// The shelf each row of CDs stands on, running along the line under the cases.
 function Ledge({ origin, length }: { origin: THREE.Vector3; length: number }) {
   const start = origin.clone().addScaledVector(DIR, -1.6)
   const centre = start.clone().addScaledVector(DIR, length / 2)
   return (
-    <group position={[centre.x, -CASE_H / 2 - LEDGE_H / 2, centre.z + 0.15]} rotation-y={Math.atan2(-DIR.z, DIR.x)}>
-      <mesh material={ledgeTop}>
-        <boxGeometry args={[length, LEDGE_H, LEDGE_W]} />
-      </mesh>
-      <mesh material={ledgeEdge} position={[0, -LEDGE_H / 2 - 0.03, 0]}>
-        <boxGeometry args={[length, 0.06, LEDGE_W + 0.04]} />
-      </mesh>
+    <group position={[centre.x, -CASE_H / 2, centre.z + 0.15]} rotation-y={Math.atan2(-DIR.z, DIR.x)}>
+      <SteelShelf length={length} />
     </group>
   )
 }
 
-/** Soft dark blob under each case, so they read as standing on the ledge. */
+/** Soft dark blob under each case, so they read as standing on the shelf. */
 const shadowTexture = (() => {
   const c = document.createElement('canvas')
   c.width = 128
