@@ -24,7 +24,7 @@ Open http://127.0.0.1:5173 and press **Try it with sample CDs**.
    `http://127.0.0.1:5173/` for local testing and `https://your-site.vercel.app/` once it's online.
    Spotify doesn't accept `localhost`, so use `127.0.0.1`.
 4. Under **User Management**, add the Spotify email of each tester (up to 5).
-5. Copy `.env.example` to `.env.local` and paste in the Client ID.
+5. Put the Client ID in `.env` (already set for the main Playback app). To use your own app, override it in `.env.local`.
 
 There's no server and no client secret: login uses Spotify's PKCE flow in the browser.
 
