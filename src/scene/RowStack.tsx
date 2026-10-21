@@ -75,7 +75,8 @@ export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, 
  */
 function RowSign({ row, active }: { row: ShelfRow; active: boolean }) {
   const text = row.loading ? `${row.title}: loading…` : !row.discs.length ? `${row.title}: ${row.note ?? 'empty'}` : row.title
-  const show = !active || row.loading || !row.discs.length
+  // The row you're on shows a loader on screen while it loads, so it only needs a sign when empty.
+  const show = !active || (!row.loading && !row.discs.length)
   const sign = useMemo(() => makeSign(text), [text])
   useEffect(() => () => (sign.material.map?.dispose(), sign.material.dispose()), [sign])
   if (!show) return null

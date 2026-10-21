@@ -1119,3 +1119,44 @@ select {
     top: 186px;
   }
 }
+
+/* Loading states (Generative Loaders): a loader with a line of text, centred. */
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 26px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  font-family: var(--marker, inherit);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.welcome .loading-card {
+  margin-top: 18px;
+}
+
+.loading-card.scene-loading,
+.loading-card.row-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.street .loading-card {
+  background: #ffe600;
+  font-family: var(--comic);
+  letter-spacing: 0.04em;
+}
+
+.panel .il-loader {
+  vertical-align: -0.15em;
+  margin-right: 6px;
+}
