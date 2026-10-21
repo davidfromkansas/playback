@@ -8,14 +8,14 @@ import { colorFor } from '../lib/colors'
 import type { Disc } from '../types'
 import { CASE_W } from './layout'
 import { streetSpineTexture } from './streetArt'
-import { bookletTexture, useCover } from './textures'
+import { useCover } from './textures'
 
 const MODEL = '/models/jewelcase.glb'
 
 /** Where the lid and booklet pivot: the left edge of the case. */
 export const HINGE = new THREE.Vector3(-CASE_W / 2, 0, 0)
 /** Centre of the hub the disc clips onto. */
-export const HUB_X = 0.04
+export const HUB_X = 0.019
 
 const BASE_PARTS = ['BaseShell', 'Tray', 'Hub', 'Inlay', 'SpineL', 'SpineR'] as const
 const LID_PARTS = ['LidShell', 'Booklet', 'BookletBack'] as const
@@ -79,13 +79,13 @@ interface Props {
   disc: Disc
   /** Lid angle in radians (0 = shut; negative swings it open to the left). */
   lid?: number | SpringValue<number>
-  /** Print the booklet's inside page (only worth it when the case can open). */
-  detailed?: boolean
+  /** What's printed inside the booklet (only worth drawing when the case can open). */
+  inside?: THREE.Texture
   /** Things that sit in the tray, like the disc. */
   children?: ReactNode
 }
 
-export function JewelCase({ disc, lid = 0, detailed = false, children }: Props) {
+export function JewelCase({ disc, lid = 0, inside, children }: Props) {
   const parts = useParts()
   const cover = useCover(disc)
   const mats = useMemo(() => {
@@ -94,13 +94,11 @@ export function JewelCase({ disc, lid = 0, detailed = false, children }: Props) 
     return {
       // The cover is printed paper: show the art's own colours, unaffected by scene lights.
       cover: new THREE.MeshBasicMaterial({ color: '#ffffff', toneMapped: false }),
-      inside: detailed
-        ? new THREE.MeshBasicMaterial({ map: bookletTexture(disc), toneMapped: false })
-        : blank,
+      inside: inside ? new THREE.MeshBasicMaterial({ map: inside, toneMapped: false }) : blank,
       inlay: new THREE.MeshStandardMaterial({ color: colorFor(disc.id + disc.title), roughness: 0.85 }),
       spine: new THREE.MeshBasicMaterial({ map: spine, toneMapped: false }),
     }
-  }, [disc, detailed])
+  }, [disc, inside])
   useEffect(() => {
     mats.cover.map = cover
     mats.cover.needsUpdate = true
@@ -111,10 +109,7 @@ export function JewelCase({ disc, lid = 0, detailed = false, children }: Props) 
       mats.spine.dispose()
       mats.cover.dispose()
       mats.inlay.dispose()
-      if (mats.inside !== blank) {
-        mats.inside.map?.dispose()
-        mats.inside.dispose()
-      }
+      if (mats.inside !== blank) mats.inside.dispose()
     },
     [mats],
   )

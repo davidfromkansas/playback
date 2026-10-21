@@ -122,26 +122,29 @@ side_plane('SpineR', W / 2 - T - 0.001, -H / 2 + T, H / 2 - T, BACK + T, TOP - 0
 
 # ---- Tray: black insert with a shallow disc well and a toothed hub ------------------
 TRAY_TOP = -0.014
+TRAY_X0, TRAY_X1 = -W / 2 + 0.05, W / 2 - T
+# The hub (and the disc on it) sits in the middle of the tray. Keep in sync with HUB_X in JewelCase.tsx.
+HUB_X = (TRAY_X0 + TRAY_X1) / 2
 tray = [
-    box('t_body', -W / 2 + 0.05, W / 2 - T, -H / 2 + T, H / 2 - T, BACK + T + 0.004, TRAY_TOP - 0.004, 'Tray', 0.003),
+    box('t_body', TRAY_X0, TRAY_X1, -H / 2 + T, H / 2 - T, BACK + T + 0.004, TRAY_TOP - 0.004, 'Tray', 0.003),
     # Raised rim around the disc well (four corner pads, like a real tray).
 ]
 for sx in (-1, 1):
     for sy in (-1, 1):
-        cx = 0.04 + sx * 0.55
+        cx = HUB_X + sx * 0.55
         cy = sy * 0.5
         tray.append(box(f't_pad{sx}{sy}', cx - 0.09, cx + 0.09, cy - 0.09, cy + 0.09, TRAY_TOP - 0.006, TRAY_TOP, 'Tray', 0.004))
 # Finger notches on both sides of the well.
 for sy in (-1, 1):
-    tray.append(box(f't_lip{sy}', -0.28 + 0.04, 0.28 + 0.04, sy * 0.6 - 0.012, sy * 0.6 + 0.012, TRAY_TOP - 0.006, TRAY_TOP, 'Tray', 0.003))
+    tray.append(box(f't_lip{sy}', HUB_X - 0.28, HUB_X + 0.28, sy * 0.6 - 0.012, sy * 0.6 + 0.012, TRAY_TOP - 0.006, TRAY_TOP, 'Tray', 0.003))
 join('Tray', tray)
 
 hub = []
-bpy.ops.mesh.primitive_cylinder_add(radius=0.085, depth=0.006, vertices=48, location=B((0.04, 0, TRAY_TOP - 0.001)), rotation=(math.pi / 2, 0, 0))
+bpy.ops.mesh.primitive_cylinder_add(radius=0.085, depth=0.006, vertices=48, location=B((HUB_X, 0, TRAY_TOP - 0.001)), rotation=(math.pi / 2, 0, 0))
 hub.append(bpy.context.active_object)
 for i in range(12):
     a = i / 12 * math.tau
-    bpy.ops.mesh.primitive_cube_add(size=1, location=B((0.04 + math.cos(a) * 0.06, math.sin(a) * 0.06, TRAY_TOP + 0.008)))
+    bpy.ops.mesh.primitive_cube_add(size=1, location=B((HUB_X + math.cos(a) * 0.06, math.sin(a) * 0.06, TRAY_TOP + 0.008)))
     t = bpy.context.active_object
     t.scale = (0.028, 0.016, 0.012)
     t.rotation_euler = (0, -a, 0)  # three z-rotation = Blender -y rotation
