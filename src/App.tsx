@@ -179,7 +179,7 @@ export default function App() {
         setPhase('welcome')
         setNotice({
           text:
-            err.status === 403
+            err.status === 429 ? err.message : err.status === 403
               ? "Spotify blocked this account. Playback is invite-only for now, so ask the owner to add your Spotify email."
               : `Couldn't load your library: ${err.message}`,
         })
@@ -436,7 +436,7 @@ export default function App() {
         {phase === 'loading' && <LoadingCard text="Stacking up your CDs…" />}
         {phase === 'welcome' && (
           <div className="actions">
-            <button className="big spotify" disabled={!auth.isConfigured()} onClick={() => void auth.login()}>
+            <button className="big spotify" disabled={!auth.isConfigured()} onClick={() => auth.isLoggedIn() ? void loadFromSpotify() : void auth.login()}>
               Sign in with Spotify
             </button>
             <button className="big" onClick={trySample}>

@@ -1,7 +1,7 @@
 import { accessToken } from './auth'
+import { cooldownRemaining, recordCooldown, cooldownMessage } from './cooldown'
 
 const API = 'https://api.spotify.com/v1'
-const MAX_RETRIES = 3
 
 export class SpotifyError extends Error {
   constructor(
@@ -13,17 +13,12 @@ export class SpotifyError extends Error {
   }
 }
 
-const sleep = (ms: number, signal?: AbortSignal | null) => new Promise<void>((resolve, reject) => {
-  signal?.throwIfAborted()
-  const abort = () => { clearTimeout(timer); reject(signal?.reason) }
-  const timer = setTimeout(() => { signal?.removeEventListener('abort', abort); resolve() }, ms)
-  signal?.addEventListener('abort', abort, { once: true })
-})
-
-/** Calls the Web API. Waits and retries when Spotify says we're asking too often. */
+/** Calls the Web API; a rate limit pauses subsequent requests until Spotify permits a retry. */
 export async function spotify<T = unknown>(path: string, init: RequestInit = {}): Promise<T> {
   const url = path.startsWith('http') ? path : `${API}${path}`
-  for (let attempt = 0; ; attempt++) {
+  {
+    const remaining = cooldownRemaining()
+    if (remaining) throw new SpotifyError(429, 'rate_limit', cooldownMessage(remaining))
     init.signal?.throwIfAborted()
     const res = await fetch(url, {
       ...init,
@@ -34,10 +29,9 @@ export async function spotify<T = unknown>(path: string, init: RequestInit = {})
         ...init.headers,
       },
     })
-    if (res.status === 429 && attempt < MAX_RETRIES) {
-      const wait = Number(res.headers.get('Retry-After') ?? '2')
-      await sleep(Math.max(0, Number.isFinite(wait) ? wait : 2) * 1000, init.signal)
-      continue
+    if (res.status === 429) {
+      const remaining = recordCooldown(res.headers.get('Retry-After'))
+      throw new SpotifyError(429, 'rate_limit', cooldownMessage(remaining))
     }
     if (res.status === 204 || res.status === 202) return undefined as T
     const text = await res.text()
