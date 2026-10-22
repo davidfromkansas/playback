@@ -45,6 +45,12 @@ shelf label, and the now-playing bar. They show an ellipsis while queued/loading
 production remains without a classifier endpoint, so its labels are `Unrated`.
 Sample mode and production retain the existing automatic animation cycle.
 
+Single-song cases also carry the label in the bottom-right corner of their front cover,
+in both themes. The badge is attached to the lid, uses shared small textures, and does
+not alter the source album art or intercept case clicks. Albums and playlists have no
+cover badge because they do not have one song mood. Desktop/phone cover, opening, and
+label-update checks passed in `output/dj-volt/labels-1792637686354/`.
+
 The Vite middleware is deliberately a local pilot, not a deployed public paid API.
 It checks same-origin POSTs, bounds requests, keeps the key on the server, serializes
 MusicBrainz calls at least 1.1 seconds apart, backs off on 429/503, limits in-flight
