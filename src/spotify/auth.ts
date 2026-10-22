@@ -19,17 +19,18 @@ const SCOPES = [
   'user-top-read',
 ]
 
-const STORE_KEY = 'playback.auth'
-const VERIFIER_KEY = 'playback.verifier'
-const STATE_KEY = 'playback.state'
+export const clientId: string = import.meta.env.VITE_SPOTIFY_CLIENT_ID ?? ''
+
+// Tokens and pending logins belong to one Spotify application.
+const STORE_KEY = `playback.auth.${clientId}`
+const VERIFIER_KEY = `playback.verifier.${clientId}`
+const STATE_KEY = `playback.state.${clientId}`
 
 interface Tokens {
   accessToken: string
   refreshToken: string
   expiresAt: number
 }
-
-export const clientId: string = import.meta.env.VITE_SPOTIFY_CLIENT_ID ?? ''
 
 export function redirectUri(): string {
   return import.meta.env.VITE_SPOTIFY_REDIRECT_URI || `${location.origin}/`
