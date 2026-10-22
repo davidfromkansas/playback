@@ -1,7 +1,7 @@
 import { createMoodService } from './song-mood.mjs'
 
-export function publicSongMoodPlugin(apiKey) {
-  const classify = createMoodService({ apiKey })
+export function publicSongMoodPlugin(apiKey, enrichment = false) {
+  const classify = createMoodService({ apiKey, enrichment })
   return {
     name: 'public-song-mood',
     configureServer(server) {

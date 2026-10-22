@@ -1,0 +1,172 @@
+{
+  "evaluatedAt": "2026-10-22T04:07:07.634Z",
+  "planned": 20,
+  "completed": 14,
+  "note": "Coverage/behavior pilot, not ground-truth accuracy. No Spotify account data. No genre-based labels forced.",
+  "results": [
+    {
+      "query": {
+        "title": "September",
+        "artist": "Earth, Wind & Fire",
+        "durationMs": 215080
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Billie Jean",
+        "artist": "Michael Jackson",
+        "durationMs": 294227
+      },
+      "status": "insufficient-context",
+      "profile": null,
+      "version": "public-context-2",
+      "source": {
+        "source": "MusicBrainz",
+        "license": "CC0-1.0",
+        "recordingId": "23bbe67b-62ec-4bdc-8915-1e1c6b28a25f",
+        "sourceUrl": "https://musicbrainz.org/recording/23bbe67b-62ec-4bdc-8915-1e1c6b28a25f",
+        "title": "Billie Jean",
+        "artists": [
+          "Michael Jackson"
+        ]
+      },
+      "context": []
+    },
+    {
+      "query": {
+        "title": "Dancing Queen",
+        "artist": "ABBA",
+        "durationMs": 230400
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Smells Like Teen Spirit",
+        "artist": "Nirvana",
+        "durationMs": 301920
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Take Five",
+        "artist": "The Dave Brubeck Quartet",
+        "durationMs": 324000
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Blue in Green",
+        "artist": "Miles Davis",
+        "durationMs": 337000
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Teardrop",
+        "artist": "Massive Attack",
+        "durationMs": 330773
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Royals",
+        "artist": "Lorde",
+        "durationMs": 190185
+      },
+      "status": "unavailable",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Get Lucky",
+        "artist": "Daft Punk",
+        "durationMs": 369626
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "One More Time",
+        "artist": "Daft Punk",
+        "durationMs": 320357
+      },
+      "status": "unavailable",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "No Surprises",
+        "artist": "Radiohead",
+        "durationMs": 229120
+      },
+      "status": "insufficient-context",
+      "profile": null,
+      "version": "public-context-2",
+      "source": {
+        "source": "MusicBrainz",
+        "license": "CC0-1.0",
+        "recordingId": "980a426e-623e-4ea5-98c7-008d037a0508",
+        "sourceUrl": "https://musicbrainz.org/recording/980a426e-623e-4ea5-98c7-008d037a0508",
+        "title": "No Surprises",
+        "artists": [
+          "Radiohead"
+        ]
+      },
+      "context": []
+    },
+    {
+      "query": {
+        "title": "Hurt",
+        "artist": "Johnny Cash",
+        "durationMs": 216560
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Hurt",
+        "artist": "Nine Inch Nails",
+        "durationMs": 373000
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Jolene",
+        "artist": "Dolly Parton",
+        "durationMs": 161040
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    }
+  ],
+  "implementation": "direct-recording-links baseline, before composition fallback",
+  "stoppedReason": "Catalog failures and backoff; stopped without enabling library-wide enrichment"
+}

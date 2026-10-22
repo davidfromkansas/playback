@@ -37,7 +37,9 @@ An optional local DJ mood pilot uses a Vite middleware endpoint, separate from S
 It resolves a song against MusicBrainz's CC0 catalog and sends only canonical title/artist/recording
 facts to Jev. Set `TYPESAFE_API_KEY` in `.env.local` to try it, or use the manual mood selector
 at `/character-preview.html` without a key. This endpoint is not deployed in production.
-See [the data flow and setup](docs/dj-volt/public-song-moods.md).
+See [the data flow and setup](docs/dj-volt/public-song-moods.md). An opt-in
+[public-context pilot](docs/song-context/README.md) adds linked Wikidata musical facts;
+its initial live results do not yet justify enabling it across the library.
 
 The Street view's **Remix** toggle groups songs into mood rows. It loads recent
 plays first, then all available liked songs, top tracks, saved albums and accessible

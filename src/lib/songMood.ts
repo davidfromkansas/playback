@@ -17,8 +17,9 @@ export const MOOD_ROUTINES = {
 export type SongMood = keyof typeof MOOD_ROUTINES
 export interface MoodResult {
   status: string
-  profile: { mood: SongMood; confidence: number; probability: number } | null
+  profile: { mood: SongMood; confidence: number; probability: number; energy?: 'low' | 'medium' | 'high' | 'unknown' } | null
   source?: { sourceUrl: string; title: string; artists: string[] }
+  context?: { source: string; license: string; sourceUrl: string; scope: string }[]
 }
 const unavailable: MoodResult = { status: 'unavailable', profile: null }
 
@@ -27,7 +28,7 @@ export async function classifyPublicSong(title: string, artist: string, duration
   const response = await fetch('/api/song-mood', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ title, artist, durationMs }),
-    signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(25000)]) : AbortSignal.timeout(25000),
+    signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(60000)]) : AbortSignal.timeout(60000),
   })
   if (response.status === 404 || !response.headers.get('content-type')?.includes('application/json')) {
     return { status: 'unsupported', profile: null }
@@ -71,13 +72,13 @@ export function useSongMood(track: Track | null, enabled: boolean): SongMood {
 export function moodLabel(result: MoodResult): { text: string; detail: string } {
   const mood = result.profile?.mood
   if (mood && mood !== 'unknown') return {
-    text: mood[0].toUpperCase() + mood.slice(1), detail: `Estimated mood: ${mood}`,
+    text: mood[0].toUpperCase() + mood.slice(1), detail: `Estimated mood: ${mood}${result.context?.length ? ' · Sources: ' + result.context.map(item => item.sourceUrl).join(', ') : ''}`,
   }
   if (result.status === 'queued' || result.status === 'loading') {
     return { text: '…', detail: 'Finding song mood' }
   }
   return { text: 'Unrated', detail: result.status === 'not-configured'
-    ? 'Mood lookup is not configured yet' : result.status === 'no-match' ? 'No unambiguous public catalog match'
+    ? 'Mood lookup is not configured yet' : result.status === 'insufficient-context' ? 'Not enough public musical context to estimate a mood' : result.status === 'no-match' ? 'No unambiguous public catalog match'
       : result.status === 'unavailable' || result.status === 'busy' ? 'Mood lookup is temporarily unavailable'
       : 'No reliable mood estimate available' }
 }
