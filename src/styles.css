@@ -1211,3 +1211,6 @@ select {
 }
 .booklet-pages button { min-width: 44px; min-height: 44px; }
 .booklet-pages button:disabled { opacity: 0.35; cursor: default; }
+
+/* Keep the open booklet readable while the host continues dancing. */
+.room:has(.panel) .bubble { display: none; }
