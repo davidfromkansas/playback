@@ -3,7 +3,8 @@
   position: absolute;
   z-index: 12;
   left: 12px;
-  right: 12px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
   bottom: max(12px, env(safe-area-inset-bottom));
   padding: 0;
   border: 3px solid var(--ink);
@@ -45,7 +46,7 @@
 }
 .deck-body {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) minmax(200px, 0.7fr) 154px;
+  grid-template-columns: minmax(160px, 220px) 200px 154px;
   align-items: stretch;
   gap: 16px;
   padding: 10px 14px 4px;
@@ -104,13 +105,13 @@
 .deck-timeline input::-moz-range-thumb { width: 10px; height: 13px; border: 2px solid var(--ink); border-radius: 2px; background: var(--lemon); }
 .deck-timeline input:disabled { opacity: 0.5; cursor: default; }
 .deck-error { margin: 0; padding: 0 14px 6px; font-size: 11px; }
-.deck-compact-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.deck-compact-title { max-width: 220px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .is-compact .deck-header { border: 0; min-height: 36px; }
 .room:has(.miniamp:not(.is-compact)) .panel { bottom: calc(164px + env(safe-area-inset-bottom)); }
 .room:has(.miniamp:not(.is-compact)) .host { bottom: calc(165px + env(safe-area-inset-bottom)); }
 .room:has(.miniamp:not(.is-compact)) .hint { bottom: calc(162px + env(safe-area-inset-bottom)); }
 @media (max-width: 700px) {
-  .miniamp { left: 8px; right: 8px; bottom: max(8px, env(safe-area-inset-bottom)); }
+  .miniamp { left: 8px; width: 374px; max-width: calc(100% - 16px); bottom: max(8px, env(safe-area-inset-bottom)); }
   .deck-header { min-height: 32px; padding-left: 8px; gap: 6px; }
   .deck-brand { font-size: 9px; }
   .deck-source { font-size: 8px; letter-spacing: 0; }
@@ -125,6 +126,7 @@
   .deck-disclaimer { font-size: 8px; }
   .deck-timeline { padding: 0 9px 3px; gap: 5px; }
   .deck-timeline input { height: 28px; }
+  .miniamp.is-compact { width: fit-content; }
   .is-compact .deck-source { display: none; }
   .is-compact .deck-header { min-height: 44px; }
   .miniamp .deck-collapse, .miniamp .deck-mini-play { width: 32px; height: 28px; }
