@@ -14,7 +14,7 @@ import { PulledCD, type CaseStage } from './scene/PulledCD'
 import { type ScrollState } from './scene/scroll'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
-import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
+import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, saveCache, type Me } from './spotify/library'
 import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow } from './spotify/rows'
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
@@ -155,7 +155,9 @@ export default function App() {
       if (user) {
         setRowList(startingRows())
         // Whatever goes wrong, no row should be left saying it's loading forever.
-        void loadRows(user, list, setRowList).catch(() =>
+        void loadRows(user, list, setRowList).then(() => {
+          if (auth.isLoggedIn()) saveCache(user.id, list)
+        }).catch(() =>
           setRowList((rows) => rows.map((r) => (r.loading ? { ...r, loading: false, note: "Couldn't load this row" } : r))),
         )
       } else setRowList(sampleRows(list))
@@ -196,16 +198,21 @@ export default function App() {
 
   useEffect(() => {
     void (async () => {
+      if (new URLSearchParams(window.location.search).get('demo') === '1') {
+        void startShelf(null, sampleLibrary())
+        return
+      }
       const error = await auth.handleRedirect()
       if (error) setNotice({ text: error })
       if (auth.isLoggedIn()) void loadFromSpotify()
     })()
-  }, [loadFromSpotify])
+  }, [loadFromSpotify, startShelf])
 
   const trySample = () => void startShelf(null, sampleLibrary())
 
   const signOut = () => {
     player.stop()
+    player.disconnectPlayer()
     auth.logout()
     clearCache()
     setPulled(null)
@@ -533,7 +540,7 @@ export default function App() {
         <div className="brand">PLAYBACK</div>
         <input
           className="search"
-          placeholder={street ? 'Search Spotify…' : 'Find a CD…'}
+          placeholder={mode === 'sample' ? 'Search demo music…' : street ? 'Search Spotify…' : 'Find a CD…'}
           enterKeyHint="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -559,8 +566,8 @@ export default function App() {
             </button>
           </>
         ) : (
-          <button className="chip" onClick={() => setPhase('welcome')}>
-            Exit
+          <button className="chip" title="Demo · silent simulated playback" onClick={() => { player.stop(); setPhase('welcome') }}>
+            Exit demo
           </button>
         )}
       </header>
@@ -568,7 +575,7 @@ export default function App() {
 
       <Host line={line} bouncing={playing} theme={theme}
         navigation={{ horizontal: scroll, vertical: stack, enabled: !pulled && theme === 'street' }}
-        songMood={mode !== 'sample' && import.meta.env.DEV ? songMood : undefined} />
+        songMood={mode === 'sample' || import.meta.env.DEV ? songMood : undefined} />
 
       {pulled && pulled.stage !== 'returning' && <nav className="case-actions" aria-label="CD actions">
         <button className="chip" onClick={putBack}>← Back to collection</button>

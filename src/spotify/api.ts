@@ -31,7 +31,12 @@ export async function spotify<T = unknown>(path: string, init: RequestInit = {})
     })
     if (res.status === 429) {
       const remaining = recordCooldown(res.headers.get('Retry-After'))
-      throw new SpotifyError(429, 'rate_limit', cooldownMessage(remaining))
+      const body = await res.json().catch(() => null) as { error?: { reason?: string } } | null
+      const reason = body?.error?.reason ?? 'rate_limit'
+      const message = reason === 'QUOTA_EXCEEDED'
+        ? 'Spotify’s development-mode quota has been exceeded. This quota is shared across apps on the developer account. Spotify has not provided a quota reset time.'
+        : cooldownMessage(remaining)
+      throw new SpotifyError(429, reason, message)
     }
     if (res.status === 204 || res.status === 202) return undefined as T
     const text = await res.text()

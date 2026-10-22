@@ -119,7 +119,17 @@ export function playlistDisc(p: ApiPlaylist, me: Me): Disc {
 }
 
 /** Loads the song list for a CD the first time it's opened. */
-export async function loadTracks(disc: Disc): Promise<Track[]> {
+const pendingTracks = new WeakMap<Disc, Promise<Track[]>>()
+
+export function loadTracks(disc: Disc): Promise<Track[]> {
+  const pending = pendingTracks.get(disc)
+  if (pending) return pending
+  const work = fetchTracks(disc).finally(() => pendingTracks.delete(disc))
+  pendingTracks.set(disc, work)
+  return work
+}
+
+async function fetchTracks(disc: Disc): Promise<Track[]> {
   if (disc.tracks) return disc.tracks
   if (!disc.tracksAvailable) return []
   let tracks: Track[]
@@ -151,10 +161,9 @@ export async function loadTracks(disc: Disc): Promise<Track[]> {
 
 interface Cache { userId: string; savedAt: number; discs: Disc[] }
 
-function saveCache(userId: string, discs: Disc[]): void {
+export function saveCache(userId: string, discs: Disc[]): void {
   try {
-    const slim = discs.map(({ tracks: _tracks, ...rest }) => rest)
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ userId, savedAt: Date.now(), discs: slim }))
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ userId, savedAt: Date.now(), discs }))
   } catch {
     // Too big or storage blocked; we'll just reload next time.
   }

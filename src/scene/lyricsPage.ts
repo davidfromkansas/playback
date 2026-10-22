@@ -41,7 +41,7 @@ export function useBookletPage(
 
   // The song playing from this CD, if any.
   const { now } = useSyncExternalStore(playerStore.subscribe, playerStore.get)
-  const track = disc.kind === 'track' && now.disc?.id === disc.id ? now.track : null
+  const track = now.disc?.id === disc.id ? now.track : null
   const [state, setState] = useState<State>({ status: 'idle' })
   useEffect(() => {
     if (!track) return setState({ status: 'idle' })
@@ -67,15 +67,15 @@ export function useBookletPage(
   }, [])
   useEffect(() => {
     listOffset.current = 0
-    if (disc.kind === 'track') return
+    if (disc.kind === 'track' || track) return
     drawTrackList(page.ctx, w, h, disc, tracks, error, 0)
     page.tex.needsUpdate = true
-  }, [page, w, h, disc, tracks, error])
+  }, [page, w, h, disc, tracks, error, track])
   useEffect(() => songMoods.subscribe(() => {
-    if (disc.kind === 'track') return
+    if (disc.kind === 'track' || track) return
     drawTrackList(page.ctx, w, h, disc, tracks, error, listOffset.current)
     page.tex.needsUpdate = true
-  }), [page, w, h, disc, tracks, error])
+  }), [page, w, h, disc, tracks, error, track])
 
   const size = Math.round(w * LINE_PX)
   const rows = useMemo(() => {
@@ -88,7 +88,7 @@ export function useBookletPage(
 
   const view = useRef({ scroll: 0, active: -2, drawn: '' })
   useFrame((_, dt) => {
-    if (disc.kind !== 'track') {
+    if (disc.kind !== 'track' && !track) {
       if (!open || reduceMotion || document.hidden || !disc.tracksAvailable || error || !tracks?.length) return
       // Constant speed: three seconds per row. Cap suspension gaps so returning to a tab never jumps.
       listOffset.current = (listOffset.current + Math.min(dt, 0.1) / 3) % tracks.length

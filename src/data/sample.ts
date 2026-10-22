@@ -1,60 +1,69 @@
-// Made-up CDs so the shelf can be tried without a Spotify account.
+// Public catalog selections for filming. Listening history and moods are fictional.
 import type { Disc, Track } from '../types'
+import catalog from './filming-catalog.json'
 
-const ARTISTS = [
-  'The Paper Onions', 'DJ Toaster', 'Lil Cardboard', 'Moon Kettle', 'Sunny Side Up', 'Velvet Pancake',
-  'MC Scissors', 'Bubble Tea Club', 'Neon Garden', 'Captain Crayon', 'Disco Raccoon', 'The Funky Forks',
-]
-const WORDS = [
-  'Groove', 'Kitchen', 'Rhythm', 'Sunday', 'Believe', 'Rocket', 'Lemon', 'Bounce', 'Snack', 'Cloud',
-  'Hustle', 'Sparkle', 'Driving', 'Tiny', 'Big', 'Mellow', 'Hot', 'Cool', 'Paper', 'Stereo', 'Jelly', 'Beat',
-]
-const PLAYLISTS = ['Morning Hype', 'Cooking Jams', 'Road Trip 2026', 'Rainy Day', 'Gym Bangers', 'Sleepy Time', 'Throwbacks', 'Dance Floor']
-
-function rng(seed: number) {
-  return () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32)
-}
-
-function tracksFor(title: string, artist: string, count: number, rand: () => number): Track[] {
-  return Array.from({ length: count }, (_, i) => {
-    const a = WORDS[Math.floor(rand() * WORDS.length)]
-    const b = WORDS[Math.floor(rand() * WORDS.length)]
-    return {
-      uri: `sample:${title}:${i}`,
-      name: i === 0 ? `${title} (Intro)` : `${a} ${b}`,
-      artists: artist,
-      durationMs: 120000 + Math.floor(rand() * 150000),
-    }
-  })
+const moods: Record<string, string> = {
+  sabrina: 'playful', dua: 'euphoric', billie: 'melancholic', weeknd: 'romantic',
+  labi: 'nostalgic', flume: 'dreamy', tron: 'driving', d4vd: 'dreamy',
+  jid: 'confident', bastille: 'confident', cinema: 'driving',
+  kendrick: 'confident', queen: 'defiant', foofighters: 'defiant', rhcp: 'defiant', miles: 'relaxed', classical: 'solemn',
+  coltrane: 'relaxed', ella: 'relaxed', shakira: 'joyful', balvin: 'joyful',
+  wizkid: 'funky', rema: 'funky', blackpink: 'euphoric', twice: 'euphoric',
+  cash: 'nostalgic', willie: 'nostalgic', gould: 'solemn', hilary: 'solemn',
+  lana: 'melancholic', adele: 'melancholic', katy: 'playful', sade: 'romantic',
+  bonobo: 'dreamy', stevie: 'nostalgic', hans: 'driving',
+  latin: 'joyful', afrobeats: 'funky', kpop: 'euphoric', country: 'nostalgic',
 }
 
 export function sampleLibrary(): Disc[] {
-  const rand = rng(42)
-  const discs: Disc[] = []
-  const liked = tracksFor('Liked Songs', 'Various', 24, rand)
-  liked.forEach((t, i) => (t.artists = ARTISTS[i % ARTISTS.length]))
-  discs.push({
-    id: 'liked', kind: 'liked', title: 'Liked Songs', subtitle: 'You', uri: 'sample:liked',
-    spotifyUrl: 'https://open.spotify.com/collection/tracks', trackCount: liked.length, tracks: liked, tracksAvailable: true,
-  })
-  for (let i = 0; i < 84; i++) {
-    const artist = ARTISTS[Math.floor(rand() * ARTISTS.length)]
-    const title = `${WORDS[Math.floor(rand() * WORDS.length)]} ${WORDS[Math.floor(rand() * WORDS.length)]}`
-    const count = 6 + Math.floor(rand() * 9)
-    discs.push({
-      id: `album-${i}`, kind: 'album', title, subtitle: artist, uri: `sample:album:${i}`,
-      spotifyUrl: 'https://open.spotify.com/', trackCount: count, tracks: tracksFor(title, artist, count, rand),
-      addedAt: new Date(Date.UTC(2026, 9, 20) - i * 86400000 * 3).toISOString(), tracksAvailable: true,
+  const groups = catalog.map(group => ({ ...group,
+    tracks: group.tracks.map((track, i) => ({ ...track, demoMood: moods[group.id]
+      ?? (group.id === 'chappell' ? (i < 5 ? 'playful' : 'euphoric')
+        : group.id === 'taylor' ? (i < 5 ? 'melancholic' : 'romantic')
+          : i < 5 ? 'nostalgic' : 'confident') })),
+  }))
+  const select = (...ids: string[]): Track[] => {
+    const selected = ids.map(id => groups.find(group => group.id === id)?.tracks ?? [])
+    const seen = new Set<string>()
+    return Array.from({ length: Math.max(0, ...selected.map(tracks => tracks.length)) },
+      (_, i) => selected.flatMap(tracks => tracks[i] ? [tracks[i]] : [])).flat().filter(track => {
+      const cover = track.imageUrl ?? track.uri
+      if (seen.has(cover)) return false
+      seen.add(cover)
+      return true
     })
   }
-  PLAYLISTS.forEach((name, i) => {
-    const count = 10 + Math.floor(rand() * 15)
-    const tracks = tracksFor(name, 'Various', count, rand)
-    tracks.forEach((t) => (t.artists = ARTISTS[Math.floor(rand() * ARTISTS.length)]))
-    discs.push({
-      id: `playlist-${i}`, kind: 'playlist', title: name, subtitle: 'You', uri: `sample:playlist:${i}`,
-      spotifyUrl: 'https://open.spotify.com/', trackCount: count, tracks, tracksAvailable: true,
-    })
+  const playlists: [string, string[]][] = [
+    ['Pop Rotation', ['sabrina', 'dua', 'chappell', 'taylor']],
+    ['Rock Essentials', ['queen', 'foofighters', 'rhcp']],
+    ['Jazz Lounge', ['miles', 'coltrane', 'ella']],
+    ['Latin Rotation', ['latin', 'shakira', 'balvin']],
+    ['Afrobeats', ['afrobeats', 'wizkid', 'rema']],
+    ['K-Pop', ['kpop', 'blackpink', 'twice']],
+    ['Country Classics', ['country', 'cash', 'willie']],
+    ['Classical Focus', ['classical', 'gould', 'hilary']],
+    ['After Hours', ['weeknd', 'billie', 'd4vd']],
+    ['Dancefloor', ['dua', 'chappell', 'flume']],
+    ['Soft Focus', ['billie', 'taylor', 'labi']],
+    ['Road Trip', ['sabrina', 'bastille', 'cinema']],
+    ['Electronic Escape', ['flume', 'tron', 'weeknd']],
+    ['Hip Hop Mix', ['kendrick', 'jid']],
+    ['Golden Hour', ['labi', 'd4vd', 'taylor']],
+    ['Funk Classics', ['funk', 'labi']],
+    ['Soundtrack Sessions', ['tron', 'flume']],
+  ]
+  const disc = (id: string, kind: Disc['kind'], title: string, tracks: Track[], subtitle: string): Disc => ({
+    id, kind, title, subtitle, tracks, trackCount: tracks.length, tracksAvailable: true,
+    uri: `sample:${id}`, spotifyUrl: '', imageUrl: tracks[0]?.imageUrl,
   })
-  return discs
+  const albums = new Map<string, typeof groups[number]['tracks']>()
+  for (const group of groups) for (const track of group.tracks) {
+    const key = `${track.artists} — ${track.album}`
+    albums.set(key, [...(albums.get(key) ?? []), track])
+  }
+  return [
+    disc('liked', 'liked', 'Liked Songs', select('kendrick', 'dua', 'queen', 'latin', 'miles', 'afrobeats', 'kpop', 'country', 'classical', 'flume', 'labi', 'billie', 'sabrina', 'chappell', 'taylor', 'weeknd'), 'Demo collection'),
+    ...playlists.map(([title, ids], i) => disc(`playlist-${i}`, 'playlist', title, select(...ids), 'Demo mix')),
+    ...[...albums.values()].map((tracks, i) => disc(`album-${i}`, 'album', tracks[0].album, tracks, tracks[0].artists)),
+  ]
 }

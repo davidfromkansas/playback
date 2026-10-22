@@ -41,7 +41,7 @@ export function groupRemixTracks(tracks: readonly Track[], get: (track: Track) =
     const result = get(track)
     // Fake sample songs use explicitly labelled demo assignments, never Jev claims.
     const demoIndex = [...track.uri].reduce((hash, c) => (hash * 31 + c.charCodeAt(0)) >>> 0, 0) % REMIX_MOODS.length
-    const mood = sample ? REMIX_MOODS[demoIndex] : result.profile?.mood
+    const mood = sample ? (track.demoMood as SongMood | undefined) ?? REMIX_MOODS[demoIndex] : result.profile?.mood
     const reliable = mood && mood !== 'unknown' && buckets.has(mood)
     const pending = !sample && ['unrated', 'queued', 'loading'].includes(result.status)
     const id = reliable ? mood : pending ? 'pending' : 'unrated'
@@ -51,9 +51,12 @@ export function groupRemixTracks(tracks: readonly Track[], get: (track: Track) =
     if (!sample && ['unavailable', 'busy'].includes(result.status)) outcomes.unavailable++
     setup ||= result.status === 'not-configured'
     unsupported ||= result.status === 'unsupported'
-    buckets.get(id)!.push(trackDisc(track))
+    const bucket = buckets.get(id)!
+    if (!sample || !track.imageUrl || !bucket.some(disc => disc.imageUrl === track.imageUrl)) {
+      bucket.push(trackDisc(track))
+    }
   }
-  const rows: ShelfRow[] = [...buckets].map(([id, discs]) => ({
+  const rows: ShelfRow[] = [...buckets].filter(([, discs]) => !sample || discs.length > 0).map(([id, discs]) => ({
     id: `remix:${id}`, title: id === 'pending' ? 'Finding a mood' : id === 'unrated' ? 'Unrated' : moodTitle(id), discs,
     note: discs.length ? undefined : id === 'pending' ? 'All loaded songs checked' : 'No songs in this mood yet',
   }))

@@ -41,6 +41,11 @@ export async function collectRemixMusic(
     try { await work() } catch (error) {
       signal.throwIfAborted()
       const status = (error as { status?: number }).status
+      if (status === 429) {
+        issues.add((error as Error).message || 'Spotify quota reached; collection loading stopped')
+        publish(false)
+        throw error
+      }
       issues.add(status === 403 ? `${label}: sign out and back in to grant access, or Spotify may restrict this source`
         : `${label}: couldn't load everything; use Reload from Spotify to retry`)
       publish()
