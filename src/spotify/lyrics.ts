@@ -28,11 +28,10 @@ const cache = new Map<string, Promise<Lyrics>>()
 
 /** Lyrics for a song. Never rejects: network trouble or no match comes back as `none`. */
 export function fetchLyrics(track: Track, album?: string): Promise<Lyrics> {
-  if (track.uri.startsWith('sample:')) return Promise.resolve({ kind: 'none' })
   const key = track.uri || `${track.artists}/${track.name}`
   let found = cache.get(key)
   if (!found) {
-    found = lookup(track, album).catch(() => ({ kind: 'none' }) as const)
+    found = lookup(track, album ?? track.album).catch(() => ({ kind: 'none' }) as const)
     cache.set(key, found)
   }
   return found
@@ -56,7 +55,7 @@ async function lookup(track: Track, album?: string): Promise<Lyrics> {
 }
 
 async function get<T>(url: string): Promise<T | null> {
-  const res = await fetch(url)
+  const res = await fetch(url, { signal: AbortSignal.timeout(8000) })
   if (res.status === 404) return null
   if (!res.ok) throw new Error(`LRCLIB ${res.status}`)
   return (await res.json()) as T

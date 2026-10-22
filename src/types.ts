@@ -24,6 +24,7 @@ export interface Disc {
 }
 
 export interface Track {
+  album?: string
   /** Manually curated mood for simulated demo playback only. */
   demoMood?: string
   uri: string

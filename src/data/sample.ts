@@ -6,6 +6,8 @@ const moods: Record<string, string> = {
   sabrina: 'playful', dua: 'euphoric', billie: 'melancholic', weeknd: 'romantic',
   labi: 'nostalgic', flume: 'dreamy', tron: 'driving', d4vd: 'dreamy',
   jid: 'confident', bastille: 'confident', cinema: 'driving',
+  kendrick: 'confident', nirvana: 'defiant', miles: 'relaxed', classical: 'solemn',
+  latin: 'joyful', afrobeats: 'funky', kpop: 'euphoric', country: 'nostalgic',
 }
 
 export function sampleLibrary(): Disc[] {
@@ -17,16 +19,23 @@ export function sampleLibrary(): Disc[] {
   }))
   const select = (...ids: string[]): Track[] => {
     const selected = ids.map(id => groups.find(group => group.id === id)?.tracks ?? [])
-    return Array.from({ length: 10 }, (_, i) => selected.flatMap(tracks => tracks[i] ? [tracks[i]] : [] )).flat()
+    return Array.from({ length: Math.max(0, ...selected.map(tracks => tracks.length)) }, (_, i) => selected.flatMap(tracks => tracks[i] ? [tracks[i]] : [] )).flat()
   }
   const playlists: [string, string[]][] = [
     ['Pop Rotation', ['sabrina', 'dua', 'chappell', 'taylor']],
+    ['Rock Essentials', ['nirvana']],
+    ['Jazz Lounge', ['miles']],
+    ['Latin Rotation', ['latin']],
+    ['Afrobeats', ['afrobeats']],
+    ['K-Pop', ['kpop']],
+    ['Country Classics', ['country']],
+    ['Classical Focus', ['classical']],
     ['After Hours', ['weeknd', 'billie', 'd4vd']],
     ['Dancefloor', ['dua', 'chappell', 'flume']],
     ['Soft Focus', ['billie', 'taylor', 'labi']],
     ['Road Trip', ['sabrina', 'bastille', 'cinema']],
     ['Electronic Escape', ['flume', 'tron', 'weeknd']],
-    ['Hip Hop Mix', ['jid', 'weeknd']],
+    ['Hip Hop Mix', ['kendrick', 'jid']],
     ['Golden Hour', ['labi', 'd4vd', 'taylor']],
     ['Funk Classics', ['funk', 'labi']],
     ['Soundtrack Sessions', ['tron', 'flume']],
@@ -41,7 +50,7 @@ export function sampleLibrary(): Disc[] {
     albums.set(key, [...(albums.get(key) ?? []), track])
   }
   return [
-    disc('liked', 'liked', 'Liked Songs', select('sabrina', 'dua', 'billie', 'taylor', 'weeknd', 'chappell', 'labi', 'flume'), 'Demo collection'),
+    disc('liked', 'liked', 'Liked Songs', select('kendrick', 'dua', 'nirvana', 'latin', 'miles', 'afrobeats', 'kpop', 'country', 'classical', 'flume', 'labi', 'billie', 'sabrina', 'chappell', 'taylor', 'weeknd'), 'Demo collection'),
     ...playlists.map(([title, ids], i) => disc(`playlist-${i}`, 'playlist', title, select(...ids), 'Demo mix')),
     ...[...albums.values()].map((tracks, i) => disc(`album-${i}`, 'album', tracks[0].album, tracks, tracks[0].artists)),
   ]
