@@ -46,8 +46,8 @@ export function CoverMoodBadge({ disc, right, bottom, z, coverWidth }: {
   const art = badgeArt(label.text)
   const height = coverWidth * 0.105
   const width = height * art.aspect
-  const inset = coverWidth * 0.025
-  return <mesh name="CoverMoodBadge" position={[right - inset - width / 2, bottom + inset + height / 2, z]}
+  const gap = coverWidth * 0.06
+  return <mesh name="CoverMoodBadge" position={[right + gap + width / 2, bottom + height / 2, z]}
     renderOrder={1} raycast={() => {}}>
     <planeGeometry args={[width, height]} />
     <meshBasicMaterial map={art.texture} transparent toneMapped={false} depthWrite={false} />

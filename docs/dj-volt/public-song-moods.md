@@ -45,8 +45,8 @@ shelf label, and the now-playing bar. They show an ellipsis while queued/loading
 production remains without a classifier endpoint, so its labels are `Unrated`.
 Sample mode and production retain the existing automatic animation cycle.
 
-Single-song cases also carry the label in the bottom-right corner of their front cover,
-in both themes. The badge is attached to the lid, uses shared small textures, and does
+Single-song cases also carry the label floating just outside the right edge of their
+front cover, aligned with the bottom corner, in both themes. The badge follows the lid, uses shared small textures, and does
 not alter the source album art or intercept case clicks. Albums and playlists have no
 cover badge because they do not have one song mood. Desktop/phone cover, opening, and
 label-update checks passed in `output/dj-volt/labels-1792637686354/`.
