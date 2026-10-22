@@ -5,14 +5,15 @@ const browser = await chromium.launch({ channel: 'chrome', headless: true })
 const results = []
 try {
   for (const phone of [false, true]) {
-    const page = await browser.newPage({ viewport: phone ? { width: 390, height: 800 } : { width: 1280, height: 760 }, isMobile: phone, hasTouch: phone })
+    const page = await browser.newPage({ viewport: phone ? { width: 390, height: 800 } : { width: 1280, height: 760 }, isMobile: phone, hasTouch: phone, deviceScaleFactor: phone ? 3 : 1 })
     const errors = []
     page.on('pageerror', (e) => errors.push(e.message))
     await page.goto(`${process.env.TOKYO_URL || 'http://127.0.0.1:4173'}/?sky=night&verifyTokyo=1&animateTrain=1`, { waitUntil: 'domcontentloaded' })
     await page.getByText('Try it with sample CDs').click()
     await page.waitForFunction(() => window.__tokyo?.backdropCalls > 0, undefined, { timeout: 60000 })
     const streetPixelRatio = await page.evaluate(() => window.__tokyo.pixelRatio)
-    assert.equal(streetPixelRatio, 2, 'Street keeps its quality render scale after Canvas updates')
+    assert.equal(streetPixelRatio, phone ? 1.5 : 2, 'Street keeps its quality render scale after Canvas updates')
+    assert.equal(await page.evaluate(() => window.__tokyo.shadowSize), phone ? 2048 : 8192)
     const train = await page.evaluate(() => window.__tokyo.trainX)
     await page.waitForFunction((x) => window.__tokyo.trainX !== x, train, { timeout: 30000 })
     if (phone) {

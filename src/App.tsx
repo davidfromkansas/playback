@@ -3,6 +3,7 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExt
 import * as THREE from 'three'
 import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
+import { renderBudget } from './lib/renderBudget'
 import { useTimeOfDay } from './lib/timeOfDay'
 import { loadThemeFonts, useTheme } from './lib/theme'
 import { cameraFor, CameraRig } from './scene/CameraRig'
@@ -52,6 +53,7 @@ function sortDiscs(discs: Disc[], key: SortKey): Disc[] {
 }
 
 export default function App() {
+  const [budget] = useState(renderBudget)
   const [theme, setTheme] = useTheme()
   const sky = useTimeOfDay()
   const rhymes = rhymesFor(theme)
@@ -434,7 +436,7 @@ export default function App() {
             position: [0, cameraFor(theme).y, cameraFor(theme).z],
             fov: cameraFor(theme).fov,
           }}
-          dpr={theme === 'street' ? 2 : [1, 2]}
+          dpr={theme === 'street' ? budget.pixelRatio : [1, 2]}
           gl={{ antialias: true, alpha: true }}
           onPointerMissed={() => {
             // Tapping empty space puts a closed CD back; an open one stays until "Put it back".

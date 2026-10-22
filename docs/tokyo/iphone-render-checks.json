@@ -1,0 +1,50 @@
+[
+  {
+    "device": "desktop",
+    "sky": "day",
+    "errors": [],
+    "failures": [],
+    "pixelRatio": 2,
+    "shadowSize": 8192
+  },
+  {
+    "device": "desktop",
+    "sky": "sunset",
+    "errors": [],
+    "failures": [],
+    "pixelRatio": 2,
+    "shadowSize": 8192
+  },
+  {
+    "device": "desktop",
+    "sky": "night",
+    "errors": [],
+    "failures": [],
+    "pixelRatio": 2,
+    "shadowSize": 8192
+  },
+  {
+    "device": "phone",
+    "sky": "day",
+    "errors": [],
+    "failures": [],
+    "pixelRatio": 1.5,
+    "shadowSize": 2048
+  },
+  {
+    "device": "phone",
+    "sky": "sunset",
+    "errors": [],
+    "failures": [],
+    "pixelRatio": 1.5,
+    "shadowSize": 2048
+  },
+  {
+    "device": "phone",
+    "sky": "night",
+    "errors": [],
+    "failures": [],
+    "pixelRatio": 1.5,
+    "shadowSize": 2048
+  }
+]
