@@ -1,6 +1,6 @@
 // Street theme: comic-style speed lines streak across the screen while the shelf is moving fast.
 import { useEffect, useRef } from 'react'
-import type { ScrollState } from '../scene/Shelf'
+import type { ScrollState } from '../scene/scroll'
 
 export function SpeedLines({ scroll }: { scroll: ScrollState }) {
   const el = useRef<HTMLDivElement>(null)

@@ -77,5 +77,7 @@ export function moodLabel(result: MoodResult): { text: string; detail: string } 
     return { text: '…', detail: 'Finding song mood' }
   }
   return { text: 'Unrated', detail: result.status === 'not-configured'
-    ? 'Mood lookup is not configured yet' : 'No reliable mood estimate available' }
+    ? 'Mood lookup is not configured yet' : result.status === 'no-match' ? 'No unambiguous public catalog match'
+      : result.status === 'unavailable' || result.status === 'busy' ? 'Mood lookup is temporarily unavailable'
+      : 'No reliable mood estimate available' }
 }

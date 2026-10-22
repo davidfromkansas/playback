@@ -42,7 +42,7 @@ export async function collectRemixMusic(
       signal.throwIfAborted()
       const status = (error as { status?: number }).status
       issues.add(status === 403 ? `${label}: sign out and back in to grant access, or Spotify may restrict this source`
-        : `${label}: couldn't load everything; try turning Remix off and on`)
+        : `${label}: couldn't load everything; use Reload from Spotify to retry`)
       publish()
     }
   }

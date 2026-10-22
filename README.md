@@ -3,9 +3,7 @@
 Your Spotify library as a 3D collection of CDs. Sign in with Spotify, swipe through your CDs,
 pull one out, open the case and play it. A dancing host character keeps you company.
 
-Two looks, switched from the top bar:
-- **Street** (default): a Jet Set Radio-style rooftop with a swipeable line of real-looking jewel cases.
-- **Paper**: a pastel paper-cutout room with a shelf of CD spines, tap-along rhythm buttons and a mood meter.
+The app uses a Jet Set Radio-style rooftop with a swipeable collection of jewel cases.
 
 Open an album, playlist or Liked Songs CD to see its track list inside the left cover. The booklet scrolls continuously, looping from the last track back to the first. With reduced motion enabled it stays still; the full track panel remains scrollable. Individual-song CDs show lyrics there during playback.
 
@@ -46,6 +44,8 @@ plays first, then all available liked songs, top tracks, saved albums and access
 playlists. Sample mode previews the layout with labelled demo moods. Real mood
 sorting uses the local Jev setup above; existing Spotify users may need to sign out
 and back in for the new top-tracks permission. [Remix details](docs/remix/README.md).
+The VOLT—01 Miniamp player has playback controls, elapsed time, a seek slider and a collapsible visualizer.
+“Visual mode” is decorative animation, not a measurement of Spotify audio. It freezes when paused or reduced motion is enabled.
 
 ## How playback works
 
@@ -60,4 +60,6 @@ and back in for the new top-tracks permission. [Remix details](docs/remix/README
 
 - Development-mode apps allow 5 users, each added by hand in the dashboard.
 - Spotify only lists the songs of playlists you own or co-edit. Followed playlists still play as a whole.
-- Spotify no longer gives new apps a song's tempo, so the rhythm bar follows a steady 100 BPM beat.
+- Spotify no longer gives new apps a song's tempo, so the host dances to a steady 100 BPM beat.
+
+While inspecting a CD, use **Tracks** to open the selectable track list and **Back to collection** to return it. The booklet stays front and center; shelf signs hide and the edges of the scene dim. VOLT—01 docks bottom-right and starts collapsed on phones. Playback controls live in the player once a CD has started.

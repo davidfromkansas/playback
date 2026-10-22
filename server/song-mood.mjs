@@ -30,7 +30,17 @@ export function matchRecording(query, recordings) {
     && normalize(credits(recording).join(' ')) === normalize(query.artist)
     && Number.isFinite(recording.length) && Math.abs(recording.length - query.durationMs) <= 5000)
   const ids = [...new Set(matches.map(recording => recording.id))]
-  return ids.length === 1 ? ids[0] : null
+  if (ids.length === 1) return ids[0]
+  // Distinct edits often share a title. Prefer an almost exact duration only
+  // when it is clearly closer; ties still need more evidence.
+  const ranked = [...new Map(matches.map(recording => [recording.id, recording])).values()]
+    .sort((a, b) => Math.abs(a.length - query.durationMs) - Math.abs(b.length - query.durationMs))
+  if (ranked.length > 1) {
+    const first = Math.abs(ranked[0].length - query.durationMs)
+    const second = Math.abs(ranked[1].length - query.durationMs)
+    if (first <= 1000 && second - first >= 1000) return ranked[0].id
+  }
+  return null
 }
 
 export function publicFacts(recording, expectedId) {

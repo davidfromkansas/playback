@@ -8,7 +8,7 @@ import type { Disc } from '../types'
 import { JewelCase } from './JewelCase'
 import { SteelShelf } from './SteelShelf'
 import { CASE_H, CASE_W, LINE_STEP } from './layout'
-import type { ScrollState } from './Shelf'
+import type { ScrollState } from './scroll'
 
 // The line runs to the right and away from the camera; each case is turned to face front-left.
 const DIR = new THREE.Vector3(0.78, 0, -0.62).normalize()

@@ -5,13 +5,13 @@ import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
 import { renderBudget } from './lib/renderBudget'
 import { useTimeOfDay } from './lib/timeOfDay'
-import { loadThemeFonts, useTheme } from './lib/theme'
+import { loadThemeFonts } from './lib/theme'
 import { cameraFor, CameraRig } from './scene/CameraRig'
 import { RowStack, type StackState } from './scene/RowStack'
-import { LINE_STEP, ROWS, slot } from './scene/layout'
+import { LINE_STEP } from './scene/layout'
 import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
-import { Shelf, type ScrollState } from './scene/Shelf'
+import { type ScrollState } from './scene/scroll'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
 import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
@@ -22,8 +22,8 @@ import { Host, rhymesFor } from './ui/Host'
 import { useLoadedSongMoods, useSongMood } from './lib/songMood'
 import { useRemixCollection, useRemixRows } from './lib/remix'
 import { SongMoodLabel } from './ui/SongMoodLabel'
-import { MoodMeter, NowPlayingBar, TrackPanel } from './ui/Panels'
-import { RhythmBar, type Hit } from './ui/RhythmBar'
+import { TrackPanel } from './ui/Panels'
+import { NowPlayingBar } from './ui/NowPlayingBar'
 import { LoadingCard, SceneLoading } from './ui/Loading'
 import { SpeedLines } from './ui/SpeedLines'
 
@@ -57,27 +57,37 @@ function sortDiscs(discs: Disc[], key: SortKey): Disc[] {
 
 export default function App() {
   const [budget] = useState(renderBudget)
-  const [theme, setTheme] = useTheme()
+  const theme = 'street' as const
   const sky = useTimeOfDay()
   const rhymes = rhymesFor(theme)
   const [phase, setPhase] = useState<Phase>('welcome')
   const [me, setMe] = useState<Me | null>(null)
   const [library, setLibrary] = useState<Disc[]>([])
-  const [sortKey, setSortKey] = useState<SortKey>('added')
+  const sortKey: SortKey = 'added'
   const [query, setQuery] = useState('')
   const [pulled, setPulled] = useState<Pulled | null>(null)
+  const [showTracks, setShowTracks] = useState(false)
+  const [showHint, setShowHint] = useState(true)
+  useEffect(() => { setShowTracks(false) }, [pulled?.disc.id, pulled?.stage])
+  useEffect(() => {
+    if (phase !== 'shelf') return
+    const timer = setTimeout(() => setShowHint(false), 8000)
+    return () => clearTimeout(timer)
+  }, [phase])
   const [tracks, setTracks] = useState<Track[] | null>(null)
   const [trackError, setTrackError] = useState<string | null>(null)
   const [line, setLine] = useState(rhymes.welcome())
   const [notice, setNotice] = useState<{ text: string; openUrl?: string } | null>(null)
-  const [mood, setMood] = useState(50)
   const [starting, setStarting] = useState(false)
   const shelfScroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
-  const rows = ROWS
   const street = theme === 'street'
   const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
   const [remix, setRemix] = useState(false)
   const remixHome = useRef(0)
+  const topbarRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const [headerTop, setHeaderTop] = useState(70)
+  const [focusTop, setFocusTop] = useState(132)
 
   // Street: rows of CDs stacked top to bottom, each remembering how far along it you've scrolled.
   const [rowList, setRowList] = useState<ShelfRow[]>([])
@@ -202,17 +212,6 @@ export default function App() {
 
   // ---- Shelf interactions ----------------------------------------------------
 
-  const highlightId = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return null
-    return discs.find((d) => d.title.toLowerCase().includes(q) || d.subtitle.toLowerCase().includes(q))?.id ?? null
-  }, [query, discs])
-
-  useEffect(() => {
-    if (!highlightId || street) return
-    shelfScroll.target = slot(discs.findIndex((d) => d.id === highlightId), rows).x
-  }, [highlightId, discs, rows, shelfScroll, street])
-
   // Street: pressing Enter in the search box opens the results page.
   const runSearch = useCallback(
     (raw: string) => {
@@ -250,14 +249,21 @@ export default function App() {
     stack.target = stack.current = row
   }
 
-  // Switching looks starts the Paper shelf from the beginning again.
-  useEffect(() => {
-    shelfScroll.target = -Infinity
-    shelfScroll.current = NaN
-  }, [theme, shelfScroll])
-
   // Street: the CD at the front of the line, named in a label above it.
   const [focused, setFocused] = useState<Disc | null>(null)
+  useEffect(() => {
+    const measure = () => {
+      setHeaderTop((topbarRef.current?.getBoundingClientRect().bottom ?? 58) + 12)
+      setFocusTop((headerRef.current?.getBoundingClientRect().bottom ?? 120) + 12)
+    }
+    const observer = new ResizeObserver(measure)
+    if (topbarRef.current) observer.observe(topbarRef.current)
+    if (headerRef.current) observer.observe(headerRef.current)
+    window.addEventListener('resize', measure)
+    measure()
+    return () => { observer.disconnect(); window.removeEventListener('resize', measure) }
+  }, [pulled, results, remix, activeRow, headerTop])
+
 
   const pick = useCallback(
     (disc: Disc, from: THREE.Vector3, fromRy?: number) => {
@@ -328,30 +334,17 @@ export default function App() {
     }
   }
 
-  const onHit = useCallback(
-    (hit: Hit) => {
-      setMood((m) => {
-        const next = Math.max(0, Math.min(100, m + (hit === 'perfect' ? 7 : hit === 'good' ? 3 : -6)))
-        if (m < 75 && next >= 75) setLine(rhymes.cool())
-        if (m >= 40 && next < 40) setLine(rhymes.bad())
-        return next
-      })
-    },
-    [rhymes],
-  )
-
-  const skip = (dir: 1 | -1) => {
-    void player.skip(dir)
-    if (dir > 0) setMood((m) => Math.max(0, m - 8))
-  }
+  const skip = (dir: 1 | -1) => { void player.skip(dir) }
 
   // Keyboard: arrows scroll the shelf, Escape puts the CD back.
   useEffect(() => {
     if (phase !== 'shelf') return
     const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).tagName === 'INPUT') return
+      if (e.defaultPrevented || (e.target instanceof HTMLElement &&
+        e.target.closest('input, select, textarea, button, a, [contenteditable="true"]'))) return
       if (e.key === 'Escape') {
-        if (pulled) putBack()
+        if (showTracks) setShowTracks(false)
+        else if (pulled) putBack()
         else if (results) closeSearch()
       }
       if (pulled) return
@@ -461,7 +454,7 @@ export default function App() {
   }
 
   return (
-    <main className={`room ${theme} ${playing ? 'grooving' : ''} ${remix && street && !results ? 'remixing' : ''}`} data-sky={street ? sky : undefined}>
+    <main className={`room ${theme} ${playing ? 'grooving' : ''} ${pulled ? 'inspecting' : ''} ${remix && street && !results ? 'remixing' : ''}`} data-sky={street ? sky : undefined}>
       <div
         className="stage"
         onWheel={onWheel}
@@ -490,7 +483,7 @@ export default function App() {
               <StreetBackdrop scroll={scroll} discs={discs} sky={sky} />
             </Suspense>
           )}
-          {street ? (
+          {street && (
             <Suspense fallback={null}>
               <RowStack
                 rows={shownRows}
@@ -504,16 +497,6 @@ export default function App() {
                 onFocus={setFocused}
               />
             </Suspense>
-          ) : (
-            <Shelf
-              discs={discs}
-              rows={rows}
-              scroll={shelfScroll}
-              selectedId={pulled?.disc.id ?? null}
-              highlightId={highlightId}
-              playing={playing}
-              onPick={pick}
-            />
           )}
           {pulled && (
             <PulledCD
@@ -540,7 +523,7 @@ export default function App() {
       <SceneLoading text={street ? 'Building the rooftop…' : 'Setting up the shelf…'} />
       {theme === 'street' && <SpeedLines scroll={scroll} />}
 
-      <header className="topbar">
+      <header className="topbar" ref={topbarRef}>
         <div className="brand">PLAYBACK</div>
         <input
           className="search"
@@ -556,25 +539,10 @@ export default function App() {
             }
           }}
         />
-        {!street && (
-        <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} aria-label="Sort">
-          <option value="added">Recently added</option>
-          <option value="title">Title</option>
-          <option value="artist">Artist</option>
-          <option value="kind">Type</option>
-        </select>
-        )}
         {street && <button className="chip remix-toggle" role="switch" aria-checked={remix}
           disabled={!!pulled} onClick={toggleRemix} title="Group your music by mood">
           Remix <span aria-hidden="true">{remix ? 'ON' : 'OFF'}</span>
         </button>}
-        <button
-          className="chip theme-toggle"
-          onClick={() => setTheme(theme === 'street' ? 'paper' : 'street')}
-          title="Switch look"
-        >
-          {theme === 'street' ? 'Paper' : 'Street'}<span className="wide-only"> look</span>
-        </button>
         {me ? (
           <>
             <button className="chip" onClick={() => void loadFromSpotify(true)} title="Reload from Spotify">
@@ -591,22 +559,28 @@ export default function App() {
         )}
       </header>
 
-      {playing && <RhythmBar onHit={onHit} />}
-      {now.disc && <MoodMeter score={mood} />}
 
       <Host line={line} bouncing={playing} theme={theme}
         navigation={{ horizontal: scroll, vertical: stack, enabled: !pulled && theme === 'street' }}
         songMood={mode !== 'sample' && import.meta.env.DEV ? songMood : undefined} />
 
-      {pulled && pulled.stage === 'open' && (
+      {pulled && pulled.stage !== 'returning' && <nav className="case-actions" aria-label="CD actions">
+        <button className="chip" onClick={putBack}>← Back to collection</button>
+        {pulled.stage === 'open' && <>
+          {now.disc?.id !== pulled.disc.id && <button className="chip" disabled={starting}
+            onClick={() => void playIndex(0)}>{starting ? 'Starting…' : '▶ Play CD'}</button>}
+          <button className="chip" aria-expanded={showTracks} aria-controls="case-tracks"
+            onClick={() => setShowTracks(value => !value)}>{showTracks ? 'Hide tracks' : 'Tracks'}</button>
+        </>}
+      </nav>}
+      {pulled && pulled.stage === 'open' && showTracks && (
         <TrackPanel
           disc={pulled.disc}
           tracks={tracks}
           error={trackError}
           nowUri={now.disc?.id === pulled.disc.id ? (now.track?.uri ?? null) : null}
           onPlay={(i) => void playIndex(i)}
-          onClose={putBack}
-          starting={starting}
+          onClose={() => setShowTracks(false)}
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}
@@ -628,7 +602,7 @@ export default function App() {
         </div>
       )}
       {!pulled && street && currentRow && (
-        <div className={`row-header ${results ? 'below-results' : ''}`} key={`header:${currentRow.id}`}>
+        <div ref={headerRef} style={{ top: results ? headerTop + 54 : headerTop }} className={`row-header ${results ? 'below-results' : ''}`} key={`header:${currentRow.id}`}>
           {remix && !results ? <select aria-label="Mood row" value={activeRow} onChange={e => goToRow(Number(e.target.value))}>
             {shownRows.map((row, index) => <option key={row.id} value={index}>{row.title} · {row.discs.length}</option>)}
           </select> : <strong>{currentRow.title}</strong>}
@@ -639,7 +613,11 @@ export default function App() {
             {mode === 'sample' ? `Demo moods · ${remixed.total} sample songs`
               : remixed.setup ? `Jev isn't connected yet · ${remixed.total} songs ready`
               : !import.meta.env.DEV || remixed.unsupported ? `Mood sorting isn't enabled on this site yet · ${remixed.total} songs ready`
-              : `${remixed.classified} of ${remixed.total} sorted · ${remixed.pending} waiting`}
+              : `${remixed.total - remixed.pending} of ${remixed.total} checked · ${remixed.classified} sorted · ${remixed.pending} waiting`}
+            {mode !== 'sample' && remixed.total - remixed.pending > 0 && !remixed.classified && <small>No reliable moods yet. Checked songs remain available in Unrated.</small>}
+            {mode !== 'sample' && (remixed.outcomes.unmatched + remixed.outcomes.uncertain + remixed.outcomes.unavailable > 0) && <small>
+              {remixed.outcomes.unmatched} without a public catalog match · {remixed.outcomes.uncertain} uncertain · {remixed.outcomes.unavailable} lookup errors
+            </small>}
             {mode !== 'sample' && <small>{collection.loading ? `Loading ${collection.source}…` : `${collection.recentCount} recently played songs included`}</small>}
             {collection.issues.length > 0 && <details><summary>Some music couldn't be loaded</summary>
               {collection.issues.map(issue => <p key={issue}>{issue}</p>)}
@@ -661,14 +639,20 @@ export default function App() {
           </button>
         </div>
       )}
+      {!pulled && street && currentRow && !currentRow.loading && !currentRow.discs.length && (
+        <div className="empty-row" style={{ top: focusTop }} role="status">
+          <strong>{currentRow.title}</strong>
+          <span>{currentRow.note ?? 'No songs here yet'}</span>
+        </div>
+      )}
       {!pulled && street && focused && currentRow?.discs.length ? (
-        <div className={`focus-label ${results ? 'below-results' : ''}`} key={`focus:${focused.id}`}>
+        <div style={{ top: focusTop }} className={`focus-label ${results ? 'below-results' : ''}`} key={`focus:${focused.id}`}>
           <strong>{focused.title}</strong>
           <span>{focused.subtitle}</span>
           {focused.kind === 'track' && focused.tracks?.[0] && <SongMoodLabel track={focused.tracks[0]} />}
         </div>
       ) : null}
-      {!pulled && (
+      {!pulled && showHint && (
         <p className="hint">
           {theme === 'street'
             ? 'Swipe left/right through CDs · up/down to change rows · tap the front one'
@@ -696,6 +680,7 @@ export default function App() {
         onToggle={() => void player.togglePause()}
         onSkip={skip}
         onEnded={() => void player.skip(1)}
+        onSeek={player.seek}
       />
     </main>
   )

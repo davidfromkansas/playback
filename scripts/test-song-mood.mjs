@@ -72,3 +72,9 @@ test('missing credentials, missing matches, and upstream failures leave playback
   assert.equal((await noMatch(query)).status, 'no-match')
   assert.equal(calls, 1)
 })
+
+test('duration separates a close catalog match from a different edit without accepting ties', () => {
+  const other = { ...recording, id: '11234567-0123-4123-8123-0123456789ab', length: 203000 }
+  assert.equal(matchRecording(query, [other, recording]), id)
+  assert.equal(matchRecording(query, [recording, { ...other, length: 200000 }]), null)
+})
