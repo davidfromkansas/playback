@@ -1,0 +1,22 @@
+[
+  {
+    "device": "desktop",
+    "train": "moves",
+    "navigation": "row button",
+    "pickOpenPlayReturn": "pass",
+    "paperAndBack": "pass",
+    "streetPixelRatio": 2,
+    "paperPixelRatio": 1,
+    "errors": []
+  },
+  {
+    "device": "phone",
+    "train": "moves",
+    "navigation": "touch swipe",
+    "pickOpenPlayReturn": "pass",
+    "paperAndBack": "pass",
+    "streetPixelRatio": 1.5,
+    "paperPixelRatio": 2,
+    "errors": []
+  }
+]

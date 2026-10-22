@@ -1,0 +1,66 @@
+{
+  "engine": "webkit",
+  "samples": [
+    {
+      "cycle": 0,
+      "viewport": {
+        "width": 390,
+        "height": 800
+      },
+      "textures": 88,
+      "shadowSize": 2048,
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 0,
+      "viewport": {
+        "width": 800,
+        "height": 390
+      },
+      "textures": 103,
+      "shadowSize": 2048,
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 1,
+      "viewport": {
+        "width": 390,
+        "height": 800
+      },
+      "textures": 88,
+      "shadowSize": 2048,
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 1,
+      "viewport": {
+        "width": 800,
+        "height": 390
+      },
+      "textures": 103,
+      "shadowSize": 2048,
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 2,
+      "viewport": {
+        "width": 390,
+        "height": 800
+      },
+      "textures": 88,
+      "shadowSize": 2048,
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 2,
+      "viewport": {
+        "width": 800,
+        "height": 390
+      },
+      "textures": 103,
+      "shadowSize": 2048,
+      "pixelRatio": 1.5
+    }
+  ],
+  "errors": []
+}

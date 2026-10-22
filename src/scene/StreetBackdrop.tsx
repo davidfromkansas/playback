@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import type { TimeOfDay } from '../lib/timeOfDay'
 import { pulse } from '../lib/beat'
+import { renderBudget } from '../lib/renderBudget'
 import type { Disc } from '../types'
 import type { ScrollState } from './Shelf'
 import { billboardAd, billboardWithCover } from './streetArt'
@@ -69,6 +70,9 @@ export function StreetBackdrop({ scroll, discs, sky }: { scroll: ScrollState; di
   const group = useRef<THREE.Group>(null)
   const train = useRef<THREE.Group>(null)
   const { scene, gl, size, camera } = useThree()
+  const [budget] = useState(renderBudget)
+  const shadowLight = useRef<THREE.DirectionalLight>(null)
+  const shadowSize = Math.min(budget.shadowSize, gl.capabilities.maxTextureSize)
   const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
   const compact = size.width / size.height < 0.8
   const bloom = sky === 'night' && size.width >= 800 && gl.capabilities.maxTextureSize >= 8192 && !window.matchMedia('(pointer: coarse)').matches
@@ -189,7 +193,10 @@ export function StreetBackdrop({ scroll, discs, sky }: { scroll: ScrollState; di
     if (VERIFY && group.current) {
       const w = window as typeof window & { __tokyo?: unknown }
       if (++frames.current % 30 === 0) w.__tokyo = {
-        sky, bloom, pixelRatio: gl.getPixelRatio(), backdropCalls: gl.info.render.calls - counts.current.foreground, backdropTriangles: counts.current.triangles,
+        sky, bloom, pixelRatio: gl.getPixelRatio(),
+        shadowSize: shadowLight.current?.shadow.map?.width,
+        textures: gl.info.memory.textures,
+        backdropCalls: gl.info.render.calls - counts.current.foreground, backdropTriangles: counts.current.triangles,
         totalCalls: gl.info.render.calls, totalTriangles: gl.info.render.triangles,
         meshes: pieces.length, trainX: train.current?.position.x,
         names: pieces.map((p) => p.name), roles: [...new Set(pieces.map((p) => p.role))],
@@ -221,8 +228,8 @@ export function StreetBackdrop({ scroll, discs, sky }: { scroll: ScrollState; di
         <ambientLight intensity={1.1} />
         <directionalLight position={[-20, 40, 30]} intensity={2.2} />
         {/* A shadow-only light lets the city sunset change without relighting the CDs. */}
-        <directionalLight position={sky === 'sunset' ? [-50, 40, 20] : [-40, 65, 30]} intensity={0} castShadow
-          shadow-mapSize={[Math.min(8192, gl.capabilities.maxTextureSize), Math.min(8192, gl.capabilities.maxTextureSize)]} shadow-camera-left={-60} shadow-camera-right={60}
+        <directionalLight ref={shadowLight} position={sky === 'sunset' ? [-50, 40, 20] : [-40, 65, 30]} intensity={0} castShadow
+          shadow-mapSize={[shadowSize, shadowSize]} shadow-camera-left={-60} shadow-camera-right={60}
           shadow-camera-top={75} shadow-camera-bottom={-75} shadow-camera-near={1} shadow-camera-far={260}
           shadow-normalBias={0.012} shadow-bias={-0.00005} />
         {pieces.filter((p) => !p.train && !p.name.startsWith('Tower')).map(renderPiece)}

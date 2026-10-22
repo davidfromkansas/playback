@@ -8,7 +8,7 @@ const results = []
 try {
   for (const [device, width, height] of [['desktop', 1280, 760], ['phone', 390, 800]]) {
     for (const sky of (process.env.TOKYO_SKIES || 'day,sunset,night').split(',')) {
-      const page = await browser.newPage({ viewport: { width, height }, isMobile: device === 'phone', hasTouch: device === 'phone' })
+      const page = await browser.newPage({ viewport: { width, height }, isMobile: device === 'phone', hasTouch: device === 'phone', deviceScaleFactor: device === 'phone' ? 3 : 1 })
       const errors = []
       page.on('pageerror', (e) => errors.push(e.message))
       page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()) })
@@ -21,6 +21,8 @@ try {
       await page.screenshot({ path: `${out}/${device}-${sky}.png` })
       const stats = await page.evaluate(() => window.__tokyo)
       const failures = []
+      if (stats.pixelRatio !== (device === 'phone' ? 1.5 : 2)) failures.push('Incorrect render scale')
+      if (stats.shadowSize !== (device === 'phone' ? 2048 : 8192)) failures.push('Incorrect shadow allocation')
       const diagnostics = []
       if (stats.backdropCalls >= 120) diagnostics.push('Above former draw-call target')
       if (stats.backdropTriangles >= (device === 'phone' ? 80000 : 150000)) diagnostics.push('Above former triangle target')
