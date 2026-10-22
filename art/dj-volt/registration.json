@@ -1,7 +1,7 @@
 {
   "size": {
-    "width": 280,
-    "height": 340
+    "width": 400,
+    "height": 380
   },
   "columns": 8,
   "records": [
@@ -10,25 +10,25 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 0,
       "crop": {
-        "left": 121,
-        "top": 5,
-        "width": 178,
-        "height": 307
+        "left": 120,
+        "top": 4,
+        "width": 180,
+        "height": 309
       },
       "uniformScale": 1,
       "sourceRoot": [
         209,
-        309
+        310
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        32,
-        20
+        111,
+        58
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -36,25 +36,25 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 1,
       "crop": {
-        "left": 408,
-        "top": 5,
-        "width": 177,
-        "height": 307
+        "left": 407,
+        "top": 4,
+        "width": 178,
+        "height": 309
       },
       "uniformScale": 1,
       "sourceRoot": [
         496,
-        309
+        310
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        32,
-        20
+        111,
+        58
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -62,25 +62,25 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 2,
       "crop": {
-        "left": 702,
-        "top": 5,
-        "width": 181,
-        "height": 307
+        "left": 701,
+        "top": 4,
+        "width": 182,
+        "height": 309
       },
       "uniformScale": 1,
       "sourceRoot": [
         791.5,
-        309
+        310
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        31,
-        20
+        110,
+        58
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -88,25 +88,25 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 3,
       "crop": {
-        "left": 992,
-        "top": 5,
-        "width": 180,
-        "height": 307
+        "left": 991,
+        "top": 4,
+        "width": 182,
+        "height": 309
       },
       "uniformScale": 1,
       "sourceRoot": [
         1081,
-        309
+        310
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        31,
-        20
+        110,
+        58
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -114,10 +114,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 4,
       "crop": {
-        "left": 120,
-        "top": 309,
-        "width": 179,
-        "height": 312
+        "left": 119,
+        "top": 308,
+        "width": 180,
+        "height": 313
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -125,14 +125,14 @@
         618
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        32,
-        15
+        111,
+        54
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -140,10 +140,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 5,
       "crop": {
-        "left": 408,
-        "top": 309,
-        "width": 193,
-        "height": 312
+        "left": 407,
+        "top": 308,
+        "width": 195,
+        "height": 313
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -151,14 +151,14 @@
         618
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        30,
-        15
+        109,
+        54
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -166,10 +166,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 6,
       "crop": {
-        "left": 702,
-        "top": 310,
-        "width": 203,
-        "height": 311
+        "left": 701,
+        "top": 309,
+        "width": 204,
+        "height": 312
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -177,14 +177,14 @@
         618
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        30,
-        16
+        109,
+        55
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -192,10 +192,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 7,
       "crop": {
-        "left": 992,
-        "top": 310,
-        "width": 210,
-        "height": 311
+        "left": 991,
+        "top": 308,
+        "width": 211,
+        "height": 313
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -203,14 +203,14 @@
         618
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        27,
-        16
+        106,
+        54
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -219,9 +219,9 @@
       "sourceIndex": 8,
       "crop": {
         "left": 112,
-        "top": 619,
+        "top": 617,
         "width": 210,
-        "height": 306
+        "height": 308
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -229,14 +229,14 @@
         922
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        25,
-        21
+        105,
+        59
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -244,25 +244,25 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 9,
       "crop": {
-        "left": 407,
-        "top": 618,
-        "width": 219,
-        "height": 306
+        "left": 406,
+        "top": 617,
+        "width": 221,
+        "height": 308
       },
       "uniformScale": 1,
       "sourceRoot": [
         500,
-        921
+        922
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        27,
-        21
+        106,
+        59
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -270,10 +270,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 10,
       "crop": {
-        "left": 702,
-        "top": 618,
-        "width": 217,
-        "height": 307
+        "left": 701,
+        "top": 616,
+        "width": 219,
+        "height": 309
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -281,14 +281,14 @@
         922
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        26,
-        20
+        105,
+        58
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -297,24 +297,24 @@
       "sourceIndex": 11,
       "crop": {
         "left": 992,
-        "top": 620,
+        "top": 619,
         "width": 234,
-        "height": 305
+        "height": 307
       },
       "uniformScale": 1,
       "sourceRoot": [
         1086.5,
-        922
+        923
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        26,
-        22
+        106,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -322,10 +322,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 12,
       "crop": {
-        "left": 112,
-        "top": 921,
-        "width": 228,
-        "height": 291
+        "left": 111,
+        "top": 920,
+        "width": 229,
+        "height": 292
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -333,14 +333,14 @@
         1209
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        21,
-        36
+        100,
+        75
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -348,10 +348,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 13,
       "crop": {
-        "left": 407,
-        "top": 924,
-        "width": 214,
-        "height": 288
+        "left": 406,
+        "top": 922,
+        "width": 215,
+        "height": 290
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -359,14 +359,14 @@
         1209
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        21,
-        39
+        100,
+        77
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -375,9 +375,9 @@
       "sourceIndex": 14,
       "crop": {
         "left": 701,
-        "top": 924,
-        "width": 215,
-        "height": 288
+        "top": 922,
+        "width": 216,
+        "height": 290
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -385,14 +385,14 @@
         1209
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        22,
-        39
+        102,
+        77
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -400,10 +400,10 @@
       "source": "art/dj-volt/sequence-source.png",
       "sourceIndex": 15,
       "crop": {
-        "left": 996,
-        "top": 927,
-        "width": 219,
-        "height": 285
+        "left": 995,
+        "top": 926,
+        "width": 221,
+        "height": 286
       },
       "uniformScale": 1,
       "sourceRoot": [
@@ -411,14 +411,14 @@
         1209
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        20,
-        42
+        99,
+        81
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
     },
     {
@@ -426,25 +426,25 @@
       "source": "art/dj-volt/bridge-source.png",
       "sourceIndex": 0,
       "crop": {
-        "left": 50,
-        "top": 13,
-        "width": 294,
-        "height": 484
+        "left": 49,
+        "top": 12,
+        "width": 295,
+        "height": 486
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         196,
-        494
+        495
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        28,
-        21
+        107,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -453,9 +453,9 @@
       "sourceIndex": 1,
       "crop": {
         "left": 428,
-        "top": 13,
+        "top": 12,
         "width": 292,
-        "height": 484
+        "height": 485
       },
       "uniformScale": 0.63,
       "sourceRoot": [
@@ -463,14 +463,14 @@
         494
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        28,
-        21
+        108,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -478,25 +478,25 @@
       "source": "art/dj-volt/bridge-source.png",
       "sourceIndex": 2,
       "crop": {
-        "left": 812,
-        "top": 14,
-        "width": 292,
-        "height": 482
+        "left": 811,
+        "top": 13,
+        "width": 294,
+        "height": 484
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         957,
-        493
+        494
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        29,
-        22
+        108,
+        61
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -505,24 +505,24 @@
       "sourceIndex": 3,
       "crop": {
         "left": 1193,
-        "top": 14,
-        "width": 294,
-        "height": 482
+        "top": 13,
+        "width": 295,
+        "height": 484
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         1340,
-        493
+        494
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        27,
-        22
+        107,
+        61
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -530,25 +530,25 @@
       "source": "art/dj-volt/bridge-source.png",
       "sourceIndex": 4,
       "crop": {
-        "left": 49,
-        "top": 522,
-        "width": 302,
-        "height": 483
+        "left": 48,
+        "top": 521,
+        "width": 304,
+        "height": 485
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         199.5,
-        1002
+        1003
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        25,
-        22
+        105,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -556,25 +556,25 @@
       "source": "art/dj-volt/bridge-source.png",
       "sourceIndex": 5,
       "crop": {
-        "left": 426,
-        "top": 522,
-        "width": 298,
-        "height": 483
+        "left": 425,
+        "top": 521,
+        "width": 300,
+        "height": 485
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         574.5,
-        1002
+        1003
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        26,
-        22
+        106,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -582,25 +582,25 @@
       "source": "art/dj-volt/bridge-source.png",
       "sourceIndex": 6,
       "crop": {
-        "left": 809,
-        "top": 522,
-        "width": 325,
-        "height": 483
+        "left": 808,
+        "top": 521,
+        "width": 327,
+        "height": 485
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         958,
-        1002
+        1003
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        26,
-        22
+        106,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -609,24 +609,24 @@
       "sourceIndex": 7,
       "crop": {
         "left": 1192,
-        "top": 522,
+        "top": 521,
         "width": 331,
-        "height": 483
+        "height": 485
       },
       "uniformScale": 0.63,
       "sourceRoot": [
         1342,
-        1002
+        1003
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        26,
-        22
+        106,
+        60
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
     },
     {
@@ -634,10 +634,10 @@
       "source": "art/dj-volt/dance-source.png",
       "sourceIndex": 0,
       "crop": {
-        "left": 74,
-        "top": 5,
-        "width": 254,
-        "height": 360
+        "left": 73,
+        "top": 3,
+        "width": 255,
+        "height": 362
       },
       "uniformScale": 0.85,
       "sourceRoot": [
@@ -645,14 +645,14 @@
         362
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        25,
-        21
+        104,
+        59
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -660,9 +660,9 @@
       "source": "art/dj-volt/dance-source.png",
       "sourceIndex": 1,
       "crop": {
-        "left": 434,
+        "left": 433,
         "top": 14,
-        "width": 254,
+        "width": 255,
         "height": 351
       },
       "uniformScale": 0.85,
@@ -671,14 +671,14 @@
         362
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        24,
-        28
+        103,
+        68
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -687,9 +687,9 @@
       "sourceIndex": 2,
       "crop": {
         "left": 793,
-        "top": 32,
+        "top": 31,
         "width": 260,
-        "height": 333
+        "height": 334
       },
       "uniformScale": 0.85,
       "sourceRoot": [
@@ -697,14 +697,14 @@
         362
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        23,
-        44
+        103,
+        83
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -712,10 +712,10 @@
       "source": "art/dj-volt/dance-source.png",
       "sourceIndex": 3,
       "crop": {
-        "left": 1156,
-        "top": 13,
-        "width": 259,
-        "height": 352
+        "left": 1155,
+        "top": 11,
+        "width": 261,
+        "height": 354
       },
       "uniformScale": 0.85,
       "sourceRoot": [
@@ -723,14 +723,14 @@
         362
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        23,
-        27
+        102,
+        66
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -739,24 +739,24 @@
       "sourceIndex": 4,
       "crop": {
         "left": 71,
-        "top": 365,
+        "top": 364,
         "width": 257,
-        "height": 362
+        "height": 364
       },
       "uniformScale": 0.85,
       "sourceRoot": [
         186,
-        724
+        725
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        22,
-        19
+        102,
+        57
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -765,24 +765,24 @@
       "sourceIndex": 5,
       "crop": {
         "left": 433,
-        "top": 366,
+        "top": 364,
         "width": 257,
-        "height": 361
+        "height": 364
       },
       "uniformScale": 0.85,
       "sourceRoot": [
         547,
-        724
+        725
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        23,
-        20
+        103,
+        57
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -791,24 +791,24 @@
       "sourceIndex": 6,
       "crop": {
         "left": 794,
-        "top": 384,
+        "top": 382,
         "width": 259,
-        "height": 343
+        "height": 346
       },
       "uniformScale": 0.85,
       "sourceRoot": [
         908,
-        724
+        725
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        23,
-        35
+        103,
+        72
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -817,9 +817,9 @@
       "sourceIndex": 7,
       "crop": {
         "left": 1156,
-        "top": 403,
-        "width": 259,
-        "height": 325
+        "top": 402,
+        "width": 260,
+        "height": 326
       },
       "uniformScale": 0.85,
       "sourceRoot": [
@@ -827,14 +827,14 @@
         725
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        21,
-        50
+        101,
+        89
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -843,24 +843,24 @@
       "sourceIndex": 8,
       "crop": {
         "left": 71,
-        "top": 760,
+        "top": 759,
         "width": 269,
-        "height": 324
+        "height": 326
       },
       "uniformScale": 0.85,
       "sourceRoot": [
         188.5,
-        1081
+        1082
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        20,
-        51
+        100,
+        89
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -868,9 +868,9 @@
       "source": "art/dj-volt/dance-source.png",
       "sourceIndex": 9,
       "crop": {
-        "left": 435,
+        "left": 434,
         "top": 725,
-        "width": 259,
+        "width": 260,
         "height": 359
       },
       "uniformScale": 0.85,
@@ -879,14 +879,14 @@
         1081
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        22,
-        21
+        101,
+        61
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -895,9 +895,9 @@
       "sourceIndex": 10,
       "crop": {
         "left": 795,
-        "top": 723,
-        "width": 258,
-        "height": 361
+        "top": 722,
+        "width": 259,
+        "height": 362
       },
       "uniformScale": 0.85,
       "sourceRoot": [
@@ -905,14 +905,14 @@
         1081
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        21,
-        20
+        101,
+        59
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
     },
     {
@@ -921,9 +921,9 @@
       "sourceIndex": 11,
       "crop": {
         "left": 1157,
-        "top": 723,
+        "top": 722,
         "width": 259,
-        "height": 361
+        "height": 362
       },
       "uniformScale": 0.85,
       "sourceRoot": [
@@ -931,15 +931,3655 @@
         1081
       ],
       "targetRoot": [
-        120,
-        324
+        200,
+        364
       ],
       "offset": [
-        22,
-        20
+        102,
+        59
       ],
-      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 36,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 71,
+        "top": 0,
+        "width": 258,
+        "height": 367
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        187,
+        364
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        55
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 37,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 433,
+        "top": 6,
+        "width": 232,
+        "height": 361
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        548.5,
+        364
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        102,
+        60
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 38,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 789,
+        "top": 6,
+        "width": 236,
+        "height": 361
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        906.5,
+        364
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        60
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 39,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1150,
+        "top": 1,
+        "width": 275,
+        "height": 366
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1268,
+        364
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        55
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 40,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 69,
+        "top": 362,
+        "width": 294,
+        "height": 366
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        186.5,
+        725
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        55
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 41,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 430,
+        "top": 365,
+        "width": 235,
+        "height": 363
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        547,
+        725
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        58
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 42,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 789,
+        "top": 373,
+        "width": 237,
+        "height": 355
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        907,
+        725
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        65
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 43,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1148,
+        "top": 381,
+        "width": 278,
+        "height": 347
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1268,
+        725
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        98,
+        72
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 44,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 8,
+      "crop": {
+        "left": 69,
+        "top": 727,
+        "width": 269,
+        "height": 359
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        187.5,
+        1083
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        99,
+        61
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 45,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 9,
+      "crop": {
+        "left": 432,
+        "top": 723,
+        "width": 262,
+        "height": 363
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        550,
+        1083
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        58
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 46,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 10,
+      "crop": {
+        "left": 789,
+        "top": 722,
+        "width": 265,
+        "height": 364
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        908.5,
+        1083
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        98,
+        57
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 47,
+      "source": "art/dj-volt/punch-source.png",
+      "sourceIndex": 11,
+      "crop": {
+        "left": 1151,
+        "top": 724,
+        "width": 263,
+        "height": 362
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1269.5,
+        1083
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        99,
+        59
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4d0ba2c294a0b83f5d8229de16d2bbe0739b2b6f88b1c8fac68e19be0539d093"
+    },
+    {
+      "id": 48,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 70,
+        "top": 0,
+        "width": 258,
+        "height": 369
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        186.5,
+        365
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        54
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 49,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 429,
+        "top": 17,
+        "width": 270,
+        "height": 351
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        547,
+        365
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 50,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 787,
+        "top": 66,
+        "width": 289,
+        "height": 302
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        908,
+        365
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        97,
+        110
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 51,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1151,
+        "top": 80,
+        "width": 294,
+        "height": 288
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1274.5,
+        365
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        95,
+        122
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 52,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 62,
+        "top": 425,
+        "width": 306,
+        "height": 302
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        188,
+        724
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        93,
+        110
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 53,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 418,
+        "top": 452,
+        "width": 312,
+        "height": 275
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        547,
+        724
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        90,
+        133
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 54,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 787,
+        "top": 464,
+        "width": 324,
+        "height": 263
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        914.5,
+        724
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        92,
+        143
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 55,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1155,
+        "top": 404,
+        "width": 267,
+        "height": 323
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1276.5,
+        724
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        97,
+        92
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 56,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 8,
+      "crop": {
+        "left": 69,
+        "top": 726,
+        "width": 278,
+        "height": 359
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        188,
+        1082
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        99,
+        61
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 57,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 9,
+      "crop": {
+        "left": 430,
+        "top": 723,
+        "width": 276,
+        "height": 362
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        549,
+        1082
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        99,
+        59
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 58,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 10,
+      "crop": {
+        "left": 793,
+        "top": 723,
+        "width": 266,
+        "height": 362
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        911,
+        1082
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        59
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 59,
+      "source": "art/dj-volt/duck-source.png",
+      "sourceIndex": 11,
+      "crop": {
+        "left": 1155,
+        "top": 722,
+        "width": 265,
+        "height": 363
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1273,
+        1082
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        58
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "bbc80115729dab37a772bfdab369e116dd58f739e7308a6232c7a6f465641b1c"
+    },
+    {
+      "id": 60,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 50,
+        "top": 83,
+        "width": 242,
+        "height": 333
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        159.5,
+        413
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        67
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 61,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 364,
+        "top": 84,
+        "width": 236,
+        "height": 332
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        473,
+        413
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        102,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 62,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 677,
+        "top": 84,
+        "width": 227,
+        "height": 332
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        786.5,
+        413
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 63,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 991,
+        "top": 22,
+        "width": 220,
+        "height": 394
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        1100.5,
+        413
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        12
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 64,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 50,
+        "top": 433,
+        "width": 220,
+        "height": 401
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        159.5,
+        831
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        6
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 65,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 364,
+        "top": 435,
+        "width": 219,
+        "height": 399
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        473.5,
+        831
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        8
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 66,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 677,
+        "top": 432,
+        "width": 220,
+        "height": 402
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        786.5,
+        831
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        5
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 67,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 990,
+        "top": 435,
+        "width": 221,
+        "height": 399
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        1100,
+        831
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        8
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 68,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 8,
+      "crop": {
+        "left": 50,
+        "top": 866,
+        "width": 226,
+        "height": 357
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        159.5,
+        1220
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        45
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 69,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 9,
+      "crop": {
+        "left": 364,
+        "top": 889,
+        "width": 236,
+        "height": 334
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        473,
+        1220
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        102,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 70,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 10,
+      "crop": {
+        "left": 677,
+        "top": 891,
+        "width": 241,
+        "height": 332
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        786.5,
+        1220
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 71,
+      "source": "art/dj-volt/wave-source.png",
+      "sourceIndex": 11,
+      "crop": {
+        "left": 991,
+        "top": 891,
+        "width": 241,
+        "height": 332
+      },
+      "uniformScale": 0.9,
+      "sourceRoot": [
+        1100.5,
+        1220
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        101,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8f8794196d5501722681fa5e5daf2ddba01f9bda45089a6d4befdd45ab2a6349"
+    },
+    {
+      "id": 72,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 33,
+        "top": 49,
+        "width": 323,
+        "height": 472
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        179,
+        518
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 73,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 400,
+        "top": 54,
+        "width": 318,
+        "height": 467
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        546,
+        518
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        67
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 74,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 764,
+        "top": 60,
+        "width": 316,
+        "height": 461
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        909,
+        518
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        70
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 75,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1125,
+        "top": 57,
+        "width": 314,
+        "height": 464
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        1270.5,
+        518
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 76,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 37,
+        "top": 571,
+        "width": 317,
+        "height": 463
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        184,
+        1031
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        69
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 77,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 399,
+        "top": 570,
+        "width": 318,
+        "height": 464
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        546,
+        1031
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 78,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 762,
+        "top": 569,
+        "width": 318,
+        "height": 465
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        909,
+        1031
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 79,
+      "source": "art/dj-volt/holster-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1122,
+        "top": 567,
+        "width": 319,
+        "height": 467
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        1273,
+        1031
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        103,
+        67
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "8bbcf716f315730ec7c090db63c1075cd785e877e714e563d4c072f7a0fa006d"
+    },
+    {
+      "id": 80,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 56,
+        "top": 68,
+        "width": 250,
+        "height": 473
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        176.5,
+        538
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        123,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 81,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 378,
+        "top": 120,
+        "width": 342,
+        "height": 417
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        577.5,
+        534
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        72,
+        99
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 82,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 740,
+        "top": 136,
+        "width": 372,
+        "height": 401
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        926.5,
+        534
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        81,
+        109
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 83,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1171,
+        "top": 92,
+        "width": 257,
+        "height": 444
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        1303,
+        533
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        116,
+        82
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 84,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 17,
+        "top": 612,
+        "width": 342,
+        "height": 412
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        210.5,
+        1021
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        76,
+        102
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 85,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 401,
+        "top": 622,
+        "width": 369,
+        "height": 401
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        595.5,
+        1020
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        76,
+        109
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 86,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 819,
+        "top": 578,
+        "width": 286,
+        "height": 447
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        961.5,
+        1022
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        80
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 87,
+      "source": "art/dj-volt/bart-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1179,
+        "top": 565,
+        "width": 244,
+        "height": 465
+      },
+      "uniformScale": 0.6396588486140725,
+      "sourceRoot": [
+        1299.5,
+        1027
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        123,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "526ede43fff479ebfba92e633f688829dff0cf8384c184c586e97ee101a17019"
+    },
+    {
+      "id": 88,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 38,
+        "top": 31,
+        "width": 300,
+        "height": 474
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        182,
+        502
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        108,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 89,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 381,
+        "top": 30,
+        "width": 305,
+        "height": 480
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        552.5,
+        507
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        91,
+        60
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 90,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 758,
+        "top": 39,
+        "width": 299,
+        "height": 470
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        932,
+        506
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        89,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 91,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1135,
+        "top": 34,
+        "width": 267,
+        "height": 471
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        1273,
+        502
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        112,
+        65
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 92,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 35,
+        "top": 556,
+        "width": 300,
+        "height": 483
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        204.5,
+        1036
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        92,
+        58
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 93,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 393,
+        "top": 557,
+        "width": 332,
+        "height": 482
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        580,
+        1036
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        81,
+        58
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 94,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 778,
+        "top": 564,
+        "width": 271,
+        "height": 470
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        918,
+        1031
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        111,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 95,
+      "source": "art/dj-volt/running-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1123,
+        "top": 564,
+        "width": 310,
+        "height": 474
+      },
+      "uniformScale": 0.6382978723404256,
+      "sourceRoot": [
+        1285.5,
+        1035
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        96,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "368265f262058244956a646349070ca7f8e95b23b8b2b0dcad02695678c40b5a"
+    },
+    {
+      "id": 96,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 28,
+        "top": 38,
+        "width": 314,
+        "height": 465
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        177.5,
+        500
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        103,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 97,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 344,
+        "top": 36,
+        "width": 412,
+        "height": 482
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        632,
+        515
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        13,
+        52
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 98,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 783,
+        "top": 107,
+        "width": 363,
+        "height": 411
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        892.5,
+        515
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        129,
+        98
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 99,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1166,
+        "top": 113,
+        "width": 257,
+        "height": 396
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        1292.5,
+        506
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        118,
+        108
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 100,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 6,
+        "top": 552,
+        "width": 378,
+        "height": 484
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        92,
+        1033
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        144,
+        51
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 101,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 444,
+        "top": 601,
+        "width": 350,
+        "height": 419
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        536,
+        1017
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        140,
+        93
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 102,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 808,
+        "top": 642,
+        "width": 259,
+        "height": 389
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        939,
+        1028
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        115,
+        113
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 103,
+      "source": "art/dj-volt/rabbit-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1122,
+        "top": 559,
+        "width": 315,
+        "height": 472
+      },
+      "uniformScale": 0.6507592190889371,
+      "sourceRoot": [
+        1271.5,
+        1028
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        103,
+        59
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "a7eedfd3a42b26967b06a40df3fead44d9972b1cb588e11be42d8d17c2c8a9fe"
+    },
+    {
+      "id": 104,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 23,
+        "top": 22,
+        "width": 285,
+        "height": 489
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        165,
+        508
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        112,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 105,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 399,
+        "top": 42,
+        "width": 313,
+        "height": 466
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        551.5,
+        505
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        78
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 106,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 774,
+        "top": 61,
+        "width": 319,
+        "height": 448
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        933,
+        506
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        102,
+        89
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 107,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1156,
+        "top": 41,
+        "width": 283,
+        "height": 468
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        1296,
+        506
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        113,
+        76
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 108,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 30,
+        "top": 548,
+        "width": 311,
+        "height": 485
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        185,
+        1030
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        104,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 109,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 399,
+        "top": 566,
+        "width": 313,
+        "height": 469
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        545.5,
+        1032
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        76
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 110,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 772,
+        "top": 544,
+        "width": 297,
+        "height": 490
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        920,
+        1031
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        108,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 111,
+      "source": "art/dj-volt/cabbage-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1135,
+        "top": 544,
+        "width": 286,
+        "height": 491
+      },
+      "uniformScale": 0.6185567010309279,
+      "sourceRoot": [
+        1278,
+        1032
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        112,
+        62
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "9a7bae5537010909d2b59d29f8d777facecec90149fa153bfdc94798cf281de5"
+    },
+    {
+      "id": 112,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 68,
+        "top": 6,
+        "width": 260,
+        "height": 431
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        197.5,
+        434
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 113,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 532,
+        "top": 37,
+        "width": 350,
+        "height": 398
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        689,
+        432
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        90,
+        86
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 114,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 969,
+        "top": 41,
+        "width": 273,
+        "height": 397
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        1105.5,
+        435
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        104,
+        87
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 115,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1426,
+        "top": 7,
+        "width": 269,
+        "height": 429
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        1559,
+        433
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        65
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 116,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 83,
+        "top": 469,
+        "width": 361,
+        "height": 400
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        225.5,
+        866
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        100,
+        85
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 117,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 533,
+        "top": 473,
+        "width": 298,
+        "height": 396
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        681.5,
+        866
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        96,
+        88
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 118,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 969,
+        "top": 443,
+        "width": 275,
+        "height": 428
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        1106,
+        868
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        104,
+        65
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 119,
+      "source": "art/dj-volt/smurf-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1423,
+        "top": 445,
+        "width": 268,
+        "height": 425
+      },
+      "uniformScale": 0.702576112412178,
+      "sourceRoot": [
+        1556.5,
+        867
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        68
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "4c2f65730806988848fa028b4a6a3c9dfb33df130f3faf4f8442d1180da3e8e1"
+    },
+    {
+      "id": 120,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 92,
+        "top": 41,
+        "width": 268,
+        "height": 401
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        226,
+        439
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        99,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 121,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 515,
+        "top": 50,
+        "width": 299,
+        "height": 393
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        664,
+        440
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        87,
+        69
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 122,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 962,
+        "top": 42,
+        "width": 323,
+        "height": 401
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        1107,
+        440
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        90,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 123,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1404,
+        "top": 39,
+        "width": 319,
+        "height": 404
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        1546.5,
+        440
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        92,
+        61
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 124,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 76,
+        "top": 469,
+        "width": 298,
+        "height": 378
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        225,
+        844
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        87,
+        81
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 125,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 526,
+        "top": 466,
+        "width": 323,
+        "height": 381
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        698,
+        844
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        70,
+        78
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 126,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 987,
+        "top": 474,
+        "width": 278,
+        "height": 375
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        1128,
+        846
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        93,
+        83
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 127,
+      "source": "art/dj-volt/points-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1408,
+        "top": 459,
+        "width": 278,
+        "height": 391
+      },
+      "uniformScale": 0.7556675062972292,
+      "sourceRoot": [
+        1547,
+        847
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        95,
+        71
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7f9c901eeafb4ffbe6ea9985a8a67e4810083720d55cb9db1858969093c2038c"
+    },
+    {
+      "id": 128,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 34,
+        "top": 52,
+        "width": 267,
+        "height": 472
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        167,
+        521
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        115,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 129,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 320,
+        "top": 52,
+        "width": 425,
+        "height": 472
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        557.5,
+        521
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        48,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 130,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 782,
+        "top": 53,
+        "width": 328,
+        "height": 471
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        929,
+        521
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        106,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 131,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1140,
+        "top": 51,
+        "width": 308,
+        "height": 472
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        1285.5,
+        520
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 132,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 42,
+        "top": 566,
+        "width": 316,
+        "height": 473
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        191,
+        1036
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        104,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 133,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 384,
+        "top": 571,
+        "width": 333,
+        "height": 468
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        568,
+        1036
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        82,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 134,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 740,
+        "top": 572,
+        "width": 337,
+        "height": 467
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        930.5,
+        1036
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        78,
+        67
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 135,
+      "source": "art/dj-volt/armwave-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1141,
+        "top": 568,
+        "width": 279,
+        "height": 472
+      },
+      "uniformScale": 0.6410256410256411,
+      "sourceRoot": [
+        1280.5,
+        1037
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        111,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "e1376e67e57e3df038197b76568863499ff56d53dcb382be80c56c2fac24cc84"
+    },
+    {
+      "id": 136,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 73,
+        "top": 3,
+        "width": 313,
+        "height": 436
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        223,
+        436
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        96,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 137,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 474,
+        "top": 5,
+        "width": 385,
+        "height": 435
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        662.5,
+        437
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        69,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 138,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 974,
+        "top": 17,
+        "width": 312,
+        "height": 427
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        1121.5,
+        441
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        98,
+        70
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 139,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1390,
+        "top": 7,
+        "width": 346,
+        "height": 433
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        1573.5,
+        437
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        73,
+        65
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 140,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 62,
+        "top": 447,
+        "width": 336,
+        "height": 428
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        225.5,
+        872
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        86,
+        69
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 141,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 532,
+        "top": 450,
+        "width": 283,
+        "height": 420
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        645,
+        867
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        122,
+        74
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 142,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 908,
+        "top": 448,
+        "width": 394,
+        "height": 420
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        1124,
+        865
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        50,
+        74
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 143,
+      "source": "art/dj-volt/toprock-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1428,
+        "top": 448,
+        "width": 313,
+        "height": 430
+      },
+      "uniformScale": 0.6944444444444444,
+      "sourceRoot": [
+        1580,
+        875
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        94,
+        67
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "7175fb0e83fb06f8014532e6f2ef336031a6823a301e5c193300a473d663f184"
+    },
+    {
+      "id": 144,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 38,
+        "top": 4,
+        "width": 348,
+        "height": 441
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        207.5,
+        442
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        84,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 145,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 525,
+        "top": 173,
+        "width": 331,
+        "height": 273
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        690,
+        443
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        87,
+        179
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 146,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 935,
+        "top": 176,
+        "width": 475,
+        "height": 270
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        1172,
+        443
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        37,
+        181
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 147,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1436,
+        "top": 171,
+        "width": 311,
+        "height": 275
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        1591,
+        443
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        94,
+        177
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 148,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 26,
+        "top": 530,
+        "width": 471,
+        "height": 338
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        261,
+        865
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        39,
+        134
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 149,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 518,
+        "top": 562,
+        "width": 396,
+        "height": 289
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        715.5,
+        848
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        64,
+        168
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 150,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 961,
+        "top": 564,
+        "width": 407,
+        "height": 293
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        1164,
+        854
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        61,
+        165
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 151,
+      "source": "art/dj-volt/sixstep-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1394,
+        "top": 445,
+        "width": 345,
+        "height": 423
+      },
+      "uniformScale": 0.6864988558352403,
+      "sourceRoot": [
+        1569,
+        865
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        80,
+        76
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "fe50321d1c5c1163b80f081dc4839fa4f79de9affdce319434d08abb00f2e72e"
+    },
+    {
+      "id": 152,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 64,
+        "top": 7,
+        "width": 311,
+        "height": 454
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        207.5,
+        458
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        104,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 153,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 507,
+        "top": 145,
+        "width": 372,
+        "height": 314
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        692.5,
+        456
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        76,
+        157
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 154,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 951,
+        "top": 230,
+        "width": 336,
+        "height": 229
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        1118.5,
+        456
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        88,
+        213
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 155,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1369,
+        "top": 232,
+        "width": 379,
+        "height": 223
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        1558,
+        452
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        74,
+        217
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 156,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 32,
+        "top": 539,
+        "width": 421,
+        "height": 303
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        242,
+        839
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        60,
+        164
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 157,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 469,
+        "top": 542,
+        "width": 427,
+        "height": 299
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        682,
+        838
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        58,
+        167
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 158,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 944,
+        "top": 604,
+        "width": 380,
+        "height": 245
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        1133.5,
+        846
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        74,
+        203
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 159,
+      "source": "art/dj-volt/freeze-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1425,
+        "top": 456,
+        "width": 287,
+        "height": 408
+      },
+      "uniformScale": 0.6666666666666666,
+      "sourceRoot": [
+        1561,
+        861
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        94
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "20b3d88b6cd9fbd7087d763635c41a2297fb6c257fa889d89a98de83308cf2cb"
+    },
+    {
+      "id": 160,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 57,
+        "top": 0,
+        "width": 260,
+        "height": 448
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        184,
+        443
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        114,
+        65
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 161,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 470,
+        "top": 186,
+        "width": 379,
+        "height": 264
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        659,
+        447
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        72,
+        188
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 162,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 905,
+        "top": 142,
+        "width": 419,
+        "height": 305
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        1114,
+        444
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        59,
+        160
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 163,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1367,
+        "top": 83,
+        "width": 393,
+        "height": 364
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        1563,
+        444
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        68,
+        120
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 164,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 22,
+        "top": 506,
+        "width": 443,
+        "height": 338
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        243,
+        841
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        51,
+        138
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 165,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 513,
+        "top": 507,
+        "width": 411,
+        "height": 344
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        718,
+        848
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        61,
+        134
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 166,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 987,
+        "top": 600,
+        "width": 360,
+        "height": 265
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        1166.5,
+        862
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        79,
+        187
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 167,
+      "source": "art/dj-volt/backspin-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1415,
+        "top": 443,
+        "width": 258,
+        "height": 444
+      },
+      "uniformScale": 0.6756756756756757,
+      "sourceRoot": [
+        1542,
+        884
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        114,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "c0c0201c79da94a7869f55c148c6c29bb33f55c1a7f91b6ba2567c53b2368711"
+    },
+    {
+      "id": 168,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 39,
+        "top": 15,
+        "width": 312,
+        "height": 411
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        202.5,
+        423
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        79,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 169,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 458,
+        "top": 175,
+        "width": 377,
+        "height": 256
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        646,
+        428
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        61,
+        178
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 170,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 904,
+        "top": 46,
+        "width": 462,
+        "height": 386
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        1134.5,
+        429
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        30,
+        82
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 171,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1359,
+        "top": 110,
+        "width": 393,
+        "height": 317
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        1555,
+        424
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        56,
+        133
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 172,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 25,
+        "top": 492,
+        "width": 455,
+        "height": 366
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        252,
+        855
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        33,
+        96
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 173,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 489,
+        "top": 552,
+        "width": 470,
+        "height": 283
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        723.5,
+        832
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        27,
+        158
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 174,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 1034,
+        "top": 552,
+        "width": 319,
+        "height": 288
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        1193,
+        837
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        83,
+        154
+      ],
+      "contactMethod": "floor silhouette center / lowest support; not an anatomical slip measurement",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 175,
+      "source": "art/dj-volt/windmill-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1408,
+        "top": 435,
+        "width": 321,
+        "height": 424
+      },
+      "uniformScale": 0.7371007371007371,
+      "sourceRoot": [
+        1577.5,
+        856
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        75,
+        54
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
     }
   ]
 }

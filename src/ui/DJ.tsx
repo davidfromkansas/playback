@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { advanceVolt, newVoltMotion, VOLT_COLUMNS, VOLT_HEIGHT, VOLT_WIDTH } from './voltAnimation'
+import { advanceVolt, newVoltMotion, VOLT_CELS, VOLT_COLUMNS, VOLT_HEIGHT, VOLT_WIDTH,
+  type VoltSelection } from './voltAnimation'
 
 interface DJProps {
   dancing: boolean
@@ -7,12 +8,13 @@ interface DJProps {
   // The review surface uses the same renderer and clock, with optional frame inspection.
   speed?: number
   inspectCel?: number
+  routine?: VoltSelection
 }
 
-export function DJ({ dancing, className, speed = 1, inspectCel }: DJProps) {
+export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto' }: DJProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
-  const inputs = useRef({ dancing, speed, inspectCel })
-  inputs.current = { dancing, speed, inspectCel }
+  const inputs = useRef({ dancing, speed, inspectCel, routine })
+  inputs.current = { dancing, speed, inspectCel, routine }
 
   useEffect(() => {
     const el = canvas.current
@@ -30,9 +32,9 @@ export function DJ({ dancing, className, speed = 1, inspectCel }: DJProps) {
       last = now
       const input = inputs.current
       const sample = reduced.matches
-        ? { cel: input.dancing ? 24 : 0, state: input.dancing ? 'playing' : 'idle' }
-        : advanceVolt(motion, Math.min(dt, 0.05) * input.speed, input.dancing)
-      const cel = input.inspectCel === undefined ? sample.cel : Math.max(0, Math.min(35, input.inspectCel))
+        ? { cel: input.dancing ? 24 : 0, state: input.dancing ? 'playing' : 'idle', routine: 'groove' }
+        : advanceVolt(motion, Math.min(dt, 0.05) * input.speed, input.dancing, input.routine)
+      const cel = input.inspectCel === undefined ? sample.cel : Math.max(0, Math.min(VOLT_CELS - 1, input.inspectCel))
       if (cel !== previous) {
         context.clearRect(0, 0, VOLT_WIDTH, VOLT_HEIGHT)
         context.drawImage(atlas, (cel % VOLT_COLUMNS) * VOLT_WIDTH,
@@ -43,11 +45,12 @@ export function DJ({ dancing, className, speed = 1, inspectCel }: DJProps) {
       el.dataset.cel = String(cel)
       el.dataset.motion = sample.state
       el.dataset.playing = String(input.dancing)
+      el.dataset.routine = sample.routine
       raf = requestAnimationFrame(draw)
     }
     atlas.onload = () => { if (!disposed) raf = requestAnimationFrame(draw) }
     atlas.onerror = () => { el.dataset.error = 'artwork-unavailable' }
-    atlas.src = '/characters/dj-volt/atlas.webp'
+    atlas.src = '/characters/dj-volt/atlas.webp?v=expanded-1'
     const resetClock = () => { last = 0 }
     document.addEventListener('visibilitychange', resetClock)
     return () => {

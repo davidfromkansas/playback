@@ -22,12 +22,12 @@ and no silhouette crossfade is used. Alpha wheel extents are registration aids, 
 
 ## Runtime
 
-`src/ui/DJ.tsx` draws from the WebP atlas onto a 280 × 340 transparent canvas. The ground line is
-Y=324 and skate midpoint X=120 in canvas pixels. CSS retains the existing 178px desktop / 123px
+`src/ui/DJ.tsx` draws from the WebP atlas onto a 400 × 380 transparent canvas. The ground line is
+Y=364 and skate midpoint X=200 in canvas pixels. CSS retains the existing 198px desktop / 137px
 phone footprint in height. Canvas is a DOM overlay, independent of the Three.js camera.
 Playback's existing `playing` boolean remains authoritative; Spotify and app actions are unchanged.
 The drawing selector updates via requestAnimationFrame without React updates on every frame.
-Idle lasts 2.4 seconds; the groove lasts two 100 BPM beats; the entry takes 0.7 seconds.
+Idle lasts 2.4 seconds; standing routines last two 100 BPM beats and floor routines four; the entry takes 0.7 seconds.
 Pause finishes a weight transfer before reversing the entry. Mid-entry interruptions reverse in place.
 Reduced motion displays a stationary listening or performance drawing.
 
@@ -41,7 +41,7 @@ npm run dev
 ```
 
 Open `/character-preview.html` on that dev server for the original and new character side by side,
-normal speed, quarter speed and all 36 cels. This page is development-only and excluded from the main build.
+normal speed, quarter speed and all 176 cels. This page is development-only and excluded from the main build.
 The original SVG is preserved in `previews/DJBaseline.tsx`.
 
 With Playwright available:
@@ -54,3 +54,28 @@ The harness uses an existing dev server, closes its own browser, saves actual br
 frame timestamps, screenshots and a deterministic input trace in a unique `output/dj-volt/` directory.
 The fixture checks the production animation selector, not real Spotify or gameplay simulation.
 Combat/collision/facing/landing gates in the supplied general-purpose skill do not apply to this host.
+
+Sixteen playing routines now cycle every eight beats. See `dance-references.md` for research, choreography,
+rejected drawings and source provenance. The preview includes an automatic-cycle option and individual routines.
+
+## Expanded street and breaking set
+
+The twelve additions are Bart Simpson, Running Man, Roger Rabbit, Cabbage Patch, Smurf,
+locking points, arm wave, cross-step toprock, six-step, baby freeze, backspin and windmill.
+Each has an eight-drawing whole-body source family. These are stylized skate adaptations,
+not instructional dance demonstrations. A separate eight-cel mic-holstering transition frees
+both hands and reverses before returning to listening. The mic stays holstered between new routines.
+Freeze accents hold longer; spins repeat their rotation drawings before returning through a crouch.
+
+`expanded-prompts.json` and `expanded-repairs.json` preserve built-in generation prompts and
+result paths. Rejected sources preserve background/cropping defects. The first Bart attempt
+also had an extra arm; its native output is retained outside the runtime sources.
+The arm-wave's clipped fourth source drawing is not selected. All atlas drawings remain
+inspectable, including unused drawings; selection is in `src/ui/voltAnimation.ts`.
+
+All expanded sheets use one scale calibrated from their standing neutral to 300 pixels.
+Floor poses use their full silhouette center and lowest support as a registration aid.
+Anatomical contact drift is not automatically measured; perspective and cel-to-cel drawing
+variation remain visible at enlarged review size. Extraction copies only the connected figure,
+so neighboring poses cannot leak into its rectangular crop. The original four routines retain
+their previous timing and source scale.
