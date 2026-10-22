@@ -4580,6 +4580,422 @@
       ],
       "contactMethod": "lowest wheel extents; visual review required",
       "sha256": "10883c9617199df0b9f81d2612bed29a59750c34cb4bd4f4fa6da691fe46ceba"
+    },
+    {
+      "id": 176,
+      "source": "art/dj-volt/scroll-left-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 79,
+        "top": 14,
+        "width": 390,
+        "height": 658
+      },
+      "uniformScale": 0.45871559633027525,
+      "sourceRoot": [
+        273,
+        669
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        111,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0bf85c68757adbcb7c44b702d2de32f4094f49ec049242efb30fffe221d31fa5"
+    },
+    {
+      "id": 177,
+      "source": "art/dj-volt/scroll-left-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 609,
+        "top": 19,
+        "width": 408,
+        "height": 653
+      },
+      "uniformScale": 0.45871559633027525,
+      "sourceRoot": [
+        812.5,
+        669
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        66
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0bf85c68757adbcb7c44b702d2de32f4094f49ec049242efb30fffe221d31fa5"
+    },
+    {
+      "id": 178,
+      "source": "art/dj-volt/scroll-left-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 1144,
+        "top": 27,
+        "width": 418,
+        "height": 645
+      },
+      "uniformScale": 0.45871559633027525,
+      "sourceRoot": [
+        1352.5,
+        669
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        104,
+        70
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0bf85c68757adbcb7c44b702d2de32f4094f49ec049242efb30fffe221d31fa5"
+    },
+    {
+      "id": 179,
+      "source": "art/dj-volt/scroll-left-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1660,
+        "top": 54,
+        "width": 437,
+        "height": 618
+      },
+      "uniformScale": 0.45871559633027525,
+      "sourceRoot": [
+        1885.5,
+        669
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        97,
+        82
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0bf85c68757adbcb7c44b702d2de32f4094f49ec049242efb30fffe221d31fa5"
+    },
+    {
+      "id": 180,
+      "source": "art/dj-volt/scroll-right-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 121,
+        "top": 22,
+        "width": 396,
+        "height": 657
+      },
+      "uniformScale": 0.45941807044410415,
+      "sourceRoot": [
+        318.5,
+        676
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "625b0386c583bc55eaa3fa475f8af629e886bf99a5499a354dae2c26f8c37ccb"
+    },
+    {
+      "id": 181,
+      "source": "art/dj-volt/scroll-right-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 636,
+        "top": 21,
+        "width": 397,
+        "height": 658
+      },
+      "uniformScale": 0.45941807044410415,
+      "sourceRoot": [
+        834.5,
+        676
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        63
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "625b0386c583bc55eaa3fa475f8af629e886bf99a5499a354dae2c26f8c37ccb"
+    },
+    {
+      "id": 182,
+      "source": "art/dj-volt/scroll-right-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 1138,
+        "top": 24,
+        "width": 406,
+        "height": 655
+      },
+      "uniformScale": 0.45941807044410415,
+      "sourceRoot": [
+        1340.5,
+        676
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "625b0386c583bc55eaa3fa475f8af629e886bf99a5499a354dae2c26f8c37ccb"
+    },
+    {
+      "id": 183,
+      "source": "art/dj-volt/scroll-right-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1662,
+        "top": 23,
+        "width": 408,
+        "height": 656
+      },
+      "uniformScale": 0.45941807044410415,
+      "sourceRoot": [
+        1865.5,
+        676
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        107,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "625b0386c583bc55eaa3fa475f8af629e886bf99a5499a354dae2c26f8c37ccb"
+    },
+    {
+      "id": 184,
+      "source": "art/dj-volt/scroll-up-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 133,
+        "top": 19,
+        "width": 416,
+        "height": 688
+      },
+      "uniformScale": 0.43859649122807015,
+      "sourceRoot": [
+        341,
+        704
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0280104cd1844f50d50728523a81d189cf53043859a14defb151b8ccd4568a23"
+    },
+    {
+      "id": 185,
+      "source": "art/dj-volt/scroll-up-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 635,
+        "top": 16,
+        "width": 412,
+        "height": 691
+      },
+      "uniformScale": 0.43859649122807015,
+      "sourceRoot": [
+        840.5,
+        704
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        110,
+        62
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0280104cd1844f50d50728523a81d189cf53043859a14defb151b8ccd4568a23"
+    },
+    {
+      "id": 186,
+      "source": "art/dj-volt/scroll-up-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 1126,
+        "top": 12,
+        "width": 419,
+        "height": 695
+      },
+      "uniformScale": 0.43859649122807015,
+      "sourceRoot": [
+        1335,
+        704
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        108,
+        60
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0280104cd1844f50d50728523a81d189cf53043859a14defb151b8ccd4568a23"
+    },
+    {
+      "id": 187,
+      "source": "art/dj-volt/scroll-up-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1624,
+        "top": 16,
+        "width": 417,
+        "height": 691
+      },
+      "uniformScale": 0.43859649122807015,
+      "sourceRoot": [
+        1831,
+        704
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        109,
+        62
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "0280104cd1844f50d50728523a81d189cf53043859a14defb151b8ccd4568a23"
+    },
+    {
+      "id": 188,
+      "source": "art/dj-volt/scroll-down-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 29,
+        "top": 8,
+        "width": 416,
+        "height": 697
+      },
+      "uniformScale": 0.4329004329004329,
+      "sourceRoot": [
+        236,
+        702
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        110,
+        64
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "dfcc17276ca4a44143cacfd1d9cf40b657614f06cd76c0ee7c4956637995a059"
+    },
+    {
+      "id": 189,
+      "source": "art/dj-volt/scroll-down-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 596,
+        "top": 21,
+        "width": 417,
+        "height": 684
+      },
+      "uniformScale": 0.4329004329004329,
+      "sourceRoot": [
+        804,
+        702
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        110,
+        69
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "dfcc17276ca4a44143cacfd1d9cf40b657614f06cd76c0ee7c4956637995a059"
+    },
+    {
+      "id": 190,
+      "source": "art/dj-volt/scroll-down-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 1159,
+        "top": 64,
+        "width": 418,
+        "height": 641
+      },
+      "uniformScale": 0.4329004329004329,
+      "sourceRoot": [
+        1367.5,
+        702
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        110,
+        88
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "dfcc17276ca4a44143cacfd1d9cf40b657614f06cd76c0ee7c4956637995a059"
+    },
+    {
+      "id": 191,
+      "source": "art/dj-volt/scroll-down-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1714,
+        "top": 111,
+        "width": 417,
+        "height": 593
+      },
+      "uniformScale": 0.4329004329004329,
+      "sourceRoot": [
+        1922,
+        701
+      ],
+      "targetRoot": [
+        200,
+        364
+      ],
+      "offset": [
+        110,
+        109
+      ],
+      "contactMethod": "lowest wheel extents; visual review required",
+      "sha256": "dfcc17276ca4a44143cacfd1d9cf40b657614f06cd76c0ee7c4956637995a059"
     }
   ]
 }

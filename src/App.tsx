@@ -561,6 +561,7 @@ export default function App() {
       {now.disc && <MoodMeter score={mood} />}
 
       <Host line={line} bouncing={playing} theme={theme}
+        navigation={{ horizontal: scroll, vertical: stack, enabled: !pulled && theme === 'street' }}
         songMood={mode !== 'sample' && import.meta.env.DEV ? songMood : undefined} />
 
       {pulled && pulled.stage === 'open' && (

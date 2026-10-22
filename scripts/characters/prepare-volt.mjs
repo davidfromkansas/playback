@@ -15,6 +15,8 @@ const sources = [
   ...['holster', 'bart', 'running', 'rabbit', 'cabbage', 'smurf', 'points', 'armwave',
     'toprock', 'sixstep', 'freeze', 'backspin', 'windmill'].map(name =>
     ({ name, rows: 2, columns: 4, scale: 0, expanded: true })),
+  ...['left', 'right', 'up', 'down'].map(direction =>
+    ({ name: `scroll-${direction}`, rows: 1, columns: 4, scale: 0, expanded: true })),
 ]
 const records = []
 const layers = []

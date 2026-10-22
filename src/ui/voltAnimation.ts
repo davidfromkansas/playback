@@ -3,7 +3,7 @@ import { BPM } from '../lib/beat'
 export const VOLT_WIDTH = 400
 export const VOLT_HEIGHT = 380
 export const VOLT_COLUMNS = 8
-export const VOLT_CELS = 176
+export const VOLT_CELS = 192
 const idle = [0, 1, 2, 3, 2, 1]
 const bridge = [16, 17, 18, 19, 20, 21, 22, 23]
 const holster = [72, 73, 74, 75, 76, 77, 78, 79]

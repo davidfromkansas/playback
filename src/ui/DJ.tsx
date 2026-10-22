@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { MOOD_ROUTINES, type SongMood } from '../lib/songMood'
+import { advanceVoltNavigation, newVoltNavigation, readVoltNavigation, type VoltNavigation } from './voltNavigation'
 import { advanceVolt, newVoltMotion, VOLT_CELS, VOLT_COLUMNS, VOLT_HEIGHT, VOLT_WIDTH,
   type VoltSelection } from './voltAnimation'
 
@@ -11,12 +12,13 @@ interface DJProps {
   inspectCel?: number
   routine?: VoltSelection
   mood?: SongMood
+  navigation?: VoltNavigation
 }
 
-export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto', mood }: DJProps) {
+export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto', mood, navigation }: DJProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
-  const inputs = useRef({ dancing, speed, inspectCel, routine, mood })
-  inputs.current = { dancing, speed, inspectCel, routine, mood }
+  const inputs = useRef({ dancing, speed, inspectCel, routine, mood, navigation })
+  inputs.current = { dancing, speed, inspectCel, routine, mood, navigation }
 
   useEffect(() => {
     const el = canvas.current
@@ -24,6 +26,7 @@ export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto'
     if (!el || !context) return
     const atlas = new Image()
     const motion = newVoltMotion()
+    const browsing = newVoltNavigation()
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     let raf = 0
     let disposed = false
@@ -33,10 +36,15 @@ export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto'
       const dt = last ? (now - last) / 1000 : 0
       last = now
       const input = inputs.current
-      const sample = reduced.matches
+      readVoltNavigation(browsing, input.navigation, dt)
+      const browseActive = Boolean(browsing.direction || browsing.pose || browsing.settled < 1.2)
+      const base = reduced.matches
         ? { cel: input.dancing ? 24 : 0, state: input.dancing ? 'playing' : 'idle', routine: 'groove' }
-        : advanceVolt(motion, Math.min(dt, 0.05) * input.speed, input.dancing, input.routine,
+        : advanceVolt(motion, Math.min(dt, 0.05) * input.speed, input.dancing && !browseActive, input.routine,
           input.mood ? MOOD_ROUTINES[input.mood] : undefined)
+      const reaction = reduced.matches ? null
+        : advanceVoltNavigation(browsing, Math.min(dt, 0.05) * input.speed, base.state === 'idle')
+      const sample = reaction ? { ...base, ...reaction } : base
       const cel = input.inspectCel === undefined ? sample.cel : Math.max(0, Math.min(VOLT_CELS - 1, input.inspectCel))
       if (cel !== previous) {
         context.clearRect(0, 0, VOLT_WIDTH, VOLT_HEIGHT)
@@ -50,12 +58,16 @@ export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto'
       el.dataset.playing = String(input.dancing)
       el.dataset.routine = sample.routine
       el.dataset.mood = input.mood ?? 'all'
+      el.dataset.direction = reaction?.direction ?? 'none'
       raf = requestAnimationFrame(draw)
     }
     atlas.onload = () => { if (!disposed) raf = requestAnimationFrame(draw) }
     atlas.onerror = () => { el.dataset.error = 'artwork-unavailable' }
-    atlas.src = '/characters/dj-volt/atlas.webp?v=expanded-1'
-    const resetClock = () => { last = 0 }
+    atlas.src = '/characters/dj-volt/atlas.webp?v=navigation-1'
+    const resetClock = () => {
+      last = 0
+      Object.assign(browsing, newVoltNavigation())
+    }
     document.addEventListener('visibilitychange', resetClock)
     return () => {
       disposed = true

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { DJ } from '../src/ui/DJ'
 import { DJBaseline } from './DJBaseline'
 import { advanceVolt, newVoltMotion, VOLT_ROUTINES, VOLT_CELS, type VoltSelection } from '../src/ui/voltAnimation'
 import './volt.css'
+import { type VoltDirection } from '../src/ui/voltNavigation'
 import { classifyPublicSong, MOOD_ROUTINES, type SongMood, type MoodResult } from '../src/lib/songMood'
 
 // Deterministic fixture uses the production selector. It does not simulate Spotify playback.
@@ -26,10 +27,28 @@ function Preview() {
   const [mood, setMood] = useState<SongMood | 'all'>('all')
   const [publicResult, setPublicResult] = useState<MoodResult | null>(null)
   const [looking, setLooking] = useState(false)
+  const navigation = useRef({ horizontal: { current: 0 }, vertical: { current: 0 }, enabled: true })
+  const heldDirection = useRef<VoltDirection | null>(null)
+  useEffect(() => {
+    let frame = 0
+    let previous = 0
+    const move = (now: number) => {
+      const step = previous ? Math.min((now - previous) / 1000, 0.05) : 0
+      previous = now
+      const direction = heldDirection.current
+      if (direction === 'left' || direction === 'right') navigation.current.horizontal.current += step * (direction === 'right' ? 1 : -1)
+      if (direction === 'up' || direction === 'down') navigation.current.vertical.current += step * (direction === 'down' ? 1 : -1)
+      frame = requestAnimationFrame(move)
+    }
+    const stop = () => { heldDirection.current = null }
+    frame = requestAnimationFrame(move)
+    window.addEventListener('blur', stop)
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('blur', stop) }
+  }, [])
   useEffect(() => {
     const timer = setInterval(() => {
       const el = document.querySelector<HTMLCanvasElement>('.candidate canvas')
-      setCurrent(el?.dataset.motion === 'idle' ? 'Listening'
+      setCurrent(el?.dataset.direction !== 'none' && el?.dataset.direction ? `Scroll ${el.dataset.direction}` : el?.dataset.motion === 'idle' ? 'Listening'
         : VOLT_ROUTINES.find(r => r.id === el?.dataset.routine)?.label ?? 'Listening')
     }, 200)
     return () => clearInterval(timer)
@@ -39,11 +58,21 @@ function Preview() {
       <p>Rooftop radio. Lime hair. A new groove.</p></header>
     <section className="stages">
       <article><span className="label">ORIGINAL / SVG RIG</span><div className="stage"><DJBaseline dancing={playing} /></div></article>
-      <article className="candidate"><span className="label">{current.toUpperCase()}</span><div className="stage"><DJ dancing={playing} speed={slow ? 0.25 : 1} inspectCel={inspect ? cel : undefined} routine={routine} mood={mood === 'all' ? undefined : mood} /></div><div className="ground" /></article>
+      <article className="candidate"><span className="label">{current.toUpperCase()}</span><div className="stage"><DJ dancing={playing} speed={slow ? 0.25 : 1} inspectCel={inspect ? cel : undefined} routine={routine} mood={mood === 'all' ? undefined : mood} navigation={navigation.current} /></div><div className="ground" /></article>
     </section>
     <nav aria-label="Animation controls"><button onClick={() => setPlaying(v => !v)}>{playing ? 'Pause music' : 'Play music'}</button>
       <button aria-pressed={slow} onClick={() => setSlow(v => !v)}>Quarter speed</button>
       <button aria-pressed={inspect} onClick={() => setInspect(v => !v)}>Inspect frames</button></nav>
+    <nav aria-label="Scroll reactions">{(['left', 'right', 'up', 'down'] as const).map(direction =>
+      <button key={direction} style={{ touchAction: 'none' }}
+        onPointerDown={event => { event.currentTarget.setPointerCapture(event.pointerId); heldDirection.current = direction }}
+        onPointerUp={() => { heldDirection.current = null }}
+        onPointerCancel={() => { heldDirection.current = null }}
+        onLostPointerCapture={() => { heldDirection.current = null }}
+        onKeyDown={event => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); heldDirection.current = direction } }}
+        onKeyUp={() => { heldDirection.current = null }} onBlur={() => { heldDirection.current = null }}>
+        Hold {direction}
+      </button>)}</nav>
     <label className="routine-picker">Routine <select aria-label="Routine" value={routine} onChange={e => setRoutine(e.target.value as VoltSelection)}>
       <option value="auto">Cycle all 16</option>{VOLT_ROUTINES.map(r => <option key={r.id} value={r.id}>{r.label}</option>)}
     </select></label>

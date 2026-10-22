@@ -4,9 +4,10 @@ import type { Theme } from '../lib/theme'
 import { DJ } from './DJ'
 import { Rapper } from './Rapper'
 import type { SongMood } from '../lib/songMood'
+import type { VoltNavigation } from './voltNavigation'
 
-export function Host({ line, bouncing, theme, songMood }: {
-  line: string; bouncing: boolean; theme: Theme; songMood?: SongMood
+export function Host({ line, bouncing, theme, songMood, navigation }: {
+  line: string; bouncing: boolean; theme: Theme; songMood?: SongMood; navigation?: VoltNavigation
 }) {
   // Each line stays up for a while, then the bubble tucks away so it doesn't hide the shelf.
   const [shown, setShown] = useState(line)
@@ -24,7 +25,7 @@ export function Host({ line, bouncing, theme, songMood }: {
         </div>
       )}
       {theme === 'street' ? (
-        <DJ dancing={bouncing} className="host-figure" mood={songMood} />
+        <DJ dancing={bouncing} className="host-figure" mood={songMood} navigation={navigation} />
       ) : (
         <Rapper dancing={bouncing} className="host-figure" />
       )}
