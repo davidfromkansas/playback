@@ -42,14 +42,14 @@ Playwright is external, and `VOLT_URL` pointing at the local dev server.
 - Deterministic 60/120 Hz fixtures: all directions, reversal through neutral,
   complete recovery, restored-row position and disabled inputs.
 - Actual Chrome character preview: all directions at normal and quarter speed,
-  music interruption → idle → music resume, reduced motion, no page errors.
+  music interruption → idle → music resume (including a 100 ms swipe during a windmill), reduced motion, no page errors.
 - Actual app: desktop keyboard and wheel, phone-sized touch swipes, all four
   directions observed and final idle state. Sample mode, no Spotify sign-in.
 - Existing 16-routine playback/pause recovery and the complete sample pick/open/play/return flow passed on desktop and phone in Street/Paper/Street.
 - `npm run build` passed in an identical temporary copy. Existing large-bundle
   warning remains.
 
-Evidence: `output/dj-volt/navigation-1792638249579/`. Preview callback gaps were
+Evidence: `output/dj-volt/navigation-1792638445420/`. Preview callback gaps were
 median/p95 16.7 ms, p99/max 16.8 ms, with no gaps over 34 ms. These are rAF
 observations in headless Chrome, not display-scanout measurements or a physical
 phone performance claim. Full-app software WebGL runs substantially slower.

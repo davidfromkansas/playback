@@ -45,7 +45,6 @@ export function readVoltNavigation(motion: VoltNavigationMotion, input: VoltNavi
     motion.quiet += dt
     if (!input?.enabled || motion.quiet > 0.14) motion.direction = null
   }
-  if (!motion.direction && !motion.pose) motion.settled += dt
   return motion.direction
 }
 
@@ -54,7 +53,11 @@ export function readVoltNavigation(motion: VoltNavigationMotion, input: VoltNavi
 export function advanceVoltNavigation(motion: VoltNavigationMotion, seconds: number, ready: boolean) {
   const dt = Math.max(0, Math.min(seconds, 0.05))
   if (!motion.pose && ready && motion.direction) motion.pose = motion.direction
-  if (!motion.pose) return null
+  if (!motion.pose) {
+    // Start the idle pause only after a music routine has actually recovered.
+    if (ready && !motion.direction) motion.settled += dt
+    return null
+  }
   const active = motion.direction === motion.pose && ready
   motion.age = active ? Math.min(4, motion.age + dt * 10) : Math.max(0, motion.age - dt * 12)
   const cel = VOLT_REACTIONS[motion.pose][Math.floor(motion.age)]
