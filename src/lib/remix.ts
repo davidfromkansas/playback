@@ -41,7 +41,7 @@ export function groupRemixTracks(tracks: readonly Track[], get: (track: Track) =
     const result = get(track)
     // Fake sample songs use explicitly labelled demo assignments, never Jev claims.
     const demoIndex = [...track.uri].reduce((hash, c) => (hash * 31 + c.charCodeAt(0)) >>> 0, 0) % REMIX_MOODS.length
-    const mood = sample ? REMIX_MOODS[demoIndex] : result.profile?.mood
+    const mood = sample ? (track.demoMood as SongMood | undefined) ?? REMIX_MOODS[demoIndex] : result.profile?.mood
     const reliable = mood && mood !== 'unknown' && buckets.has(mood)
     const pending = !sample && ['unrated', 'queued', 'loading'].includes(result.status)
     const id = reliable ? mood : pending ? 'pending' : 'unrated'

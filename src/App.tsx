@@ -196,11 +196,15 @@ export default function App() {
 
   useEffect(() => {
     void (async () => {
+      if (new URLSearchParams(window.location.search).get('demo') === '1') {
+        void startShelf(null, sampleLibrary())
+        return
+      }
       const error = await auth.handleRedirect()
       if (error) setNotice({ text: error })
       if (auth.isLoggedIn()) void loadFromSpotify()
     })()
-  }, [loadFromSpotify])
+  }, [loadFromSpotify, startShelf])
 
   const trySample = () => void startShelf(null, sampleLibrary())
 
@@ -533,7 +537,7 @@ export default function App() {
         <div className="brand">PLAYBACK</div>
         <input
           className="search"
-          placeholder={street ? 'Search Spotify…' : 'Find a CD…'}
+          placeholder={mode === 'sample' ? 'Search demo music…' : street ? 'Search Spotify…' : 'Find a CD…'}
           enterKeyHint="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -559,8 +563,8 @@ export default function App() {
             </button>
           </>
         ) : (
-          <button className="chip" onClick={() => setPhase('welcome')}>
-            Exit
+          <button className="chip" title="Demo · silent simulated playback" onClick={() => { player.stop(); setPhase('welcome') }}>
+            Exit demo
           </button>
         )}
       </header>
@@ -568,7 +572,7 @@ export default function App() {
 
       <Host line={line} bouncing={playing} theme={theme}
         navigation={{ horizontal: scroll, vertical: stack, enabled: !pulled && theme === 'street' }}
-        songMood={mode !== 'sample' && import.meta.env.DEV ? songMood : undefined} />
+        songMood={mode === 'sample' || import.meta.env.DEV ? songMood : undefined} />
 
       {pulled && pulled.stage !== 'returning' && <nav className="case-actions" aria-label="CD actions">
         <button className="chip" onClick={putBack}>← Back to collection</button>

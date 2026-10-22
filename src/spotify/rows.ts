@@ -187,20 +187,16 @@ export function sampleRows(library: Disc[]): ShelfRow[] {
   const albums = library.filter((d) => d.kind === 'album')
   const playlists = library.filter((d) => d.kind === 'playlist')
   const liked = library.find((d) => d.kind === 'liked')
-  const recentContexts = [albums[3], playlists[1], albums[0], albums[7], playlists[4], albums[12], albums[2], playlists[0], albums[20], albums[5]]
-  const singles = [albums[30], albums[41], playlists[6], albums[9]].map((d, i) => trackDisc(d.tracks![i % d.tracks!.length], { contextUri: d.uri, image: d.imageUrl }))
-  const recent: Disc[] = []
-  recentContexts.forEach((d, i) => {
-    recent.push(d)
-    if (i % 3 === 1 && singles.length) recent.push(singles.shift()!)
-  })
+  const recentContexts = [...playlists, ...albums].filter(d => d.tracks?.length).slice(0, 10)
+  const singles = (liked?.tracks ?? []).slice(0, 12).map(track => trackDisc(track))
+  const recent: Disc[] = [...singles.slice(0, 6), ...recentContexts.slice(0, 4)]
   const songs = (d: Disc, id = `songs:${d.id}`): ShelfRow => ({
     id,
     title: d.title,
     discs: (d.tracks ?? []).map((t) => trackDisc(t, { contextUri: d.uri, image: d.imageUrl })),
   })
   return [
-    { id: 'recent', title: 'Recently Played', discs: [...recent, ...singles] },
+    { id: 'recent', title: 'Recently Played', discs: recent },
     liked ? { ...songs(liked, 'liked'), title: 'Liked Songs' } : { id: 'liked', title: 'Liked Songs', discs: [] },
     ...recentContexts.map((d) => songs(d)),
   ]

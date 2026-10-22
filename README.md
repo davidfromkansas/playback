@@ -20,6 +20,13 @@ npm run dev
 
 Open http://127.0.0.1:5180 and press **Try it with sample CDs**.
 
+For filming, open `/?demo=1` to bypass Spotify sign-in, including existing sessions.
+The demo includes recognizable pop and a smaller soul, indie, hip-hop and electronic selection.
+Track facts and bundled covers come from the public Apple iTunes catalog. Collections, listening
+history and mood assignments are curated fixtures, not an imported account or Jev results.
+Playback is silent and simulated; mood labels, Remix and DJ reactions work without API requests.
+Album CDs contain demo selections, not necessarily complete albums.
+
 ## Hook up Spotify
 
 1. Go to the [Spotify developer dashboard](https://developer.spotify.com/dashboard) and create an app

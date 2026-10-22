@@ -28,6 +28,7 @@ const cache = new Map<string, Promise<Lyrics>>()
 
 /** Lyrics for a song. Never rejects: network trouble or no match comes back as `none`. */
 export function fetchLyrics(track: Track, album?: string): Promise<Lyrics> {
+  if (track.uri.startsWith('sample:')) return Promise.resolve({ kind: 'none' })
   const key = track.uri || `${track.artists}/${track.name}`
   let found = cache.get(key)
   if (!found) {

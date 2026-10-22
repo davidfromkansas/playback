@@ -59,20 +59,24 @@ export function useLoadedSongMoods(tracks: readonly Track[], enabled: boolean, p
 
 export function useSongMoodResult(track: Track | null): MoodResult {
   const key = track ? songMoodKey(track) : ''
-  return useSyncExternalStore(songMoods.subscribe, () => songMoods.get(key), () => songMoods.get(''))
+  const result = useSyncExternalStore(songMoods.subscribe, () => songMoods.get(key), () => songMoods.get(''))
+  if (track?.uri.startsWith('sample:') && track.demoMood && Object.hasOwn(MOOD_ROUTINES, track.demoMood)) {
+    return { status: 'demo', profile: { mood: track.demoMood as SongMood, confidence: 1, probability: 1 } }
+  }
+  return result
 }
 
 export function useSongMood(track: Track | null, enabled: boolean): SongMood {
   const result = useSongMoodResult(track)
   const key = track ? songMoodKey(track) : ''
   useEffect(() => { if (enabled && track) songMoods.enqueue([track], true) }, [key, enabled, track])
-  return enabled ? result.profile?.mood ?? 'unknown' : 'unknown'
+  return enabled || result.status === 'demo' ? result.profile?.mood ?? 'unknown' : 'unknown'
 }
 
 export function moodLabel(result: MoodResult): { text: string; detail: string } {
   const mood = result.profile?.mood
   if (mood && mood !== 'unknown') return {
-    text: mood[0].toUpperCase() + mood.slice(1), detail: `Estimated mood: ${mood}${result.context?.length ? ' · Sources: ' + result.context.map(item => item.sourceUrl).join(', ') : ''}`,
+    text: mood[0].toUpperCase() + mood.slice(1), detail: `${result.status === 'demo' ? 'Curated demo mood' : 'Estimated mood'}: ${mood}${result.context?.length ? ' · Sources: ' + result.context.map(item => item.sourceUrl).join(', ') : ''}`,
   }
   if (result.status === 'queued' || result.status === 'loading') {
     return { text: '…', detail: 'Finding song mood' }
