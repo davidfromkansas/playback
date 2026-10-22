@@ -54,7 +54,7 @@ export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded, onSeek }: 
   return (
     <section className={`nowbar miniamp${compact ? ' is-compact' : ''}`} aria-label="Playback mini player">
       <header className="deck-header">
-        <span className="deck-brand">PLAYBACK <b>MINIAMP</b></span>
+        <span className="deck-brand"><svg className="deck-bolt" viewBox="0 0 28 32" aria-hidden="true"><path d="M16 1 2 19h10l-2 12L27 12H16l4-11Z" /></svg><span>PLAYBACK <b>VOLT—01</b></span></span>
         {compact && <span className="deck-compact-title">{title}</span>}
         <span className="deck-source">{SOURCE[mode]}</span>
         {compact && <button className="deck-mini-play" aria-label={now.paused ? 'Play' : 'Pause'} onClick={onToggle}>
@@ -78,6 +78,7 @@ export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded, onSeek }: 
             <span className="deck-disclaimer">Animation · not audio analysis</span>
           </figure>
           <div className="deck-controls">
+            <span className="deck-sticker" aria-hidden="true">MAKE SOME NOISE!</span>
             <div className="deck-clock"><span>{time(shown)}</span><small>/ {time(now.durationMs)}</small></div>
             <div className="deck-transport">
               <button aria-label="Previous" onClick={() => onSkip(-1)}>⏮</button>

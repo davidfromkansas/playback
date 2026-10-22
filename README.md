@@ -35,7 +35,7 @@ Open http://127.0.0.1:5173 and press **Try it with sample CDs**.
 
 There's no server and no client secret: login uses Spotify's PKCE flow in the browser.
 
-The Miniamp player has playback controls, elapsed time, a seek slider and a collapsible visualizer.
+The VOLT—01 Miniamp player has playback controls, elapsed time, a seek slider and a collapsible visualizer.
 “Visual mode” is decorative animation, not a measurement of Spotify audio. It freezes when paused or reduced motion is enabled.
 
 ## How playback works
