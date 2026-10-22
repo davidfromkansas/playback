@@ -71,3 +71,48 @@ test('concurrent track opens share one fetch and cached library retains tracks',
   library.saveCache('test-user', [disc])
   assert.equal(library.cachedLibrary('test-user')[0].tracks.length, 1)
 })
+
+test('demo audio follows media time, pauses, seeks, replaces tracks, and cleans up', async () => {
+  const elements = []
+  class AudioFixture extends EventTarget {
+    dataset = {}; currentTime = 0; duration = 30; paused = true; ended = false; error = null
+    play() { this.paused = false; this.dispatchEvent(new Event('playing')); return Promise.resolve() }
+    pause() { this.paused = true; this.dispatchEvent(new Event('pause')) }
+    removeAttribute() {}; load() {}; remove() { this.removed = true }
+  }
+  globalThis.window = { clearInterval() {} }
+  globalThis.document = { createElement: () => { const audio = new AudioFixture(); elements.push(audio); return audio }, body: { appendChild() {} } }
+  const player = await load('spotify/player.ts', [
+    ["import { spotify, SpotifyError } from './api'", "const spotify = () => { throw Error('Demo must not call Spotify') }; class SpotifyError extends Error {}"],
+    ["import { accessToken } from './auth'", "const accessToken = () => { throw Error('No demo token') }"],
+  ])
+  player.initPlayer(false)
+  const tracks = [1, 2].map(id => ({ uri: `sample:${id}`, name: `Song ${id}`, artists: 'Test', durationMs: 180000, previewUrl: `https://example.test/${id}.m4a` }))
+  const disc = { id: 'demo', tracks }
+  assert.equal((await player.play(disc, tracks)).ok, true)
+  assert.equal(player.playerStore.get().now.durationMs, 30000)
+  elements[0].currentTime = 5
+  assert.equal(player.livePosition(player.playerStore.get().now), 5000)
+  await player.togglePause()
+  assert.equal(player.playerStore.get().now.paused, true)
+  await player.seek(12000)
+  assert.equal(elements[0].currentTime, 12)
+  await player.togglePause()
+  assert.equal(player.playerStore.get().now.paused, false)
+  await player.skip(1)
+  assert.equal(elements[0].removed, true)
+  assert.equal(player.playerStore.get().now.track.uri, 'sample:2')
+  elements[0].dispatchEvent(new Event('error'))
+  assert.equal(player.playerStore.get().now.error, undefined)
+  elements[1].ended = true
+  elements[1].dispatchEvent(new Event('ended'))
+  assert.equal(player.playerStore.get().now.paused, true)
+  const missing = await player.play(disc, [{ ...tracks[0], previewUrl: undefined }])
+  assert.equal(missing.ok, false)
+  assert.equal(player.playerStore.get().now.paused, true)
+  assert.match(player.playerStore.get().now.error, /No audio preview/)
+  await player.play(disc, tracks)
+  player.disconnectPlayer()
+  assert.equal(elements[2].removed, true)
+  assert.equal(player.playerStore.get().now.track, null)
+})

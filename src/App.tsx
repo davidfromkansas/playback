@@ -566,7 +566,7 @@ export default function App() {
             </button>
           </>
         ) : (
-          <button className="chip" title="Demo · silent simulated playback" onClick={() => { player.stop(); setPhase('welcome') }}>
+          <button className="chip" title="Demo · real song previews" onClick={() => { player.stop(); setPhase('welcome') }}>
             Exit demo
           </button>
         )}
@@ -692,7 +692,6 @@ export default function App() {
         mode={mode}
         onToggle={() => void player.togglePause()}
         onSkip={skip}
-        onEnded={() => void player.skip(1)}
         onSeek={player.seek}
       />
     </main>
