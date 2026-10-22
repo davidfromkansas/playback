@@ -165,8 +165,12 @@ export default function App() {
     [shelfScroll, rowScrolls, stack, rhymes],
   )
 
+  const libraryLoading = useRef(false)
   const loadFromSpotify = useCallback(
     async (force = false) => {
+      if (libraryLoading.current) return
+      libraryLoading.current = true
+      setNotice(null)
       setPhase('loading')
       try {
         const user = await fetchMe()
@@ -183,6 +187,8 @@ export default function App() {
               ? "Spotify blocked this account. Playback is invite-only for now, so ask the owner to add your Spotify email."
               : `Couldn't load your library: ${err.message}`,
         })
+      } finally {
+        libraryLoading.current = false
       }
     },
     [startShelf],
@@ -436,8 +442,9 @@ export default function App() {
         {phase === 'loading' && <LoadingCard text="Stacking up your CDs…" />}
         {phase === 'welcome' && (
           <div className="actions">
+            {notice && <p className="note" role="alert">{notice.text}</p>}
             <button className="big spotify" disabled={!auth.isConfigured()} onClick={() => auth.isLoggedIn() ? void loadFromSpotify() : void auth.login()}>
-              Sign in with Spotify
+              {auth.isLoggedIn() ? 'Retry loading library' : 'Sign in with Spotify'}
             </button>
             <button className="big" onClick={trySample}>
               Try it with sample CDs
@@ -448,7 +455,6 @@ export default function App() {
             <p className="fine">Playback is invite-only for now (Spotify allows 5 testers). Playing songs inside the app needs Spotify Premium.</p>
           </div>
         )}
-        {notice && <p className="note">{notice.text}</p>}
       </main>
     )
   }
