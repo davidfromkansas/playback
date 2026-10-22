@@ -1,6 +1,4 @@
 import { InlineLoader, TextLoader } from 'generative-loaders'
-import { useEffect, useState } from 'react'
-import { livePosition, type NowPlaying, type PlayerMode } from '../spotify/player'
 import type { Disc, Track } from '../types'
 
 const time = (ms: number) => {
@@ -76,72 +74,5 @@ export function TrackPanel({
         </a>
       </footer>
     </aside>
-  )
-}
-
-const MODE_NOTE: Record<PlayerMode, string> = {
-  sample: 'Sample mode: pretend playback',
-  browser: 'Playing in this browser',
-  phone: "Playing in your Spotify app",
-  link: 'Opens in Spotify',
-}
-
-interface NowBarProps {
-  now: NowPlaying
-  mode: PlayerMode
-  onToggle: () => void
-  onSkip: (dir: 1 | -1) => void
-  onEnded: () => void
-}
-
-export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded }: NowBarProps) {
-  const [, setTick] = useState(0)
-  useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 500)
-    return () => clearInterval(id)
-  }, [])
-  const pos = livePosition(now)
-  const pct = now.durationMs ? (pos / now.durationMs) * 100 : 0
-  useEffect(() => {
-    if (mode === 'sample' && !now.paused && now.durationMs && pos >= now.durationMs) onEnded()
-  })
-  if (!now.disc) return null
-  return (
-    <div className="nowbar">
-      <div className="now-text">
-        <strong>{now.track?.name ?? now.disc.title}</strong>
-        <span>
-          {now.track?.artists ?? now.disc.subtitle} · {MODE_NOTE[mode]}
-        </span>
-        <div className="progress">
-          <div style={{ width: `${pct}%` }} />
-        </div>
-      </div>
-      <div className="now-buttons">
-        <button aria-label="Previous" onClick={() => onSkip(-1)}>
-          ⏮
-        </button>
-        <button aria-label={now.paused ? 'Play' : 'Pause'} className="play" onClick={onToggle}>
-          {now.paused ? '▶' : '❚❚'}
-        </button>
-        <button aria-label="Next" onClick={() => onSkip(1)}>
-          ⏭
-        </button>
-      </div>
-    </div>
-  )
-}
-
-export function MoodMeter({ score }: { score: number }) {
-  const label = score >= 75 ? 'COOL' : score >= 40 ? 'GOOD' : 'BAD'
-  return (
-    <div className="mood" aria-label={`Mood: ${label}`}>
-      <span className="mood-title">U R Groovin'</span>
-      {(['BAD', 'GOOD', 'COOL'] as const).map((l) => (
-        <span key={l} className={`mood-step ${l.toLowerCase()} ${l === label ? 'on' : ''}`}>
-          {l}
-        </span>
-      ))}
-    </div>
   )
 }

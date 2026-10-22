@@ -80,6 +80,7 @@ interface SdkPlayer {
   connect(): Promise<boolean>
   disconnect(): void
   activateElement(): Promise<void>
+  seek(position: number): Promise<void>
   togglePlay(): Promise<void>
   nextTrack(): Promise<void>
   previousTrack(): Promise<void>
@@ -308,4 +309,17 @@ export function stop(): void {
 export function livePosition(now: NowPlaying): number {
   if (now.paused) return now.positionMs
   return Math.min(now.positionMs + (Date.now() - now.measuredAt), now.durationMs || Infinity)
+}
+
+/** Seek within the current track without changing play/pause state. */
+export async function seek(positionMs: number): Promise<void> {
+  if (!state.now.disc || !state.now.durationMs || state.mode === 'link') return
+  const position = Math.round(Math.max(0, Math.min(positionMs, state.now.durationMs)))
+  if (state.mode === 'browser') {
+    if (!sdk) throw new Error('The Spotify player is still connecting.')
+    await sdk.seek(position)
+  } else if (state.mode === 'phone') {
+    await spotify(`/me/player/seek?position_ms=${position}`, { method: 'PUT' })
+  }
+  setNow({ positionMs: position })
 }

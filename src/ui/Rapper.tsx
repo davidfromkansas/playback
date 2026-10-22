@@ -35,7 +35,7 @@ export function Rapper({ dancing, className }: { dancing: boolean; className?: s
       const m = ease(Math.max(0, Math.min(1, mix)))
       const t = now / 1000
 
-      // Dance: driven by the shared beat clock so it lines up with the rhythm bar.
+      // Dance: driven by the shared beat clock used throughout the room.
       const b = beatsNow(now)
       const bounce = Math.abs(Math.sin(Math.PI * b)) // 0 on the beat, 1 between
       const sway = Math.sin(Math.PI * b) // -1..1 over two beats

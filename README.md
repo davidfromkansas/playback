@@ -5,7 +5,7 @@ pull one out, open the case and play it. A dancing host character keeps you comp
 
 Two looks, switched from the top bar:
 - **Street** (default): a Jet Set Radio-style rooftop with a swipeable line of real-looking jewel cases.
-- **Paper**: a pastel paper-cutout room with a shelf of CD spines, tap-along rhythm buttons and a mood meter.
+- **Paper**: a pastel paper-cutout room with a shelf of CD spines and a dancing host.
 
 Open an album, playlist or Liked Songs CD to see its track list inside the left cover. The booklet scrolls continuously, looping from the last track back to the first. With reduced motion enabled it stays still; the full track panel remains scrollable. Individual-song CDs show lyrics there during playback.
 
@@ -35,6 +35,9 @@ Open http://127.0.0.1:5173 and press **Try it with sample CDs**.
 
 There's no server and no client secret: login uses Spotify's PKCE flow in the browser.
 
+The Miniamp player has playback controls, elapsed time, a seek slider and a collapsible visualizer.
+“Visual mode” is decorative animation, not a measurement of Spotify audio. It freezes when paused or reduced motion is enabled.
+
 ## How playback works
 
 | Where | What happens |
@@ -48,4 +51,4 @@ There's no server and no client secret: login uses Spotify's PKCE flow in the br
 
 - Development-mode apps allow 5 users, each added by hand in the dashboard.
 - Spotify only lists the songs of playlists you own or co-edit. Followed playlists still play as a whole.
-- Spotify no longer gives new apps a song's tempo, so the rhythm bar follows a steady 100 BPM beat.
+- Spotify no longer gives new apps a song's tempo, so the host dances to a steady 100 BPM beat.

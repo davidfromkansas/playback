@@ -88,8 +88,9 @@ src/
     Host.tsx           Host character + speech bubble; rhymesFor(theme) has each host's lines
     useRig.ts          rAF loop for SVG character rigs: writes transforms directly, no React re-renders
     DJ.tsx, Rapper.tsx The two hosts (pose functions blend "dance" and "chill" states)
-    Panels.tsx         Track list panel, now-playing bar, mood meter
-    RhythmBar.tsx      Optional tap-along rhythm game
+    Panels.tsx         Track list panel
+    NowPlayingBar.tsx  Miniamp transport controls, elapsed time and seek slider
+    Visualizer.tsx     Decorative visual mode (not an audio waveform)
     SpeedLines.tsx     Street speed-line overlay
     Loading.tsx        Loading states (generative-loaders package from generativeloaders.com): LoadingCard, SceneLoading
 blender/               Python scripts that build the .glb models
@@ -173,5 +174,4 @@ python blender/shelf.py       # -> public/models/shelf.glb (stretched to each ro
 
 ## Open items
 
-- The rhythm bar is unlabeled. Asked David whether to add a "Tap along!" label or hide it by default. No answer yet.
 - Real 120 fps and real Spotify cover art haven't been verified on a device from the agent side.

@@ -19,8 +19,8 @@ import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
-import { MoodMeter, NowPlayingBar, TrackPanel } from './ui/Panels'
-import { RhythmBar, type Hit } from './ui/RhythmBar'
+import { TrackPanel } from './ui/Panels'
+import { NowPlayingBar } from './ui/NowPlayingBar'
 import { LoadingCard, SceneLoading } from './ui/Loading'
 import { SpeedLines } from './ui/SpeedLines'
 
@@ -67,7 +67,6 @@ export default function App() {
   const [trackError, setTrackError] = useState<string | null>(null)
   const [line, setLine] = useState(rhymes.welcome())
   const [notice, setNotice] = useState<{ text: string; openUrl?: string } | null>(null)
-  const [mood, setMood] = useState(50)
   const [starting, setStarting] = useState(false)
   const shelfScroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
   const rows = ROWS
@@ -288,22 +287,7 @@ export default function App() {
     }
   }
 
-  const onHit = useCallback(
-    (hit: Hit) => {
-      setMood((m) => {
-        const next = Math.max(0, Math.min(100, m + (hit === 'perfect' ? 7 : hit === 'good' ? 3 : -6)))
-        if (m < 75 && next >= 75) setLine(rhymes.cool())
-        if (m >= 40 && next < 40) setLine(rhymes.bad())
-        return next
-      })
-    },
-    [rhymes],
-  )
-
-  const skip = (dir: 1 | -1) => {
-    void player.skip(dir)
-    if (dir > 0) setMood((m) => Math.max(0, m - 8))
-  }
+  const skip = (dir: 1 | -1) => { void player.skip(dir) }
 
   // Keyboard: arrows scroll the shelf, Escape puts the CD back.
   useEffect(() => {
@@ -547,8 +531,6 @@ export default function App() {
         )}
       </header>
 
-      {playing && <RhythmBar onHit={onHit} />}
-      {now.disc && <MoodMeter score={mood} />}
 
       <Host line={line} bouncing={playing} theme={theme} />
 
@@ -637,6 +619,7 @@ export default function App() {
         onToggle={() => void player.togglePause()}
         onSkip={skip}
         onEnded={() => void player.skip(1)}
+        onSeek={player.seek}
       />
     </main>
   )
