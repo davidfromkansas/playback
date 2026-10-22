@@ -243,3 +243,30 @@
   .room:has(.miniamp:not(.is-compact)) .host { bottom: calc(232px + env(safe-area-inset-bottom)); }
   .room:has(.miniamp:not(.is-compact)) .hint { bottom: calc(230px + env(safe-area-inset-bottom)); }
 }
+
+/* Keep browsing, case inspection and playback in separate parts of the screen. */
+.miniamp, .street .miniamp { left: auto; right: 12px; }
+.room .host, .room:has(.miniamp:not(.is-compact)) .host { bottom: 18px; }
+.case-actions {
+  position: absolute; z-index: 14; top: 72px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; align-items: center; white-space: nowrap;
+}
+.case-actions button { font-size: 12px; }
+.inspecting .stage::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 48%, transparent 22%, #080e2060 76%);
+}
+.room .panel { z-index: 15; top: 116px; }
+.room .hint { bottom: 26px; }
+.room:has(.miniamp:not(.is-compact)) .hint { bottom: 248px; }
+@media (max-width: 700px) {
+  .miniamp, .street .miniamp { left: auto; right: 8px; }
+  .case-actions { top: 65px; gap: 5px; max-width: calc(100% - 16px); }
+  .case-actions button { font-size: 11px; padding: 7px 9px; }
+  .room .panel { top: auto; bottom: 70px; max-height: 50vh; }
+  .room:has(.miniamp:not(.is-compact)) .panel { bottom: 232px; max-height: 42vh; }
+  .room .host { bottom: 72px; }
+  .room:has(.miniamp:not(.is-compact)) .host { bottom: 232px; }
+  .room .hint { bottom: 76px; }
+  .room:has(.miniamp:not(.is-compact)) .hint { bottom: 242px; }
+}

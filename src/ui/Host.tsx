@@ -9,7 +9,7 @@ export function Host({ line, bouncing, theme }: { line: string; bouncing: boolea
   const [shown, setShown] = useState(line)
   useEffect(() => {
     setShown(line)
-    const id = setTimeout(() => setShown(''), 7000)
+    const id = setTimeout(() => setShown(''), 3500)
     return () => clearTimeout(id)
   }, [line])
 
@@ -46,8 +46,8 @@ const paperRhymes = {
   opened: () => pick(['Pick a song, any song, you really can\'t go wrong!', 'The disc is out and ready to spin. Pick a track, let the fun begin!']),
   playing: (song: string) =>
     pick([
-      `Now playing "${song}", turn it up loud! Tap along to the beat and make me proud!`,
-      `"${song}" is on, the room's in a groove. Hit the buttons on the beat and make your move!`,
+      `Now playing "${song}", turn it up loud! Let it fill the room!`,
+      `"${song}" is on, the room's in a groove. Kick back and let the music move!`,
     ]),
   returned: () => pick(['Back on the shelf, nice and neat. Pick another one, keep up the beat!', 'Put it back, stack it tight. What we playing next tonight?']),
   cool: () => pick(['You rappin\' COOL! Keep it up!', 'Whoa, COOL! You got the rhythm!']),

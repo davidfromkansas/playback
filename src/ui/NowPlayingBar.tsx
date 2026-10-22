@@ -21,7 +21,7 @@ interface Props {
 
 export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded, onSeek }: Props) {
   const [, setTick] = useState(0)
-  const [compact, setCompact] = useState(false)
+  const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 700px)').matches)
   const [scrub, setScrub] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const ended = useRef<string | null>(null)

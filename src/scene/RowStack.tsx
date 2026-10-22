@@ -51,7 +51,7 @@ export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, 
       {rows.map((row, k) =>
         Math.abs(k - active) > 2 ? null : (
           <group key={row.id} ref={(g) => void (groups.current[k] = g)}>
-            <RowSign row={row} active={k === active} />
+            {!selectedId && <RowSign row={row} active={k === active} />}
             <CaseLine
               discs={row.discs}
               scroll={scrollFor(row.id)}

@@ -52,3 +52,5 @@ The VOLT—01 Miniamp player has playback controls, elapsed time, a seek slider 
 - Development-mode apps allow 5 users, each added by hand in the dashboard.
 - Spotify only lists the songs of playlists you own or co-edit. Followed playlists still play as a whole.
 - Spotify no longer gives new apps a song's tempo, so the host dances to a steady 100 BPM beat.
+
+While inspecting a CD, use **Tracks** to open the selectable track list and **Back to collection** to return it. The booklet stays front and center; shelf signs hide and the edges of the scene dim. VOLT—01 docks bottom-right and starts collapsed on phones. Playback controls live in the player once a CD has started.

@@ -63,6 +63,14 @@ export default function App() {
   const [sortKey, setSortKey] = useState<SortKey>('added')
   const [query, setQuery] = useState('')
   const [pulled, setPulled] = useState<Pulled | null>(null)
+  const [showTracks, setShowTracks] = useState(false)
+  const [showHint, setShowHint] = useState(true)
+  useEffect(() => { setShowTracks(false) }, [pulled?.disc.id, pulled?.stage])
+  useEffect(() => {
+    if (phase !== 'shelf') return
+    const timer = setTimeout(() => setShowHint(false), 8000)
+    return () => clearTimeout(timer)
+  }, [phase])
   const [tracks, setTracks] = useState<Track[] | null>(null)
   const [trackError, setTrackError] = useState<string | null>(null)
   const [line, setLine] = useState(rhymes.welcome())
@@ -295,7 +303,8 @@ export default function App() {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).tagName === 'INPUT') return
       if (e.key === 'Escape') {
-        if (pulled) putBack()
+        if (showTracks) setShowTracks(false)
+        else if (pulled) putBack()
         else if (results) closeSearch()
       }
       if (pulled) return
@@ -405,7 +414,7 @@ export default function App() {
   }
 
   return (
-    <main className={`room ${theme} ${playing ? 'grooving' : ''}`} data-sky={street ? sky : undefined}>
+    <main className={`room ${theme} ${playing ? 'grooving' : ''} ${pulled ? 'inspecting' : ''}`} data-sky={street ? sky : undefined}>
       <div
         className="stage"
         onWheel={onWheel}
@@ -534,15 +543,23 @@ export default function App() {
 
       <Host line={line} bouncing={playing} theme={theme} />
 
-      {pulled && pulled.stage === 'open' && (
+      {pulled && pulled.stage !== 'returning' && <nav className="case-actions" aria-label="CD actions">
+        <button className="chip" onClick={putBack}>← Back to collection</button>
+        {pulled.stage === 'open' && <>
+          {now.disc?.id !== pulled.disc.id && <button className="chip" disabled={starting}
+            onClick={() => void playIndex(0)}>{starting ? 'Starting…' : '▶ Play CD'}</button>}
+          <button className="chip" aria-expanded={showTracks} aria-controls="case-tracks"
+            onClick={() => setShowTracks(value => !value)}>{showTracks ? 'Hide tracks' : 'Tracks'}</button>
+        </>}
+      </nav>}
+      {pulled && pulled.stage === 'open' && showTracks && (
         <TrackPanel
           disc={pulled.disc}
           tracks={tracks}
           error={trackError}
           nowUri={now.disc?.id === pulled.disc.id ? (now.track?.uri ?? null) : null}
           onPlay={(i) => void playIndex(i)}
-          onClose={putBack}
-          starting={starting}
+          onClose={() => setShowTracks(false)}
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}
@@ -591,7 +608,7 @@ export default function App() {
           <span>{focused.subtitle}</span>
         </div>
       ) : null}
-      {!pulled && (
+      {!pulled && showHint && (
         <p className="hint">
           {theme === 'street'
             ? 'Swipe left/right through CDs · up/down to change rows · tap the front one'

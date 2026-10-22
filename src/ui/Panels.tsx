@@ -1,4 +1,4 @@
-import { InlineLoader, TextLoader } from 'generative-loaders'
+import { TextLoader } from 'generative-loaders'
 import type { Disc, Track } from '../types'
 
 const time = (ms: number) => {
@@ -13,23 +13,21 @@ interface TrackPanelProps {
   nowUri: string | null
   onPlay: (index: number) => void
   onClose: () => void
-  /** Waiting for Spotify to start playing. */
-  starting?: boolean
 }
 
 /** The case insert: song list for the open CD. */
 export function TrackPanel({
-  disc, tracks, error, nowUri, onPlay, onClose, starting,
+  disc, tracks, error, nowUri, onPlay, onClose,
 }: TrackPanelProps) {
   return (
-    <aside className="panel">
+    <aside className="panel" id="case-tracks" aria-label="Track list">
       <header>
         <div>
           <h2>{disc.title}</h2>
           <p>{disc.subtitle}</p>
         </div>
         <button className="chip" onClick={onClose}>
-          Put it back
+          Close tracks
         </button>
       </header>
       {error && <p className="note">{error}</p>}
@@ -60,15 +58,6 @@ export function TrackPanel({
         </ol>
       )}
       <footer>
-        <button className="big" onClick={() => onPlay(0)} disabled={starting}>
-          {starting ? (
-            <>
-              <InlineLoader variant="signal" /> Starting…
-            </>
-          ) : (
-            '▶ Play CD'
-          )}
-        </button>
         <a className="spotify-link" href={disc.spotifyUrl} target="_blank" rel="noreferrer">
           Open in Spotify
         </a>
