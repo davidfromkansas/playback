@@ -9,7 +9,7 @@ for the user-facing setup.
 with Spotify, browse their albums, playlists and Liked Songs as CD cases, pull one out, open it and play it.
 A cartoon host character dances while music plays.
 
-- Live site: https://playback-phi.vercel.app (Vercel project `playback`)
+- Live site: https://playback-fm.vercel.app (Vercel project `playback`)
 - Repo: https://github.com/davidfromkansas/playback. `main` is the live version; do new work on a branch and open a PR.
 - Owner: David. He prefers short, plain-language updates, and screenshots over descriptions.
 
@@ -19,7 +19,7 @@ There is **no backend**. Everything runs in the browser: Spotify login, data loa
 
 ```bash
 npm install
-npm run dev        # http://127.0.0.1:5173 (Spotify rejects "localhost", so always use 127.0.0.1)
+npm run dev        # http://127.0.0.1:5180 (Spotify rejects "localhost", so always use 127.0.0.1)
 npm run build      # type-checks (tsc --noEmit), then builds to dist/
 npm run preview    # serves dist/ on http://127.0.0.1:4173
 ```
@@ -107,10 +107,10 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, 
 
 ## Spotify
 
-- **Client ID** `ef51ad407f124f29acf53858cc1742a4` is public and committed in `.env` on purpose.
+- **Client ID** `1840d923d830409a8888a6460253593e` is public and committed in `.env` on purpose.
   **Never add, ask for or commit the Client Secret.** The PKCE flow doesn't need one.
-- Redirect URIs registered in the Spotify dashboard: `http://127.0.0.1:5173/` and
-  `https://playback-phi.vercel.app/`. A new host or port needs adding there by David.
+- Redirect URIs to register in the new Spotify app: `http://127.0.0.1:5180/` and
+  `https://playback-fm.vercel.app/`. A new host or port needs adding there by David.
 - The app is in Spotify **development mode**: max 5 users, each added by hand in the dashboard.
 - Spotify renamed playlist `tracks` to `items` in 2026; `library.ts` handles both.
 - Spotify only lists tracks for playlists the user owns or co-edits. It no longer gives tempo data, so the

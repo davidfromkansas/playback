@@ -6,6 +6,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', 'TYPESAFE_')
   return {
     plugins: [react(), publicSongMoodPlugin(env.TYPESAFE_API_KEY, env.TYPESAFE_CONTEXT_PILOT === 'true')],
-    server: { port: 5173 },
+    server: { port: 5180, strictPort: true },
   }
 })
