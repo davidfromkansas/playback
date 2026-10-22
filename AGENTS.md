@@ -34,21 +34,11 @@ Vite 8, React 19, TypeScript, three.js 0.186 via `@react-three/fiber` 9, helpers
 animation springs from `@react-spring/three` 10. 3D models are made in Blender with Python scripts in
 `blender/` (see "3D assets").
 
-## Two looks (themes)
+## Design
 
-A top-bar button switches between them. The choice is saved in `localStorage` key `playback.theme`
-(`src/lib/theme.ts`). **Street is the default.** Keep both working when you change shared code.
-
-| | **Street** (default) | **Paper** |
-| --- | --- | --- |
-| Inspired by | Jet Set Radio Future: graffiti, cel-shaded, bright, comic lettering | PaRappa the Rapper: pastel paper cut-outs |
-| Library view | Rows of realistic jewel cases on stainless steel shelves (`scene/SteelShelf.tsx`) floating over a rooftop, swipe up/down between rows (`scene/RowStack.tsx`, `scene/CaseLine.tsx`) | Three-row shelf of CD spines (`scene/Shelf.tsx`) |
-| Case model | Blender jewel case (`scene/JewelCase.tsx`) | Simple boxes in `scene/PulledCD.tsx` |
-| Background | Blender rooftop + city with toon shading and outlines (`scene/StreetBackdrop.tsx`) | CSS polka-dot wall |
-| Host | DJ Volt, roller-skating radio DJ (`ui/DJ.tsx`) | PaRappa-style rapper (`ui/Rapper.tsx`) |
-| Extras | Speed lines while scrolling (`ui/SpeedLines.tsx`), focused-CD title sticker | |
-
-David has said he has permission to reuse the PaRappa character design.
+Street is the only active design: a Jet Set Radio-inspired rooftop, graffiti typography, bright colors,
+jewel cases on steel shelves, and DJ Volt. Paper mode and the theme switch have been removed.
+Saved `playback.theme` preferences are ignored. Some shared rendering helpers retain legacy theme arguments.
 
 ## Code map
 
@@ -56,12 +46,12 @@ David has said he has permission to reuse the PaRappa character design.
 src/
   App.tsx              Screens (welcome / loading / shelf), all state, input (wheel, drag/swipe, keys), wiring
   types.ts             Disc (album | playlist | liked | track), Track, SortKey
-  styles.css           All CSS. Paper styles first; Street overrides are scoped under `.street`
+  styles.css           Shared base CSS; Street styling is scoped under `.street`
   data/sample.ts       Fake library for sample mode
   lib/
-    theme.ts           useTheme(), loadThemeFonts() (canvas text needs fonts loaded first)
+    theme.ts           loadThemeFonts() (canvas text needs fonts loaded first)
     beat.ts            Shared 100 BPM beat clock that every dance animation syncs to
-    colors.ts          Paper palette helpers
+    colors.ts          Shared palette helpers
   spotify/
     auth.ts            PKCE login entirely in the browser, token refresh, scopes
     api.ts             fetch wrapper: 429 Retry-After handling, paging (allPages), SpotifyError
@@ -73,7 +63,7 @@ src/
   scene/               Everything inside the three.js <Canvas>
     CameraRig.tsx      Camera position per theme and screen shape (cameraFor)
     layout.ts          Case sizes (1 unit = 100 mm, CASE_W 1.42 x CASE_H 1.25), shelf slots, LINE_STEP
-    Shelf.tsx          Paper shelf. Also exports the ScrollState type both views share
+    scroll.ts         Shared ScrollState type
     RowStack.tsx       Street: stacks the rows vertically and slides between them
     CaseLine.tsx       One Street row: layout, snapping to the nearest CD, focus, tap to pull out
     JewelCase.tsx      Loads jewelcase.glb, bakes parts, applies plastic/tray/cover materials
@@ -87,9 +77,10 @@ src/
   ui/                  Plain DOM overlays
     Host.tsx           Host character + speech bubble; rhymesFor(theme) has each host's lines
     useRig.ts          rAF loop for SVG character rigs: writes transforms directly, no React re-renders
-    DJ.tsx, Rapper.tsx The two hosts (pose functions blend "dance" and "chill" states)
-    Panels.tsx         Track list panel, now-playing bar, mood meter
-    RhythmBar.tsx      Optional tap-along rhythm game
+    DJ.tsx The two hosts (pose functions blend "dance" and "chill" states)
+    Panels.tsx         Track list panel
+    NowPlayingBar.tsx  Miniamp transport controls, elapsed time and seek slider
+    Visualizer.tsx     Decorative visual mode (not an audio waveform)
     SpeedLines.tsx     Street speed-line overlay
     Loading.tsx        Loading states (generative-loaders package from generativeloaders.com): LoadingCard, SceneLoading
 blender/               Python scripts that build the .glb models
@@ -100,8 +91,7 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, 
 
 - **Scrolling** is one shared mutable object, `ScrollState { target, current, max, held }`, created in
   `App.tsx` and read every frame by the active view. Input handlers only move `target`; the view eases
-  `current` toward it. The two views use different units: Paper uses shelf x-position, Street uses
-  `index * LINE_STEP`. App resets scroll when the theme changes.
+  `current` toward it. Street uses `index * LINE_STEP`.
 - **Street rows** (`spotify/rows.ts`): row 1 is Recently Played (newest first; songs played from an album or
   playlist show as that album/playlist, anything else as a single song). Tapping an album/playlist there opens
   its songs as a new row 2. Row 2 is Liked Songs, then up to 10 rows for the most recently played albums and
@@ -109,7 +99,7 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, 
   ScrollState; App keeps the active row index and a `StackState` for the vertical slide.
 - **Search**: in Street, Enter in the search box searches all of Spotify and shows a separate results page
   (its own rows, swapped in for yours) with a Back button (or Escape) that returns to the row you were on.
-  Tapping an album/playlist there opens its songs as a row below. Paper's search only finds CDs on its shelf.
+  Tapping an album/playlist there opens its songs as a row below.
 - **Pulling out a CD**: the view calls `onPick(disc, worldPosition, rotationY)`, and App sets `pulled`.
   `PulledCD` animates from that pose and back again when it's put back.
 - **Animation at 60/120 fps**: per-frame work happens in `useFrame` (3D) or `useRig` (SVG) by writing to
@@ -156,7 +146,7 @@ python blender/shelf.py       # -> public/models/shelf.glb (stretched to each ro
 - Visual checks: build, run `npm run preview`, and take screenshots with Playwright (Chromium) at desktop
   (1280x760) and phone (390x800, touch) sizes. Headless Chromium renders WebGL in software, so it runs at a
   few frames per second; wait several seconds before screenshots and don't judge speed from it.
-- Check both themes and the main flow: welcome, line/shelf, swipe, pull out, open, play (sample).
+- Check Street and the main flow: welcome, line/shelf, swipe, pull out, open, play (sample).
 
 ## Deploying
 
@@ -173,5 +163,4 @@ python blender/shelf.py       # -> public/models/shelf.glb (stretched to each ro
 
 ## Open items
 
-- The rhythm bar is unlabeled. Asked David whether to add a "Tap along!" label or hide it by default. No answer yet.
 - Real 120 fps and real Spotify cover art haven't been verified on a device from the agent side.

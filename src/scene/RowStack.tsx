@@ -7,7 +7,7 @@ import type { ShelfRow } from '../spotify/rows'
 import type { Disc } from '../types'
 import { CaseLine } from './CaseLine'
 import { CASE_H } from './layout'
-import type { ScrollState } from './Shelf'
+import type { ScrollState } from './scroll'
 
 export const ROW_SPACING = 2.7
 const SHOWN = 1.6 // rows further than this from the one you're on aren't drawn
@@ -51,7 +51,7 @@ export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, 
       {rows.map((row, k) =>
         Math.abs(k - active) > 2 ? null : (
           <group key={row.id} ref={(g) => void (groups.current[k] = g)}>
-            <RowSign row={row} active={k === active} />
+            {!selectedId && <RowSign row={row} active={k === active} />}
             <CaseLine
               discs={row.discs}
               scroll={scrollFor(row.id)}
