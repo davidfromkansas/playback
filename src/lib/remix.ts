@@ -51,7 +51,10 @@ export function groupRemixTracks(tracks: readonly Track[], get: (track: Track) =
     if (!sample && ['unavailable', 'busy'].includes(result.status)) outcomes.unavailable++
     setup ||= result.status === 'not-configured'
     unsupported ||= result.status === 'unsupported'
-    buckets.get(id)!.push(trackDisc(track))
+    const bucket = buckets.get(id)!
+    if (!sample || !track.imageUrl || !bucket.some(disc => disc.imageUrl === track.imageUrl)) {
+      bucket.push(trackDisc(track))
+    }
   }
   const rows: ShelfRow[] = [...buckets].filter(([, discs]) => !sample || discs.length > 0).map(([id, discs]) => ({
     id: `remix:${id}`, title: id === 'pending' ? 'Finding a mood' : id === 'unrated' ? 'Unrated' : moodTitle(id), discs,

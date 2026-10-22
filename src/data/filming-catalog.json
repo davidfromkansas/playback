@@ -92,6 +92,51 @@
         "imageUrl": "/demo-covers/1438671104.jpg",
         "album": "Singular Act I",
         "sourceUrl": "https://music.apple.com/us/album/sue-me/1438671104?i=1438671365&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1550026144",
+        "name": "Skin",
+        "artists": "Sabrina Carpenter",
+        "durationMs": 177500,
+        "imageUrl": "/demo-covers/1550026132.jpg",
+        "album": "Skin - Single",
+        "sourceUrl": "https://music.apple.com/us/album/skin/1550026132?i=1550026144&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1444270119",
+        "name": "Why",
+        "artists": "Sabrina Carpenter",
+        "durationMs": 171096,
+        "imageUrl": "/demo-covers/1444270106.jpg",
+        "album": "Why - Single",
+        "sourceUrl": "https://music.apple.com/us/album/why/1444270106?i=1444270119&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1744253558",
+        "name": "Espresso",
+        "artists": "Sabrina Carpenter",
+        "durationMs": 175459,
+        "imageUrl": "/demo-covers/1744253545.jpg",
+        "album": "Espresso - Single",
+        "sourceUrl": "https://music.apple.com/us/album/espresso/1744253545?i=1744253558&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1865854732",
+        "name": "Tears",
+        "artists": "Sabrina Carpenter",
+        "durationMs": 160184,
+        "imageUrl": "/demo-covers/1865854717.jpg",
+        "album": "Man’s Best Friend (Bonus Track Version)",
+        "sourceUrl": "https://music.apple.com/us/album/tears/1865854717?i=1865854732&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1676555845",
+        "name": "Nonsense",
+        "artists": "Sabrina Carpenter",
+        "durationMs": 163648,
+        "imageUrl": "/demo-covers/1676555529.jpg",
+        "album": "emails i can’t send fwd:",
+        "sourceUrl": "https://music.apple.com/us/album/nonsense/1676555529?i=1676555845&uo=4"
       }
     ]
   },
@@ -188,6 +233,42 @@
         "imageUrl": "/demo-covers/1538003494.jpg",
         "album": "Future Nostalgia",
         "sourceUrl": "https://music.apple.com/us/album/break-my-heart/1538003494?i=1538004012&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1532788352",
+        "name": "Levitating (feat. DaBaby)",
+        "artists": "Dua Lipa",
+        "durationMs": 203064,
+        "imageUrl": "/demo-covers/1532788351.jpg",
+        "album": "Levitating (feat. DaBaby) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/levitating-feat-dababy/1532788351?i=1532788352&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1552269072",
+        "name": "Physical",
+        "artists": "Dua Lipa",
+        "durationMs": 193829,
+        "imageUrl": "/demo-covers/1552269067.jpg",
+        "album": "Future Nostalgia (The Moonlight Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/physical/1552269067?i=1552269072&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1434745795",
+        "name": "Electricity (feat. Diplo & Mark Ronson)",
+        "artists": "Silk City, Dua Lipa",
+        "durationMs": 238173,
+        "imageUrl": "/demo-covers/1434745598.jpg",
+        "album": "Electricity (feat. Diplo & Mark Ronson) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/electricity-feat-diplo-mark-ronson/1434745598?i=1434745795&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1523100120",
+        "name": "UN DIA (ONE DAY)",
+        "artists": "J Balvin, Dua Lipa, Bad Bunny & Tainy",
+        "durationMs": 231844,
+        "imageUrl": "/demo-covers/1523100098.jpg",
+        "album": "UN DIA (ONE DAY) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/un-dia-one-day/1523100098?i=1523100120&uo=4"
       }
     ]
   },
@@ -284,6 +365,60 @@
         "imageUrl": "/demo-covers/1440898929.jpg",
         "album": "dont smile at me",
         "sourceUrl": "https://music.apple.com/us/album/idontwannabeyouanymore/1440898929?i=1440899127&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1635388718",
+        "name": "TV",
+        "artists": "Billie Eilish",
+        "durationMs": 281381,
+        "imageUrl": "/demo-covers/1635388716.jpg",
+        "album": "Guitar Songs - Single",
+        "sourceUrl": "https://music.apple.com/us/album/tv/1635388716?i=1635388718&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1498647654",
+        "name": "No Time To Die",
+        "artists": "Billie Eilish",
+        "durationMs": 242265,
+        "imageUrl": "/demo-covers/1498647640.jpg",
+        "album": "No Time To Die - Single",
+        "sourceUrl": "https://music.apple.com/us/album/no-time-to-die/1498647640?i=1498647654&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440881181",
+        "name": "Bored",
+        "artists": "Billie Eilish",
+        "durationMs": 180933,
+        "imageUrl": "/demo-covers/1440880821.jpg",
+        "album": "13 Reasons Why (A Netflix Original Series Soundtrack)",
+        "sourceUrl": "https://music.apple.com/us/album/bored/1440880821?i=1440881181&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1564531176",
+        "name": "Your Power",
+        "artists": "Billie Eilish",
+        "durationMs": 245897,
+        "imageUrl": "/demo-covers/1564530719.jpg",
+        "album": "Happier Than Ever",
+        "sourceUrl": "https://music.apple.com/us/album/your-power/1564530719?i=1564531176&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1472563571",
+        "name": "bad guy",
+        "artists": "Billie Eilish & Justin Bieber",
+        "durationMs": 194840,
+        "imageUrl": "/demo-covers/1472563379.jpg",
+        "album": "bad guy - Single",
+        "sourceUrl": "https://music.apple.com/us/album/bad-guy/1472563379?i=1472563571&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1442107933",
+        "name": "come out and play",
+        "artists": "Billie Eilish",
+        "durationMs": 210376,
+        "imageUrl": "/demo-covers/1442107599.jpg",
+        "album": "come out and play - Single",
+        "sourceUrl": "https://music.apple.com/us/album/come-out-and-play/1442107599?i=1442107933&uo=4"
       }
     ]
   },
@@ -380,6 +515,51 @@
         "imageUrl": "/demo-covers/1440913923.jpg",
         "album": "Taylor Swift (Bonus Track Version)",
         "sourceUrl": "https://music.apple.com/us/album/our-song/1440913923?i=1440914010&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440925035",
+        "name": "You Belong With Me",
+        "artists": "Taylor Swift",
+        "durationMs": 231133,
+        "imageUrl": "/demo-covers/1440924803.jpg",
+        "album": "Fearless",
+        "sourceUrl": "https://music.apple.com/us/album/you-belong-with-me/1440924803?i=1440925035&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440935349",
+        "name": "I Knew You Were Trouble",
+        "artists": "Taylor Swift",
+        "durationMs": 219721,
+        "imageUrl": "/demo-covers/1440935340.jpg",
+        "album": "Red",
+        "sourceUrl": "https://music.apple.com/us/album/i-knew-you-were-trouble/1440935340?i=1440935349&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440933656",
+        "name": "Wildest Dreams",
+        "artists": "Taylor Swift",
+        "durationMs": 220440,
+        "imageUrl": "/demo-covers/1440933512.jpg",
+        "album": "1989 (Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/wildest-dreams/1440933512?i=1440933656&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440934248",
+        "name": "...Ready For It?",
+        "artists": "Taylor Swift",
+        "durationMs": 208198,
+        "imageUrl": "/demo-covers/1440933849.jpg",
+        "album": "reputation",
+        "sourceUrl": "https://music.apple.com/us/album/ready-for-it/1440933849?i=1440934248&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440920489",
+        "name": "Back to December",
+        "artists": "Taylor Swift",
+        "durationMs": 293027,
+        "imageUrl": "/demo-covers/1440920310.jpg",
+        "album": "Speak Now",
+        "sourceUrl": "https://music.apple.com/us/album/back-to-december/1440920310?i=1440920489&uo=4"
       }
     ]
   },
@@ -476,6 +656,69 @@
         "imageUrl": "/demo-covers/1440871397.jpg",
         "album": "Starboy",
         "sourceUrl": "https://music.apple.com/us/album/stargirl-interlude-feat-lana-del-rey/1440871397?i=1440871932&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440826389",
+        "name": "Can't Feel My Face",
+        "artists": "The Weeknd",
+        "durationMs": 213525,
+        "imageUrl": "/demo-covers/1440826239.jpg",
+        "album": "Beauty Behind the Madness",
+        "sourceUrl": "https://music.apple.com/us/album/cant-feel-my-face/1440826239?i=1440826389&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440858500",
+        "name": "Can't Feel My Face",
+        "artists": "The Weeknd",
+        "durationMs": 213525,
+        "imageUrl": "/demo-covers/1440858094.jpg",
+        "album": "Beauty Behind the Madness",
+        "sourceUrl": "https://music.apple.com/us/album/cant-feel-my-face/1440858094?i=1440858500&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440852992",
+        "name": "Love Me Harder",
+        "artists": "Ariana Grande & The Weeknd",
+        "durationMs": 236041,
+        "imageUrl": "/demo-covers/1440852353.jpg",
+        "album": "My Everything (Bonus Tracks Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/love-me-harder/1440852353?i=1440852992&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440845641",
+        "name": "Earned It",
+        "artists": "The Weeknd",
+        "durationMs": 250973,
+        "imageUrl": "/demo-covers/1440845197.jpg",
+        "album": "Fifty Shades of Grey (Original Motion Picture Soundtrack)",
+        "sourceUrl": "https://music.apple.com/us/album/earned-it/1440845197?i=1440845641&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1499378615",
+        "name": "After Hours",
+        "artists": "The Weeknd",
+        "durationMs": 361025,
+        "imageUrl": "/demo-covers/1499378108.jpg",
+        "album": "After Hours",
+        "sourceUrl": "https://music.apple.com/us/album/after-hours/1499378108?i=1499378615&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1538809230",
+        "name": "Hawái (Remix)",
+        "artists": "Maluma & The Weeknd",
+        "durationMs": 200028,
+        "imageUrl": "/demo-covers/1538809228.jpg",
+        "album": "Hawái (Remix) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/haw%C3%A1i-remix/1538809228?i=1538809230&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1673432343",
+        "name": "Die For You (Remix)",
+        "artists": "The Weeknd & Ariana Grande",
+        "durationMs": 232857,
+        "imageUrl": "/demo-covers/1673432330.jpg",
+        "album": "Die For You (Remix) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/die-for-you-remix/1673432330?i=1673432343&uo=4"
       }
     ]
   },
@@ -572,6 +815,69 @@
         "imageUrl": "/demo-covers/1698723205.jpg",
         "album": "The Rise and Fall of a Midwest Princess",
         "sourceUrl": "https://music.apple.com/us/album/guilty-pleasure/1698723205?i=1698723330&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1675177178",
+        "name": "Love Me Anyway",
+        "artists": "Chappell Roan",
+        "durationMs": 233325,
+        "imageUrl": "/demo-covers/1675177169.jpg",
+        "album": "Love Me Anyway - Single",
+        "sourceUrl": "https://music.apple.com/us/album/love-me-anyway/1675177169?i=1675177178&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1707413109",
+        "name": "Pink Pony Club",
+        "artists": "Chappell Roan",
+        "durationMs": 258035,
+        "imageUrl": "/demo-covers/1707412988.jpg",
+        "album": "The Rise and Fall of a Midwest Princess",
+        "sourceUrl": "https://music.apple.com/us/album/pink-pony-club/1707412988?i=1707413109&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1357335916",
+        "name": "School Nights",
+        "artists": "Chappell Roan",
+        "durationMs": 249237,
+        "imageUrl": "/demo-covers/1357335912.jpg",
+        "album": "School Nights - Single",
+        "sourceUrl": "https://music.apple.com/us/album/school-nights/1357335912?i=1357335916&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1285416236",
+        "name": "Good Hurt",
+        "artists": "Chappell Roan",
+        "durationMs": 192874,
+        "imageUrl": "/demo-covers/1285415885.jpg",
+        "album": "School Nights - EP",
+        "sourceUrl": "https://music.apple.com/us/album/good-hurt/1285415885?i=1285416236&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1339749127",
+        "name": "Bitter",
+        "artists": "Chappell Roan",
+        "durationMs": 242542,
+        "imageUrl": "/demo-covers/1339749126.jpg",
+        "album": "Bitter - Single",
+        "sourceUrl": "https://music.apple.com/us/album/bitter/1339749126?i=1339749127&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1677685677",
+        "name": "Kaleidoscope",
+        "artists": "Chappell Roan",
+        "durationMs": 222651,
+        "imageUrl": "/demo-covers/1677685675.jpg",
+        "album": "Kaleidoscope - Single",
+        "sourceUrl": "https://music.apple.com/us/album/kaleidoscope/1677685675?i=1677685677&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1831372120",
+        "name": "The Subway",
+        "artists": "Chappell Roan",
+        "durationMs": 252276,
+        "imageUrl": "/demo-covers/1831372118.jpg",
+        "album": "The Subway - Single",
+        "sourceUrl": "https://music.apple.com/us/album/the-subway/1831372118?i=1831372120&uo=4"
       }
     ]
   },
@@ -668,6 +974,78 @@
         "imageUrl": "/demo-covers/1010789754.jpg",
         "album": "Crying, Laughing, Loving, Lying (Deluxe Edition)",
         "sourceUrl": "https://music.apple.com/us/album/blue-lady/1010789754?i=1010789760&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1010803518",
+        "name": "Bless the Telephone",
+        "artists": "Labi Siffre",
+        "durationMs": 100747,
+        "imageUrl": "/demo-covers/1010802849.jpg",
+        "album": "The Singer & The Song (Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/bless-the-telephone/1010802849?i=1010803518&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1010791541",
+        "name": "Love Song for Someone",
+        "artists": "Labi Siffre",
+        "durationMs": 167493,
+        "imageUrl": "/demo-covers/1010790735.jpg",
+        "album": "Labi Siffre (Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/love-song-for-someone/1010790735?i=1010791541&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1159732044",
+        "name": "Cannock Chase",
+        "artists": "Labi Siffre",
+        "durationMs": 243933,
+        "imageUrl": "/demo-covers/1159731620.jpg",
+        "album": "The Best Of",
+        "sourceUrl": "https://music.apple.com/us/album/cannock-chase/1159731620?i=1159732044&uo=4"
+      },
+      {
+        "uri": "sample:catalog:692017051",
+        "name": "I Got The... (Radio Edit) [2006 Remastered Version]",
+        "artists": "Labi Siffre",
+        "durationMs": 231573,
+        "imageUrl": "/demo-covers/692016903.jpg",
+        "album": "I Got The... (Radio Edit) [2006 Remastered Version] - Single",
+        "sourceUrl": "https://music.apple.com/us/album/i-got-the-radio-edit-2006-remastered-version/692016903?i=692017051&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1866894727",
+        "name": "Far Away",
+        "artists": "Labi Siffre",
+        "durationMs": 219310,
+        "imageUrl": "/demo-covers/1866894725.jpg",
+        "album": "Far Away - Single",
+        "sourceUrl": "https://music.apple.com/us/album/far-away/1866894725?i=1866894727&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1389736117",
+        "name": "I Got the...(Radio Edit)",
+        "artists": "Labi Siffre",
+        "durationMs": 231573,
+        "imageUrl": "/demo-covers/1389736109.jpg",
+        "album": "I Got the - Single",
+        "sourceUrl": "https://music.apple.com/us/album/i-got-the-radio-edit/1389736109?i=1389736117&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1690817472",
+        "name": "Crying Laughing Loving Lying (From \"The Holdovers\")",
+        "artists": "Labi Siffre",
+        "durationMs": 182084,
+        "imageUrl": "/demo-covers/1690817460.jpg",
+        "album": "Watch Me",
+        "sourceUrl": "https://music.apple.com/us/album/crying-laughing-loving-lying-from-the-holdovers/1690817460?i=1690817472&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1010800418",
+        "name": "Somesay",
+        "artists": "Labi Siffre",
+        "durationMs": 175427,
+        "imageUrl": "/demo-covers/1010799598.jpg",
+        "album": "For the Children (Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/somesay/1010799598?i=1010800418&uo=4"
       }
     ]
   },
@@ -764,6 +1142,42 @@
         "imageUrl": "/demo-covers/1885929732.jpg",
         "album": "Skin",
         "sourceUrl": "https://music.apple.com/us/album/tiny-cities-feat-beck/1885929732?i=1885930103&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1694792816",
+        "name": "Say Nothing",
+        "artists": "Flume & MAY-A",
+        "durationMs": 232959,
+        "imageUrl": "/demo-covers/1694792811.jpg",
+        "album": "Palaces",
+        "sourceUrl": "https://music.apple.com/us/album/say-nothing/1694792811?i=1694792816&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1694795610",
+        "name": "Let You Know (feat. London Grammar) [Nathan C Remix]",
+        "artists": "Flume",
+        "durationMs": 195561,
+        "imageUrl": "/demo-covers/1694795600.jpg",
+        "album": "Let You Know (feat. London Grammar) [Nathan C Remix] - Single",
+        "sourceUrl": "https://music.apple.com/us/album/let-you-know-feat-london-grammar-nathan-c-remix/1694795600?i=1694795610&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1881366664",
+        "name": "Never Be Like You (feat. Kai)",
+        "artists": "Flume",
+        "durationMs": 235058,
+        "imageUrl": "/demo-covers/1881366662.jpg",
+        "album": "Never Be Like You (feat. Kai) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/never-be-like-you-feat-kai/1881366662?i=1881366664&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1881398533",
+        "name": "Weekend (feat. Moses Sumney)",
+        "artists": "Flume",
+        "durationMs": 259176,
+        "imageUrl": "/demo-covers/1881398529.jpg",
+        "album": "Skin Companion EP II - EP",
+        "sourceUrl": "https://music.apple.com/us/album/weekend-feat-moses-sumney/1881398529?i=1881398533&uo=4"
       }
     ]
   },
@@ -860,6 +1274,78 @@
         "imageUrl": "/demo-covers/1440617583.jpg",
         "album": "TRON: Legacy (Original Motion Picture Soundtrack)",
         "sourceUrl": "https://music.apple.com/us/album/the-game-has-changed/1440617583?i=1440617851&uo=4"
+      },
+      {
+        "uri": "sample:catalog:696886431",
+        "name": "Around the World",
+        "artists": "Daft Punk",
+        "durationMs": 429533,
+        "imageUrl": "/demo-covers/696884422.jpg",
+        "album": "Homework",
+        "sourceUrl": "https://music.apple.com/us/album/around-the-world/696884422?i=696886431&uo=4"
+      },
+      {
+        "uri": "sample:catalog:693751191",
+        "name": "Robot Rock",
+        "artists": "Daft Punk",
+        "durationMs": 287720,
+        "imageUrl": "/demo-covers/693748807.jpg",
+        "album": "Human After All",
+        "sourceUrl": "https://music.apple.com/us/album/robot-rock/693748807?i=693751191&uo=4"
+      },
+      {
+        "uri": "sample:catalog:697568012",
+        "name": "Around the World (Radio Edit)",
+        "artists": "Daft Punk",
+        "durationMs": 241467,
+        "imageUrl": "/demo-covers/697566854.jpg",
+        "album": "Around the World - EP",
+        "sourceUrl": "https://music.apple.com/us/album/around-the-world-radio-edit/697566854?i=697568012&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1609438402",
+        "name": "Da Funk",
+        "artists": "Daft Punk",
+        "durationMs": 328680,
+        "imageUrl": "/demo-covers/1609438391.jpg",
+        "album": "Homework (25th Anniversary Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/da-funk/1609438391?i=1609438402&uo=4"
+      },
+      {
+        "uri": "sample:catalog:717067872",
+        "name": "Around the World / Harder, Better, Faster, Stronger (Live)",
+        "artists": "Daft Punk",
+        "durationMs": 342627,
+        "imageUrl": "/demo-covers/717067737.jpg",
+        "album": "Alive 2007",
+        "sourceUrl": "https://music.apple.com/us/album/around-the-world-harder-better-faster-stronger-live/717067737?i=717067872&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1673536443",
+        "name": "Get Lucky",
+        "artists": "Daft Punk, Pharrell Williams & Nile Rodgers",
+        "durationMs": 369615,
+        "imageUrl": "/demo-covers/1673536063.jpg",
+        "album": "Random Access Memories (10th Anniversary Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/get-lucky/1673536063?i=1673536443&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1543825337",
+        "name": "End of Line",
+        "artists": "Daft Punk",
+        "durationMs": 156486,
+        "imageUrl": "/demo-covers/1543824814.jpg",
+        "album": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+        "sourceUrl": "https://music.apple.com/us/album/end-of-line/1543824814?i=1543825337&uo=4"
+      },
+      {
+        "uri": "sample:catalog:703078831",
+        "name": "Something About Us",
+        "artists": "Daft Punk",
+        "durationMs": 232667,
+        "imageUrl": "/demo-covers/703078650.jpg",
+        "album": "Musique, Vol. 1 (1993-2005)",
+        "sourceUrl": "https://music.apple.com/us/album/something-about-us/703078650?i=703078831&uo=4"
       }
     ]
   },
@@ -884,6 +1370,96 @@
         "imageUrl": "/demo-covers/1842454032.jpg",
         "album": "WITHERED",
         "sourceUrl": "https://music.apple.com/us/album/feel-it/1842454032?i=1842454196&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1641389262",
+        "name": "Romantic Homicide",
+        "artists": "d4vd",
+        "durationMs": 132631,
+        "imageUrl": "/demo-covers/1641389258.jpg",
+        "album": "Romantic Homicide - Single",
+        "sourceUrl": "https://music.apple.com/us/album/romantic-homicide/1641389258?i=1641389262&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1733349240",
+        "name": "My House Is Not A Home",
+        "artists": "d4vd",
+        "durationMs": 239181,
+        "imageUrl": "/demo-covers/1733348956.jpg",
+        "album": "My House Is Not A Home - Single",
+        "sourceUrl": "https://music.apple.com/us/album/my-house-is-not-a-home/1733348956?i=1733349240&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1669122187",
+        "name": "Placebo Effect",
+        "artists": "d4vd",
+        "durationMs": 191494,
+        "imageUrl": "/demo-covers/1669122185.jpg",
+        "album": "Placebo Effect - Single",
+        "sourceUrl": "https://music.apple.com/us/album/placebo-effect/1669122185?i=1669122187&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1701185669",
+        "name": "Notes From A Wrist",
+        "artists": "d4vd",
+        "durationMs": 189880,
+        "imageUrl": "/demo-covers/1701185666.jpg",
+        "album": "Notes From A Wrist - Single",
+        "sourceUrl": "https://music.apple.com/us/album/notes-from-a-wrist/1701185666?i=1701185669&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1652791942",
+        "name": "Take Me To The Sun",
+        "artists": "d4vd",
+        "durationMs": 166996,
+        "imageUrl": "/demo-covers/1652791659.jpg",
+        "album": "Take Me To The Sun - Single",
+        "sourceUrl": "https://music.apple.com/us/album/take-me-to-the-sun/1652791659?i=1652791942&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1719771039",
+        "name": "Romantic Homicide (Live Version)",
+        "artists": "d4vd",
+        "durationMs": 241818,
+        "imageUrl": "/demo-covers/1719771037.jpg",
+        "album": "Romantic Homicide (Live Version) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/romantic-homicide-live-version/1719771037?i=1719771039&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1704091649",
+        "name": "Poetic Vulgarity",
+        "artists": "d4vd",
+        "durationMs": 240841,
+        "imageUrl": "/demo-covers/1704091644.jpg",
+        "album": "The Lost Petals - EP",
+        "sourceUrl": "https://music.apple.com/us/album/poetic-vulgarity/1704091644?i=1704091649&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1842475577",
+        "name": "Here With Me",
+        "artists": "d4vd",
+        "durationMs": 242485,
+        "imageUrl": "/demo-covers/1842475574.jpg",
+        "album": "Petals to Thorns",
+        "sourceUrl": "https://music.apple.com/us/album/here-with-me/1842475574?i=1842475577&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1652794843",
+        "name": "Dirty Secrets",
+        "artists": "d4vd",
+        "durationMs": 154070,
+        "imageUrl": "/demo-covers/1652794840.jpg",
+        "album": "Dirty Secrets - Single",
+        "sourceUrl": "https://music.apple.com/us/album/dirty-secrets/1652794840?i=1652794843&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1755265278",
+        "name": "There Goes My Baby",
+        "artists": "d4vd",
+        "durationMs": 210667,
+        "imageUrl": "/demo-covers/1755265273.jpg",
+        "album": "There Goes My Baby - Single",
+        "sourceUrl": "https://music.apple.com/us/album/there-goes-my-baby/1755265273?i=1755265278&uo=4"
       }
     ]
   },
@@ -980,6 +1556,24 @@
         "imageUrl": "/demo-covers/1443237321.jpg",
         "album": "The Never Story",
         "sourceUrl": "https://music.apple.com/us/album/never/1443237321?i=1443237577&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1591640885",
+        "name": "Enemy (From Arcane: League of Legends)",
+        "artists": "Imagine Dragons & JID",
+        "durationMs": 173381,
+        "imageUrl": "/demo-covers/1591640884.jpg",
+        "album": "Enemy (From Arcane: League of Legends) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/enemy-from-arcane-league-of-legends/1591640884?i=1591640885&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1674973010",
+        "name": "In The Room",
+        "artists": "Dreamville, JID, Tierra Whack & BJ the Chicago Kid",
+        "durationMs": 172626,
+        "imageUrl": "/demo-covers/1674972629.jpg",
+        "album": "Creed III: The Soundtrack",
+        "sourceUrl": "https://music.apple.com/us/album/in-the-room/1674972629?i=1674973010&uo=4"
       }
     ]
   },
@@ -1076,6 +1670,69 @@
         "imageUrl": "/demo-covers/1440858222.jpg",
         "album": "Bad Blood (Bonus Track Version)",
         "sourceUrl": "https://music.apple.com/us/album/icarus/1440858222?i=1440858676&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1378892694",
+        "name": "Quarter Past Midnight",
+        "artists": "Bastille",
+        "durationMs": 201799,
+        "imageUrl": "/demo-covers/1378892301.jpg",
+        "album": "Quarter Past Midnight - Single",
+        "sourceUrl": "https://music.apple.com/us/album/quarter-past-midnight/1378892301?i=1378892694&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1458384202",
+        "name": "Those Nights",
+        "artists": "Bastille",
+        "durationMs": 270255,
+        "imageUrl": "/demo-covers/1458384183.jpg",
+        "album": "Doom Days",
+        "sourceUrl": "https://music.apple.com/us/album/those-nights/1458384183?i=1458384202&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440873712",
+        "name": "Of the Night",
+        "artists": "Bastille",
+        "durationMs": 214206,
+        "imageUrl": "/demo-covers/1440873364.jpg",
+        "album": "All This Bad Blood",
+        "sourceUrl": "https://music.apple.com/us/album/of-the-night/1440873364?i=1440873712&uo=4"
+      },
+      {
+        "uri": "sample:catalog:715531601",
+        "name": "Pompeii",
+        "artists": "Bastille",
+        "durationMs": 214148,
+        "imageUrl": "/demo-covers/715531101.jpg",
+        "album": "Pompeii - EP",
+        "sourceUrl": "https://music.apple.com/us/album/pompeii/715531101?i=715531601&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1710633664",
+        "name": "No Angels",
+        "artists": "Bastille & Ella Eyre",
+        "durationMs": 232373,
+        "imageUrl": "/demo-covers/1710633308.jpg",
+        "album": "Bad Blood X (10th Anniversary Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/no-angels/1710633308?i=1710633664&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1445039070",
+        "name": "Good Grief (Don Diablo Remix)",
+        "artists": "Bastille",
+        "durationMs": 239000,
+        "imageUrl": "/demo-covers/1445039057.jpg",
+        "album": "Good Grief (Don Diablo Remix) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/good-grief-don-diablo-remix/1445039057?i=1445039070&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1444995315",
+        "name": "Grip",
+        "artists": "Seeb & Bastille",
+        "durationMs": 198075,
+        "imageUrl": "/demo-covers/1444995311.jpg",
+        "album": "Grip - Single",
+        "sourceUrl": "https://music.apple.com/us/album/grip/1444995311?i=1444995315&uo=4"
       }
     ]
   },
@@ -1172,6 +1829,69 @@
         "imageUrl": "/demo-covers/1771694653.jpg",
         "album": "Changing of the Seasons - EP",
         "sourceUrl": "https://music.apple.com/us/album/changing-of-the-seasons/1771694653?i=1771694654&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1771712531",
+        "name": "What You Know",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 191707,
+        "imageUrl": "/demo-covers/1771712528.jpg",
+        "album": "Undercover Martyn (Acoustic) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/what-you-know/1771712528?i=1771712531&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1640385541",
+        "name": "Satellite (Single Edit)",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 201336,
+        "imageUrl": "/demo-covers/1640384669.jpg",
+        "album": "False Alarm",
+        "sourceUrl": "https://music.apple.com/us/album/satellite-single-edit/1640384669?i=1640385541&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1631422139",
+        "name": "Lucky",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 219534,
+        "imageUrl": "/demo-covers/1631421412.jpg",
+        "album": "Keep On Smiling",
+        "sourceUrl": "https://music.apple.com/us/album/lucky/1631421412?i=1631422139&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1771701286",
+        "name": "Next Year",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 251453,
+        "imageUrl": "/demo-covers/1771701285.jpg",
+        "album": "Beacon (Deluxe Version)",
+        "sourceUrl": "https://music.apple.com/us/album/next-year/1771701285?i=1771701286&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1771712028",
+        "name": "Something Good Can Work (The Twelves Remix)",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 251267,
+        "imageUrl": "/demo-covers/1771712010.jpg",
+        "album": "Tourist History Remix",
+        "sourceUrl": "https://music.apple.com/us/album/something-good-can-work-the-twelves-remix/1771712010?i=1771712028&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1771717500",
+        "name": "Bad Decisions",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 297787,
+        "imageUrl": "/demo-covers/1771717497.jpg",
+        "album": "Gameshow",
+        "sourceUrl": "https://music.apple.com/us/album/bad-decisions/1771717497?i=1771717500&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1640380722",
+        "name": "Talk (Single Edit)",
+        "artists": "Two Door Cinema Club",
+        "durationMs": 216504,
+        "imageUrl": "/demo-covers/1640380699.jpg",
+        "album": "Talk (Single Edit) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/talk-single-edit/1640380699?i=1640380722&uo=4"
       }
     ]
   },
@@ -1268,6 +1988,51 @@
         "imageUrl": "/demo-covers/1442286038.jpg",
         "album": "Wild and Peaceful",
         "sourceUrl": "https://music.apple.com/us/album/hollywood-swinging-single-version/1442286038?i=1442286654&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1431065459",
+        "name": "Cherish",
+        "artists": "Kool & The Gang",
+        "durationMs": 290600,
+        "imageUrl": "/demo-covers/1431065445.jpg",
+        "album": "Emergency",
+        "sourceUrl": "https://music.apple.com/us/album/cherish/1431065445?i=1431065459&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1444084183",
+        "name": "Let Me Clear My Throat (Old School Reunion Remix '96)",
+        "artists": "DJ Kool",
+        "durationMs": 290160,
+        "imageUrl": "/demo-covers/1444083983.jpg",
+        "album": "Let Me Clear My Throat",
+        "sourceUrl": "https://music.apple.com/us/album/let-me-clear-my-throat-old-school-reunion-remix-96/1444083983?i=1444084183&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1445227844",
+        "name": "Summer Madness",
+        "artists": "Kool & The Gang",
+        "durationMs": 259053,
+        "imageUrl": "/demo-covers/1445227207.jpg",
+        "album": "Gold",
+        "sourceUrl": "https://music.apple.com/us/album/summer-madness/1445227207?i=1445227844&uo=4"
+      },
+      {
+        "uri": "sample:catalog:169715616",
+        "name": "Fast Life",
+        "artists": "Kool G Rap",
+        "durationMs": 293627,
+        "imageUrl": "/demo-covers/169715139.jpg",
+        "album": "4, 5, 6",
+        "sourceUrl": "https://music.apple.com/us/album/fast-life/169715139?i=169715616&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1426969090",
+        "name": "Get Down On It",
+        "artists": "Kool & The Gang",
+        "durationMs": 213427,
+        "imageUrl": "/demo-covers/1426968435.jpg",
+        "album": "20th Century Masters - The Millennium Collection: The Best of Kool & The Gang",
+        "sourceUrl": "https://music.apple.com/us/album/get-down-on-it/1426968435?i=1426969090&uo=4"
       }
     ]
   },
@@ -1382,6 +2147,24 @@
         "imageUrl": "/demo-covers/1737320962.jpg",
         "album": "WE DON'T TRUST YOU",
         "sourceUrl": "https://music.apple.com/us/album/like-that/1737320962?i=1737320971&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440907873",
+        "name": "HUMBLE.",
+        "artists": "Kendrick Lamar",
+        "durationMs": 177000,
+        "imageUrl": "/demo-covers/1440907513.jpg",
+        "album": "DAMN. COLLECTORS EDITION.",
+        "sourceUrl": "https://music.apple.com/us/album/humble/1440907513?i=1440907873&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440860402",
+        "name": "Poetic Justice (feat. Drake)",
+        "artists": "Kendrick Lamar",
+        "durationMs": 300087,
+        "imageUrl": "/demo-covers/1440860389.jpg",
+        "album": "good kid, m.A.A.d city (Deluxe Version)",
+        "sourceUrl": "https://music.apple.com/us/album/poetic-justice-feat-drake/1440860389?i=1440860402&uo=4"
       }
     ]
   },
@@ -1496,6 +2279,87 @@
         "imageUrl": "/demo-covers/1440858699.jpg",
         "album": "In Utero (20th Anniversary Edition)",
         "sourceUrl": "https://music.apple.com/us/album/dumb/1440858699?i=1440859361&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440892680",
+        "name": "The Man Who Sold the World (Live Acoustic)",
+        "artists": "Nirvana",
+        "durationMs": 261093,
+        "imageUrl": "/demo-covers/1440892370.jpg",
+        "album": "MTV Unplugged In New York (Live Acoustic)",
+        "sourceUrl": "https://music.apple.com/us/album/the-man-who-sold-the-world-live-acoustic/1440892370?i=1440892680&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1586410663",
+        "name": "Come As You Are (Remastered)",
+        "artists": "Nirvana",
+        "durationMs": 218920,
+        "imageUrl": "/demo-covers/1586410660.jpg",
+        "album": "Nevermind (30th Anniversary Super Deluxe)",
+        "sourceUrl": "https://music.apple.com/us/album/come-as-you-are-remastered/1586410660?i=1586410663&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1586895442",
+        "name": "Smells Like Teen Spirit",
+        "artists": "Nirvana",
+        "durationMs": 301096,
+        "imageUrl": "/demo-covers/1586895441.jpg",
+        "album": "Nevermind (Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/smells-like-teen-spirit/1586895441?i=1586895442&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1413921155",
+        "name": "Smells Like Teen Spirit",
+        "artists": "Nirvana",
+        "durationMs": 301453,
+        "imageUrl": "/demo-covers/1413920644.jpg",
+        "album": "Nirvana",
+        "sourceUrl": "https://music.apple.com/us/album/smells-like-teen-spirit/1413920644?i=1413921155&uo=4"
+      },
+      {
+        "uri": "sample:catalog:336378015",
+        "name": "About a Girl (Remastered)",
+        "artists": "Nirvana",
+        "durationMs": 168429,
+        "imageUrl": "/demo-covers/336377945.jpg",
+        "album": "Bleach (20th Anniversary Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/about-a-girl-remastered/336377945?i=336378015&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1702925597",
+        "name": "Heart-Shaped Box (2023 Remaster)",
+        "artists": "Nirvana",
+        "durationMs": 280533,
+        "imageUrl": "/demo-covers/1702925205.jpg",
+        "album": "In Utero (30th Anniversary Super Deluxe)",
+        "sourceUrl": "https://music.apple.com/us/album/heart-shaped-box-2023-remaster/1702925205?i=1702925597&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440834133",
+        "name": "Come As You Are (Live & Loud)",
+        "artists": "Nirvana",
+        "durationMs": 221427,
+        "imageUrl": "/demo-covers/1440830905.jpg",
+        "album": "In Utero (20th Anniversary Super Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/come-as-you-are-live-loud/1440830905?i=1440834133&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1440877586",
+        "name": "Heart-Shaped Box (2013 Mix)",
+        "artists": "Nirvana",
+        "durationMs": 278813,
+        "imageUrl": "/demo-covers/1440875565.jpg",
+        "album": "In Utero (20th Anniversary Deluxe Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/heart-shaped-box-2013-mix/1440875565?i=1440877586&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1434917146",
+        "name": "Aneurysm",
+        "artists": "Nirvana",
+        "durationMs": 275600,
+        "imageUrl": "/demo-covers/1434917065.jpg",
+        "album": "Incesticide",
+        "sourceUrl": "https://music.apple.com/us/album/aneurysm/1434917065?i=1434917146&uo=4"
       }
     ]
   },
@@ -1610,6 +2474,42 @@
         "imageUrl": "/demo-covers/250998382.jpg",
         "album": "Milestones",
         "sourceUrl": "https://music.apple.com/us/album/milestones/250998382?i=250998728&uo=4"
+      },
+      {
+        "uri": "sample:catalog:300865220",
+        "name": "So What",
+        "artists": "Miles Davis",
+        "durationMs": 562640,
+        "imageUrl": "/demo-covers/300865074.jpg",
+        "album": "Kind of Blue (Legacy Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/so-what/300865074?i=300865220&uo=4"
+      },
+      {
+        "uri": "sample:catalog:209407388",
+        "name": "Footprints",
+        "artists": "Miles Davis",
+        "durationMs": 588694,
+        "imageUrl": "/demo-covers/209407331.jpg",
+        "album": "Miles Smiles",
+        "sourceUrl": "https://music.apple.com/us/album/footprints/209407331?i=209407388&uo=4"
+      },
+      {
+        "uri": "sample:catalog:169899672",
+        "name": "Nefertiti",
+        "artists": "Miles Davis",
+        "durationMs": 470733,
+        "imageUrl": "/demo-covers/169899671.jpg",
+        "album": "Nefertiti (Bonus Track Version)",
+        "sourceUrl": "https://music.apple.com/us/album/nefertiti/169899671?i=169899672&uo=4"
+      },
+      {
+        "uri": "sample:catalog:316476573",
+        "name": "Will O' the Wisp",
+        "artists": "Miles Davis",
+        "durationMs": 228320,
+        "imageUrl": "/demo-covers/316476316.jpg",
+        "album": "Sketches of Spain (50th Anniversary Legacy Edition)",
+        "sourceUrl": "https://music.apple.com/us/album/will-o-the-wisp/316476316?i=316476573&uo=4"
       }
     ]
   },
@@ -1724,6 +2624,51 @@
         "imageUrl": "/demo-covers/381515547.jpg",
         "album": "Bach: Cello Suites Nos. 1-6, BWV 1007-1012 (2009 Remaster)",
         "sourceUrl": "https://music.apple.com/us/album/cello-suite-no-1-in-g-major-bwv-1007-ii-allemande/381515547?i=381515588&uo=4"
+      },
+      {
+        "uri": "sample:catalog:457800647",
+        "name": "While My Guitar Gently Weeps (feat. India.Arie)",
+        "artists": "Santana & Yo-Yo Ma",
+        "durationMs": 362520,
+        "imageUrl": "/demo-covers/457800639.jpg",
+        "album": "Guitar Heaven: The Greatest Guitar Classics of All Time (Deluxe Version)",
+        "sourceUrl": "https://music.apple.com/us/album/while-my-guitar-gently-weeps-feat-india-arie/457800639?i=457800647&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1825240725",
+        "name": "Piano Trio No. 4 in B-Flat Major, Op. 11 \"Gassenhauer\": II. Adagio",
+        "artists": "Yo-Yo Ma, Leonidas Kavakos & Emanuel Ax",
+        "durationMs": 301480,
+        "imageUrl": "/demo-covers/1825240698.jpg",
+        "album": "Beethoven for Three: Symphony No. 1 / Op. 70, No. 1 \"Ghost\" / Op. 11 \"Gassenhauer\"",
+        "sourceUrl": "https://music.apple.com/us/album/piano-trio-no-4-in-b-flat-major-op-11-gassenhauer-ii-adagio/1825240698?i=1825240725&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1009467596",
+        "name": "Carnival of the Animals: XIII. The Swan",
+        "artists": "Yo-Yo Ma & Kathryn Stott",
+        "durationMs": 174267,
+        "imageUrl": "/demo-covers/1009467298.jpg",
+        "album": "Songs from the Arc of Life",
+        "sourceUrl": "https://music.apple.com/us/album/carnival-of-the-animals-xiii-the-swan/1009467298?i=1009467596&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1766801454",
+        "name": "Sicilienne, Op. 78",
+        "artists": "Yo-Yo Ma & Kathryn Stott",
+        "durationMs": 219187,
+        "imageUrl": "/demo-covers/1766801138.jpg",
+        "album": "Merci",
+        "sourceUrl": "https://music.apple.com/us/album/sicilienne-op-78/1766801138?i=1766801454&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1615825061",
+        "name": "A Prayer for Peace from Munich",
+        "artists": "John Williams, Yo-Yo Ma & Pablo Sáinz-Villegas",
+        "durationMs": 272840,
+        "imageUrl": "/demo-covers/1615825057.jpg",
+        "album": "John Williams: A Gathering of Friends",
+        "sourceUrl": "https://music.apple.com/us/album/a-prayer-for-peace-from-munich/1615825057?i=1615825061&uo=4"
       }
     ]
   },
@@ -1838,6 +2783,42 @@
         "imageUrl": "/demo-covers/1586673102.jpg",
         "album": "Lo Siento BB:/ - Single",
         "sourceUrl": "https://music.apple.com/us/album/lo-siento-bb/1586673102?i=1586673104&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1462982163",
+        "name": "Soltera (Remix)",
+        "artists": "Lunay, Daddy Yankee & Bad Bunny",
+        "durationMs": 266087,
+        "imageUrl": "/demo-covers/1462982162.jpg",
+        "album": "Soltera (Remix) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/soltera-remix/1462982162?i=1462982163&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1483618937",
+        "name": "Mayores",
+        "artists": "Becky G & Bad Bunny",
+        "durationMs": 203183,
+        "imageUrl": "/demo-covers/1483618279.jpg",
+        "album": "MALA SANTA",
+        "sourceUrl": "https://music.apple.com/us/album/mayores/1483618279?i=1483618937&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1368105802",
+        "name": "I Like It",
+        "artists": "Cardi B, Bad Bunny & J Balvin",
+        "durationMs": 253390,
+        "imageUrl": "/demo-covers/1368105671.jpg",
+        "album": "Invasion of Privacy",
+        "sourceUrl": "https://music.apple.com/us/album/i-like-it/1368105671?i=1368105802&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1542103215",
+        "name": "LA NOCHE DE ANOCHE",
+        "artists": "Bad Bunny & ROSALÍA",
+        "durationMs": 203201,
+        "imageUrl": "/demo-covers/1542102907.jpg",
+        "album": "EL ÚLTIMO TOUR DEL MUNDO",
+        "sourceUrl": "https://music.apple.com/us/album/la-noche-de-anoche/1542102907?i=1542103215&uo=4"
       }
     ]
   },
@@ -1952,6 +2933,42 @@
         "imageUrl": "/demo-covers/1527514852.jpg",
         "album": "Twice As Tall",
         "sourceUrl": "https://music.apple.com/us/album/bank-on-it/1527514852?i=1527515475&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1699611418",
+        "name": "Tested, Approved & Trusted",
+        "artists": "Burna Boy",
+        "durationMs": 220394,
+        "imageUrl": "/demo-covers/1699611123.jpg",
+        "album": "I Told Them...",
+        "sourceUrl": "https://music.apple.com/us/album/tested-approved-trusted/1699611123?i=1699611418&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1599820136",
+        "name": "B. D’OR (feat. Wizkid)",
+        "artists": "Burna Boy",
+        "durationMs": 189800,
+        "imageUrl": "/demo-covers/1599820135.jpg",
+        "album": "B. D’OR (feat. Wizkid) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/b-dor-feat-wizkid/1599820135?i=1599820136&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1745539656",
+        "name": "Tshwala Bam (feat. S.N.E) [Remix]",
+        "artists": "TitoM, Yuppe & Burna Boy",
+        "durationMs": 203571,
+        "imageUrl": "/demo-covers/1745539641.jpg",
+        "album": "Tshwala Bam (feat. S.N.E) [Remix] - Single",
+        "sourceUrl": "https://music.apple.com/us/album/tshwala-bam-feat-s-n-e-remix/1745539641?i=1745539656&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1582564852",
+        "name": "Question (feat. Don Jazzy)",
+        "artists": "Burna Boy",
+        "durationMs": 168462,
+        "imageUrl": "/demo-covers/1582564850.jpg",
+        "album": "Question (feat. Don Jazzy) - Single",
+        "sourceUrl": "https://music.apple.com/us/album/question-feat-don-jazzy/1582564850?i=1582564852&uo=4"
       }
     ]
   },
@@ -2066,6 +3083,24 @@
         "imageUrl": "/demo-covers/1596529064.jpg",
         "album": "LOVE YOURSELF 承 'Her'",
         "sourceUrl": "https://music.apple.com/us/album/dna/1596529064?i=1596529066&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1597017443",
+        "name": "Black Swan",
+        "artists": "BTS",
+        "durationMs": 198261,
+        "imageUrl": "/demo-covers/1597017439.jpg",
+        "album": "Black Swan - Single",
+        "sourceUrl": "https://music.apple.com/us/album/black-swan/1597017439?i=1597017443&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1576350174",
+        "name": "My Universe",
+        "artists": "Coldplay X BTS",
+        "durationMs": 226198,
+        "imageUrl": "/demo-covers/1576349937.jpg",
+        "album": "Music of the Spheres",
+        "sourceUrl": "https://music.apple.com/us/album/my-universe/1576349937?i=1576350174&uo=4"
       }
     ]
   },
@@ -2180,6 +3215,33 @@
         "imageUrl": "/demo-covers/1475311061.jpg",
         "album": "God Only Knows - Single",
         "sourceUrl": "https://music.apple.com/us/album/god-only-knows/1475311061?i=1475311062&uo=4"
+      },
+      {
+        "uri": "sample:catalog:1738364006",
+        "name": "TYRANT",
+        "artists": "Beyoncé & Dolly Parton",
+        "durationMs": 250725,
+        "imageUrl": "/demo-covers/1738363766.jpg",
+        "album": "COWBOY CARTER",
+        "sourceUrl": "https://music.apple.com/us/album/tyrant/1738363766?i=1738364006&uo=4"
+      },
+      {
+        "uri": "sample:catalog:169595968",
+        "name": "Why'd You Come In Here Lookin' Like That",
+        "artists": "Dolly Parton",
+        "durationMs": 152507,
+        "imageUrl": "/demo-covers/169595602.jpg",
+        "album": "White Limozeen",
+        "sourceUrl": "https://music.apple.com/us/album/whyd-you-come-in-here-lookin-like-that/169595602?i=169595968&uo=4"
+      },
+      {
+        "uri": "sample:catalog:250870557",
+        "name": "Eagle When She Flies",
+        "artists": "Dolly Parton",
+        "durationMs": 190227,
+        "imageUrl": "/demo-covers/250870464.jpg",
+        "album": "Eagle When She Flies",
+        "sourceUrl": "https://music.apple.com/us/album/eagle-when-she-flies/250870464?i=250870557&uo=4"
       }
     ]
   }

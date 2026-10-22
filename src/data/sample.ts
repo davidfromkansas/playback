@@ -19,7 +19,14 @@ export function sampleLibrary(): Disc[] {
   }))
   const select = (...ids: string[]): Track[] => {
     const selected = ids.map(id => groups.find(group => group.id === id)?.tracks ?? [])
-    return Array.from({ length: Math.max(0, ...selected.map(tracks => tracks.length)) }, (_, i) => selected.flatMap(tracks => tracks[i] ? [tracks[i]] : [] )).flat()
+    const seen = new Set<string>()
+    return Array.from({ length: Math.max(0, ...selected.map(tracks => tracks.length)) },
+      (_, i) => selected.flatMap(tracks => tracks[i] ? [tracks[i]] : [])).flat().filter(track => {
+      const cover = track.imageUrl ?? track.uri
+      if (seen.has(cover)) return false
+      seen.add(cover)
+      return true
+    })
   }
   const playlists: [string, string[]][] = [
     ['Pop Rotation', ['sabrina', 'dua', 'chappell', 'taylor']],
