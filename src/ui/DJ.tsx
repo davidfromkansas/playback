@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { MOOD_ROUTINES, type SongMood } from '../lib/songMood'
 import { advanceVolt, newVoltMotion, VOLT_CELS, VOLT_COLUMNS, VOLT_HEIGHT, VOLT_WIDTH,
   type VoltSelection } from './voltAnimation'
 
@@ -9,12 +10,13 @@ interface DJProps {
   speed?: number
   inspectCel?: number
   routine?: VoltSelection
+  mood?: SongMood
 }
 
-export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto' }: DJProps) {
+export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto', mood }: DJProps) {
   const canvas = useRef<HTMLCanvasElement>(null)
-  const inputs = useRef({ dancing, speed, inspectCel, routine })
-  inputs.current = { dancing, speed, inspectCel, routine }
+  const inputs = useRef({ dancing, speed, inspectCel, routine, mood })
+  inputs.current = { dancing, speed, inspectCel, routine, mood }
 
   useEffect(() => {
     const el = canvas.current
@@ -33,7 +35,8 @@ export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto'
       const input = inputs.current
       const sample = reduced.matches
         ? { cel: input.dancing ? 24 : 0, state: input.dancing ? 'playing' : 'idle', routine: 'groove' }
-        : advanceVolt(motion, Math.min(dt, 0.05) * input.speed, input.dancing, input.routine)
+        : advanceVolt(motion, Math.min(dt, 0.05) * input.speed, input.dancing, input.routine,
+          input.mood ? MOOD_ROUTINES[input.mood] : undefined)
       const cel = input.inspectCel === undefined ? sample.cel : Math.max(0, Math.min(VOLT_CELS - 1, input.inspectCel))
       if (cel !== previous) {
         context.clearRect(0, 0, VOLT_WIDTH, VOLT_HEIGHT)
@@ -46,6 +49,7 @@ export function DJ({ dancing, className, speed = 1, inspectCel, routine = 'auto'
       el.dataset.motion = sample.state
       el.dataset.playing = String(input.dancing)
       el.dataset.routine = sample.routine
+      el.dataset.mood = input.mood ?? 'all'
       raf = requestAnimationFrame(draw)
     }
     atlas.onload = () => { if (!disposed) raf = requestAnimationFrame(draw) }

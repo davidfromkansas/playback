@@ -41,6 +41,7 @@ export const newVoltMotion = (): VoltMotion => ({ entry: 0, equipment: 0, phase:
 
 export function advanceVolt(
   motion: VoltMotion, seconds: number, dancing: boolean, selection: VoltSelection = 'auto',
+  allowed?: readonly VoltRoutine[],
 ): VoltSample {
   const dt = Math.max(0, Math.min(seconds, 0.05))
   const end = bridge.length - 1
@@ -54,6 +55,7 @@ export function advanceVolt(
     motion.entry = Math.min(end, motion.entry + dt * 10)
     motion.phase = 0
     if (selection !== 'auto') motion.routine = VOLT_ROUTINES.findIndex(r => r.id === selection)
+    else if (allowed?.length) motion.routine = VOLT_ROUTINES.findIndex(r => r.id === allowed[0])
     return sample(bridge[Math.round(motion.entry)], 'enter')
   }
   if (!dancing && motion.entry > 0) {
@@ -85,7 +87,11 @@ export function advanceVolt(
         motion.routine = VOLT_ROUTINES.findIndex(r => r.id === selection)
         motion.loops = 0
       } else if (motion.loops * VOLT_ROUTINES[motion.routine].beats >= 8) {
-        motion.routine = (motion.routine + 1) % VOLT_ROUTINES.length
+        if (allowed?.length) {
+          const index = allowed.indexOf(VOLT_ROUTINES[motion.routine].id)
+          const next = allowed[(index + 1) % allowed.length]
+          motion.routine = VOLT_ROUTINES.findIndex(r => r.id === next)
+        } else motion.routine = (motion.routine + 1) % VOLT_ROUTINES.length
         motion.loops = 0
       }
     }

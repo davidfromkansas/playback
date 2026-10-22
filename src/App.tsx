@@ -19,6 +19,7 @@ import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
+import { useSongMood } from './lib/songMood'
 import { MoodMeter, NowPlayingBar, TrackPanel } from './ui/Panels'
 import { RhythmBar, type Hit } from './ui/RhythmBar'
 import { LoadingCard, SceneLoading } from './ui/Loading'
@@ -103,6 +104,7 @@ export default function App() {
   )
   const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
   const playing = !!now.disc && !now.paused
+  const songMood = useSongMood(now.track, street && mode !== 'sample' && import.meta.env.DEV)
 
   const discs = useMemo(() => sortDiscs(library, sortKey), [library, sortKey])
 
@@ -550,7 +552,8 @@ export default function App() {
       {playing && <RhythmBar onHit={onHit} />}
       {now.disc && <MoodMeter score={mood} />}
 
-      <Host line={line} bouncing={playing} theme={theme} />
+      <Host line={line} bouncing={playing} theme={theme}
+        songMood={mode !== 'sample' && import.meta.env.DEV ? songMood : undefined} />
 
       {pulled && pulled.stage === 'open' && (
         <TrackPanel

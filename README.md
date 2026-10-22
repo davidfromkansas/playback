@@ -35,6 +35,12 @@ Open http://127.0.0.1:5173 and press **Try it with sample CDs**.
 
 There's no server and no client secret: login uses Spotify's PKCE flow in the browser.
 
+An optional local DJ mood pilot uses a Vite middleware endpoint, separate from Spotify login.
+It resolves a song against MusicBrainz's CC0 catalog and sends only canonical title/artist/recording
+facts to Jev. Set `TYPESAFE_API_KEY` in `.env.local` to try it, or use the manual mood selector
+at `/character-preview.html` without a key. This endpoint is not deployed in production.
+See [the data flow and setup](docs/dj-volt/public-song-moods.md).
+
 ## How playback works
 
 | Where | What happens |

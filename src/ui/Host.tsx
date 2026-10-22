@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react'
 import type { Theme } from '../lib/theme'
 import { DJ } from './DJ'
 import { Rapper } from './Rapper'
+import type { SongMood } from '../lib/songMood'
 
-export function Host({ line, bouncing, theme }: { line: string; bouncing: boolean; theme: Theme }) {
+export function Host({ line, bouncing, theme, songMood }: {
+  line: string; bouncing: boolean; theme: Theme; songMood?: SongMood
+}) {
   // Each line stays up for a while, then the bubble tucks away so it doesn't hide the shelf.
   const [shown, setShown] = useState(line)
   useEffect(() => {
@@ -21,7 +24,7 @@ export function Host({ line, bouncing, theme }: { line: string; bouncing: boolea
         </div>
       )}
       {theme === 'street' ? (
-        <DJ dancing={bouncing} className="host-figure" />
+        <DJ dancing={bouncing} className="host-figure" mood={songMood} />
       ) : (
         <Rapper dancing={bouncing} className="host-figure" />
       )}
