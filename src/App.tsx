@@ -12,6 +12,7 @@ import { LINE_STEP, ROWS, slot } from './scene/layout'
 import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
 import { Shelf, type ScrollState } from './scene/Shelf'
+import { bookletPages } from './scene/trackListPage'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
 import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
@@ -63,6 +64,7 @@ export default function App() {
   const [sortKey, setSortKey] = useState<SortKey>('added')
   const [query, setQuery] = useState('')
   const [pulled, setPulled] = useState<Pulled | null>(null)
+  const [bookletPage, setBookletPage] = useState(0)
   const [tracks, setTracks] = useState<Track[] | null>(null)
   const [trackError, setTrackError] = useState<string | null>(null)
   const [line, setLine] = useState(rhymes.welcome())
@@ -223,6 +225,7 @@ export default function App() {
     (disc: Disc, from: THREE.Vector3, fromRy?: number) => {
       if (pulled) return
       setPulled({ disc, from, fromRy, stage: 'out' })
+      setBookletPage(0)
       setTracks(disc.tracks ?? null)
       setTrackError(null)
       setLine(rhymes.pulled(disc.title))
@@ -479,6 +482,9 @@ export default function App() {
             <PulledCD
               key={pulled.disc.id}
               disc={pulled.disc}
+              tracks={tracks}
+              trackError={trackError}
+              bookletPage={bookletPage}
               from={pulled.from}
               fromRy={pulled.fromRy}
               stage={pulled.stage}
@@ -559,6 +565,9 @@ export default function App() {
           onPlay={(i) => void playIndex(i)}
           onClose={putBack}
           starting={starting}
+          bookletPage={bookletPage}
+          bookletPages={bookletPages(tracks)}
+          onBookletPage={setBookletPage}
         />
       )}
       {pulled && pulled.stage === 'out' && <p className="hint">Tap the case to open it</p>}

@@ -10,6 +10,9 @@ const time = (ms: number) => {
 
 interface TrackPanelProps {
   disc: Disc
+  bookletPage: number
+  bookletPages: number
+  onBookletPage: (page: number) => void
   tracks: Track[] | null
   error: string | null
   nowUri: string | null
@@ -20,7 +23,9 @@ interface TrackPanelProps {
 }
 
 /** The case insert: song list for the open CD. */
-export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose, starting }: TrackPanelProps) {
+export function TrackPanel({
+  disc, tracks, error, nowUri, onPlay, onClose, starting, bookletPage, bookletPages, onBookletPage,
+}: TrackPanelProps) {
   return (
     <aside className="panel">
       <header>
@@ -32,6 +37,15 @@ export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose, start
           Put it back
         </button>
       </header>
+      {disc.kind !== 'track' && disc.tracksAvailable && !error && bookletPages > 1 && (
+        <nav className="booklet-pages" aria-label="Booklet pages">
+          <button aria-label="Previous booklet page" disabled={bookletPage === 0}
+            onClick={() => onBookletPage(bookletPage - 1)}>←</button>
+          <span aria-live="polite">Booklet {bookletPage + 1} / {bookletPages}</span>
+          <button aria-label="Next booklet page" disabled={bookletPage >= bookletPages - 1}
+            onClick={() => onBookletPage(bookletPage + 1)}>→</button>
+        </nav>
+      )}
       {error && <p className="note">{error}</p>}
       {!disc.tracksAvailable && (
         <p className="note">

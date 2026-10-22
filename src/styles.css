@@ -1199,3 +1199,15 @@ select {
       linear-gradient(#0aa8ff 0%, #34c6ff 45%, #bfefff 75%);
   }
 }
+
+.booklet-pages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-bottom: 2px solid var(--ink);
+  flex-shrink: 0;
+}
+.booklet-pages button { min-width: 44px; min-height: 44px; }
+.booklet-pages button:disabled { opacity: 0.35; cursor: default; }
