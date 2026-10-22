@@ -270,3 +270,6 @@
   .room .hint { bottom: 76px; }
   .room:has(.miniamp:not(.is-compact)) .hint { bottom: 242px; }
 }
+
+.deck-preview-credit { margin: 6px 14px 10px; font-size: 10px; color: #e5e7eb; }
+.deck-preview-credit a { color: #d5ff00; }

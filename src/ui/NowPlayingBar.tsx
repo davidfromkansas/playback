@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { livePosition, type NowPlaying, type PlayerMode } from '../spotify/player'
 import { Visualizer } from './Visualizer'
 import './player.css'
@@ -8,40 +8,29 @@ const time = (ms: number) => {
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
 }
 const SOURCE: Record<PlayerMode, string> = {
-  sample: 'SAMPLE · NO AUDIO', browser: 'SPOTIFY · BROWSER', phone: 'SPOTIFY · CONNECT', link: 'SPOTIFY',
+  sample: 'DEMO · AUDIO PREVIEW', browser: 'SPOTIFY · BROWSER', phone: 'SPOTIFY · CONNECT', link: 'SPOTIFY',
 }
 interface Props {
   now: NowPlaying
   mode: PlayerMode
   onToggle: () => void
   onSkip: (direction: 1 | -1) => void
-  onEnded: () => void
   onSeek: (position: number) => Promise<void>
 }
 
-export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded, onSeek }: Props) {
+export function NowPlayingBar({ now, mode, onToggle, onSkip, onSeek }: Props) {
   const [, setTick] = useState(0)
   const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 700px)').matches)
   const [scrub, setScrub] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const ended = useRef<string | null>(null)
   const trackKey = now.track?.uri ?? now.disc?.id ?? ''
   useEffect(() => {
     if (!now.disc || now.paused) return
     const id = setInterval(() => setTick(t => t + 1), 250)
     return () => clearInterval(id)
   }, [now.disc, now.paused])
-  useEffect(() => { setScrub(null); setError(null); ended.current = null }, [trackKey])
+  useEffect(() => { setScrub(null); setError(null) }, [trackKey])
   const position = livePosition(now)
-  useEffect(() => {
-    if (mode !== 'sample' || now.paused || !now.durationMs || position < now.durationMs) {
-      ended.current = null
-      return
-    }
-    if (ended.current === trackKey) return
-    ended.current = trackKey
-    onEnded()
-  }, [mode, now.paused, now.durationMs, position, trackKey, onEnded])
   if (!now.disc) return null
   const title = now.track?.name ?? now.disc.title
   const shown = scrub ?? position
@@ -66,7 +55,7 @@ export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded, onSeek }: 
       {!compact && <>
         <div className="deck-body">
           <div className="deck-info">
-            <div className="deck-state"><i className={now.paused ? '' : 'lit'} />{now.paused ? 'PAUSED' : 'PLAYING'}</div>
+            <div className="deck-state"><i className={now.paused ? '' : 'lit'} />{now.buffering ? 'LOADING PREVIEW' : now.paused ? 'PAUSED' : 'PLAYING'}</div>
             <strong className="deck-title" title={title}>{title}</strong>
             <span className="deck-artist" title={now.track?.artists ?? now.disc.subtitle}>
               {now.track?.artists ?? now.disc.subtitle}
@@ -100,8 +89,13 @@ export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded, onSeek }: 
             onPointerCancel={() => setScrub(null)} />
           <span>−{time(Math.max(0, now.durationMs - shown))}</span>
         </div>
-        {error && <p className="deck-error" role="status">{error}</p>}
       </>}
+        {mode === 'sample' && <p className="deck-preview-credit">
+          Song preview provided courtesy of iTunes.{' '}
+          {now.track?.sourceUrl && <a href={now.track.sourceUrl} target="_blank" rel="noreferrer">Download on iTunes ↗</a>}
+        </p>}
+        {now.error && <p className="deck-error" role="status">{now.error}</p>}
+        {error && <p className="deck-error" role="status">{error}</p>}
     </section>
   )
 }

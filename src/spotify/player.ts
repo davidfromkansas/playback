@@ -2,7 +2,7 @@
 //  - browser: the Web Playback SDK turns this tab into a Spotify speaker (desktop, Premium)
 //  - phone:   phone browsers can't run the SDK, so we tell the Spotify app on the phone to play (Premium)
 //  - link:    free accounts can't be controlled, so we open the CD in Spotify instead
-//  - sample:  no Spotify at all, a pretend player so the shelf can be tried out
+//  - sample:  no Spotify at all, streamed catalog previews without Spotify
 import type { Disc, Track } from '../types'
 import { spotify, SpotifyError } from './api'
 import { accessToken } from './auth'
@@ -10,6 +10,8 @@ import { accessToken } from './auth'
 export type PlayerMode = 'sample' | 'browser' | 'phone' | 'link'
 
 export interface NowPlaying {
+  error?: string
+  buffering?: boolean
   disc: Disc | null
   track: Track | null
   paused: boolean
@@ -215,9 +217,73 @@ function startPolling(): void {
   }, 10000)
 }
 
+// ---- Demo audio ------------------------------------------------------------
+
+let sampleAudio: HTMLAudioElement | null = null
+
+function releaseSampleAudio(): void {
+  const previous = sampleAudio
+  sampleAudio = null
+  if (!previous) return
+  previous.pause()
+  previous.removeAttribute('src')
+  previous.load()
+  previous.remove()
+}
+
+async function playPreview(disc: Disc, track: Track | null): Promise<PlayResult> {
+  releaseSampleAudio()
+  setNow({ disc, track, paused: true, buffering: false, error: undefined, positionMs: 0, durationMs: 0 })
+  if (!track?.previewUrl) {
+    const message = 'No audio preview is available for this song. Try another CD.'
+    setNow({ error: message })
+    return { ok: false, message }
+  }
+  const audio = document.createElement('audio')
+  sampleAudio = audio
+  audio.dataset.demoPreview = 'true'
+  audio.preload = 'none'
+  audio.src = track.previewUrl
+  audio.volume = 0.8
+  document.body.appendChild(audio)
+  const sync = () => {
+    if (sampleAudio !== audio) return
+    setNow({ positionMs: audio.currentTime * 1000,
+      durationMs: Number.isFinite(audio.duration) ? audio.duration * 1000 : 0,
+      paused: audio.paused || audio.ended })
+  }
+  for (const event of ['timeupdate', 'durationchange', 'pause', 'seeked']) audio.addEventListener(event, sync)
+  audio.addEventListener('playing', () => {
+    if (sampleAudio !== audio) return
+    setNow({ buffering: false, error: undefined })
+    sync()
+  })
+  audio.addEventListener('waiting', () => {
+    if (sampleAudio === audio) setNow({ buffering: true, paused: true })
+  })
+  audio.addEventListener('ended', () => {
+    if (sampleAudio === audio) { sync(); setNow({ buffering: false, paused: true }) }
+  })
+  audio.addEventListener('error', () => {
+    if (sampleAudio === audio) setNow({ buffering: false, paused: true,
+      error: 'This preview could not load. Try another song or press play to retry.' })
+  })
+  setNow({ buffering: true })
+  try {
+    await audio.play()
+    return { ok: sampleAudio === audio }
+  } catch {
+    if (sampleAudio !== audio) return { ok: false }
+    const message = 'This preview could not start. Press play to retry, or try another song.'
+    setNow({ buffering: false, paused: true, error: message })
+    return { ok: false, message }
+  }
+}
+
 // ---- Public API ------------------------------------------------------------
 
 export function disconnectPlayer(): void {
+  releaseSampleAudio()
   playerGeneration++
   window.clearInterval(pollTimer)
   clearTimeout(commandPollTimer)
@@ -261,10 +327,7 @@ const premiumMessage = 'Playing inside Playback needs Spotify Premium, so this C
 
 export async function play(disc: Disc, tracks: Track[], index = 0): Promise<PlayResult> {
   const track = tracks[index] ?? null
-  if (state.mode === 'sample') {
-    setNow({ disc, track, paused: false, positionMs: 0, durationMs: track?.durationMs ?? 180000 })
-    return { ok: true }
-  }
+  if (state.mode === 'sample') return playPreview(disc, track)
   if (state.mode === 'link') return { ok: false, message: premiumMessage, openUrl: disc.spotifyUrl }
 
   try {
@@ -317,6 +380,17 @@ async function phoneCommand(path: string, method: 'PUT' | 'POST'): Promise<void>
 
 export async function togglePause(): Promise<void> {
   const { mode, now } = state
+  if (mode === 'sample') {
+    if (!sampleAudio || sampleAudio.error) {
+      if (now.disc) await playPreview(now.disc, now.track)
+      return
+    }
+    if (!sampleAudio.paused) { sampleAudio.pause(); return }
+    if (sampleAudio.ended) sampleAudio.currentTime = 0
+    try { await sampleAudio.play() }
+    catch { setNow({ paused: true, buffering: false, error: 'Could not resume the preview. Press play to retry.' }) }
+    return
+  }
   if (mode === 'browser' && sdk) return sdk.togglePlay()
   if (mode === 'phone') {
     setNow({ paused: !now.paused, positionMs: livePosition(now) })
@@ -334,10 +408,11 @@ export async function skip(direction: 1 | -1): Promise<void> {
   if (!list.length) return
   const i = list.findIndex((t) => t.uri === now.track?.uri)
   const next = list[(i + direction + list.length) % list.length]
-  setNow({ track: next, paused: false, positionMs: 0, durationMs: next.durationMs })
+  if (now.disc) await playPreview(now.disc, next)
 }
 
 export function stop(): void {
+  releaseSampleAudio()
   if (state.mode === 'browser' && sdk && !state.now.paused) void sdk.togglePlay()
   if (state.mode === 'phone' && !state.now.paused) void phoneCommand('/me/player/pause', 'PUT')
   set({ now: idle })
@@ -345,6 +420,7 @@ export function stop(): void {
 
 /** Current position, counting forward from the last update while playing. */
 export function livePosition(now: NowPlaying): number {
+  if (state.mode === 'sample' && sampleAudio && now === state.now) return sampleAudio.currentTime * 1000
   if (now.paused) return now.positionMs
   return Math.min(now.positionMs + (Date.now() - now.measuredAt), now.durationMs || Infinity)
 }
@@ -353,7 +429,9 @@ export function livePosition(now: NowPlaying): number {
 export async function seek(positionMs: number): Promise<void> {
   if (!state.now.disc || !state.now.durationMs || state.mode === 'link') return
   const position = Math.round(Math.max(0, Math.min(positionMs, state.now.durationMs)))
-  if (state.mode === 'browser') {
+  if (state.mode === 'sample' && sampleAudio) {
+    sampleAudio.currentTime = position / 1000
+  } else if (state.mode === 'browser') {
     if (!sdk) throw new Error('The Spotify player is still connecting.')
     await sdk.seek(position)
   } else if (state.mode === 'phone') {

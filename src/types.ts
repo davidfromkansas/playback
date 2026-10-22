@@ -24,8 +24,11 @@ export interface Disc {
 }
 
 export interface Track {
+  /** Official streamed preview; demo playback never downloads or caches the audio. */
+  previewUrl?: string
+  sourceUrl?: string
   album?: string
-  /** Manually curated mood for simulated demo playback only. */
+  /** Manually curated mood for demo playback only. */
   demoMood?: string
   uri: string
   name: string

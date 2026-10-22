@@ -48,7 +48,9 @@ export function useBookletPage(
     let alive = true
     setState({ status: 'loading' })
     void fetchLyrics(track, disc.kind === 'album' ? disc.title : undefined).then((lyrics) => {
-      if (alive) setState({ status: 'ready', lyrics })
+      // Preview excerpts do not include their offset in the full song. Never fake lyric sync.
+      if (alive) setState({ status: 'ready', lyrics: track.previewUrl && lyrics.kind === 'synced'
+        ? { kind: 'plain', lines: lyrics.lines.map(line => line.text) } : lyrics })
     })
     return () => {
       alive = false
@@ -107,7 +109,7 @@ export function useBookletPage(
       // Keep the line being sung near the top third of the page.
       const first = rows.findIndex((r) => r.line === Math.max(0, active))
       target = Math.max(0, first)
-    } else if (state.status === 'ready' && state.lyrics.kind === 'plain' && current.durationMs) {
+    } else if (state.status === 'ready' && state.lyrics.kind === 'plain' && !track?.previewUrl && current.durationMs) {
       // No timings: glide through the words at the song's pace.
       target = (pos / current.durationMs) * Math.max(0, rows.length - 3)
     }

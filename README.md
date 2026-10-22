@@ -25,7 +25,7 @@ The demo spans pop, rock, hip-hop, jazz, classical, Latin, Afrobeats, K-pop, cou
 Main browsing rows and populated Remix moods each have at least 25 songs with unique cover art per row.
 Track facts and bundled covers come from the public Apple iTunes catalog. Collections, listening
 history and mood assignments are curated fixtures, not an imported account or Jev results.
-Playback is silent and simulated; mood labels, Remix and DJ reactions work without Spotify requests. Lyrics load from LRCLIB when a song starts playing; missing lyrics show a fallback.
+Playback streams official song previews directly from Apple, with real play/pause and seek controls. These are excerpts, not full tracks; unavailable previews show an error. Audio is never bundled or cached. Apple preview audio must not be recorded into promotional videos. Collections and moods remain curated; mood labels, Remix and DJ reactions work without Spotify requests. Lyrics load from LRCLIB when a song starts playing; missing lyrics show a fallback.
 Album CDs contain demo selections, not necessarily complete albums.
 
 ## Hook up Spotify
@@ -64,7 +64,7 @@ The VOLT—01 Miniamp player has playback controls, elapsed time, a seek slider 
 | Desktop browser, Premium | Music plays right in the tab (Web Playback SDK). |
 | Phone browser, Premium | Phone browsers can't play Spotify audio, so Playback tells the Spotify app on the phone to play. The Spotify app needs to be open. |
 | Free account | The CD opens in Spotify instead. |
-| Sample mode | Pretend playback so you can try the animations. |
+| Sample mode | Real streamed song previews without Spotify sign-in. |
 
 ## Spotify limits to know
 
