@@ -19,7 +19,8 @@ import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
-import { useSongMood } from './lib/songMood'
+import { useLoadedSongMoods, useSongMood } from './lib/songMood'
+import { SongMoodLabel } from './ui/SongMoodLabel'
 import { MoodMeter, NowPlayingBar, TrackPanel } from './ui/Panels'
 import { RhythmBar, type Hit } from './ui/RhythmBar'
 import { LoadingCard, SceneLoading } from './ui/Loading'
@@ -104,6 +105,13 @@ export default function App() {
   )
   const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
   const playing = !!now.disc && !now.paused
+  const loadedSongs = useMemo(() => [
+    ...(tracks ?? []),
+    ...shownRows.flatMap(row => row.discs.flatMap(disc => disc.tracks ?? [])),
+    ...library.flatMap(disc => disc.tracks ?? []),
+    ...(now.track ? [now.track] : []),
+  ], [tracks, shownRows, library, now.track])
+  useLoadedSongMoods(loadedSongs, mode !== 'sample' && phase === 'shelf' && import.meta.env.DEV)
   const songMood = useSongMood(now.track, street && mode !== 'sample' && import.meta.env.DEV)
 
   const discs = useMemo(() => sortDiscs(library, sortKey), [library, sortKey])
@@ -610,6 +618,7 @@ export default function App() {
         <div className={`focus-label ${results ? 'below-results' : ''}`} key={`focus:${focused.id}`}>
           <strong>{focused.title}</strong>
           <span>{focused.subtitle}</span>
+          {focused.kind === 'track' && focused.tracks?.[0] && <SongMoodLabel track={focused.tracks[0]} />}
         </div>
       ) : null}
       {!pulled && (

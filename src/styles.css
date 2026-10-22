@@ -403,6 +403,37 @@ select {
   opacity: 0.7;
 }
 
+.track-detail {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 3px;
+  min-width: 0;
+}
+.track-detail small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.song-mood,
+.focus-label .song-mood,
+.now-text .song-mood {
+  display: inline-block;
+  flex-shrink: 0;
+  width: fit-content;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.7;
+  vertical-align: middle;
+}
+
 .panel footer {
   display: flex;
   align-items: center;

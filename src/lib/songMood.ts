@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import type { Track } from '../types'
 import type { VoltRoutine } from '../ui/voltAnimation'
+import { createSongMoodQueue, songMoodKey } from './songMoodQueue'
 
 export const MOOD_ROUTINES = {
   relaxed: ['groove', 'smurf', 'armwave'], dreamy: ['armwave', 'groove'],
@@ -28,7 +29,10 @@ export async function classifyPublicSong(title: string, artist: string, duration
     body: JSON.stringify({ title, artist, durationMs }),
     signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(25000)]) : AbortSignal.timeout(25000),
   })
-  if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) return unavailable
+  if (response.status === 404 || !response.headers.get('content-type')?.includes('application/json')) {
+    return { status: 'unsupported', profile: null }
+  }
+  if (!response.ok) return unavailable
   const result = await response.json() as MoodResult
   if (typeof result.status !== 'string') return unavailable
   if (result.profile && (!Object.hasOwn(MOOD_ROUTINES, result.profile.mood)
@@ -37,22 +41,37 @@ export async function classifyPublicSong(title: string, artist: string, duration
   return result
 }
 
-export function useSongMood(track: Track | null, enabled: boolean): SongMood {
-  const [resolved, setResolved] = useState<{ key: string; mood: SongMood } | null>(null)
-  const title = track?.name ?? ''
-  const artist = track?.artists ?? ''
-  const duration = track?.durationMs ?? 0
-  const key = JSON.stringify([title, artist, duration])
+export const songMoods = createSongMoodQueue((track, signal) =>
+  classifyPublicSong(track.name, track.artists, track.durationMs, signal))
+
+export function useLoadedSongMoods(tracks: readonly Track[], enabled: boolean) {
   useEffect(() => {
-    if (!enabled || !title || !artist) return
-    const controller = new AbortController()
-    // Brief track skips should not create catalog requests.
-    const timer = setTimeout(() => {
-      void classifyPublicSong(title, artist, duration, controller.signal).then(result => {
-        if (!controller.signal.aborted) setResolved({ key, mood: result.profile?.mood ?? 'unknown' })
-      }).catch(() => {})
-    }, 1200)
-    return () => { clearTimeout(timer); controller.abort() }
-  }, [title, artist, duration, key, enabled])
-  return enabled && resolved?.key === key ? resolved.mood : 'unknown'
+    songMoods.setEnabled(enabled)
+    return () => songMoods.setEnabled(false)
+  }, [enabled])
+  useEffect(() => { if (enabled) songMoods.enqueue(tracks) }, [tracks, enabled])
+}
+
+export function useSongMoodResult(track: Track | null): MoodResult {
+  const key = track ? songMoodKey(track) : ''
+  return useSyncExternalStore(songMoods.subscribe, () => songMoods.get(key), () => songMoods.get(''))
+}
+
+export function useSongMood(track: Track | null, enabled: boolean): SongMood {
+  const result = useSongMoodResult(track)
+  const key = track ? songMoodKey(track) : ''
+  useEffect(() => { if (enabled && track) songMoods.enqueue([track], true) }, [key, enabled, track])
+  return enabled ? result.profile?.mood ?? 'unknown' : 'unknown'
+}
+
+export function moodLabel(result: MoodResult): { text: string; detail: string } {
+  const mood = result.profile?.mood
+  if (mood && mood !== 'unknown') return {
+    text: mood[0].toUpperCase() + mood.slice(1), detail: `Estimated mood: ${mood}`,
+  }
+  if (result.status === 'queued' || result.status === 'loading') {
+    return { text: '…', detail: 'Finding song mood' }
+  }
+  return { text: 'Unrated', detail: result.status === 'not-configured'
+    ? 'Mood lookup is not configured yet' : 'No reliable mood estimate available' }
 }

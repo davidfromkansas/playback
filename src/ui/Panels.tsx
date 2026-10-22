@@ -2,6 +2,7 @@ import { InlineLoader, TextLoader } from 'generative-loaders'
 import { useEffect, useState } from 'react'
 import { livePosition, type NowPlaying, type PlayerMode } from '../spotify/player'
 import type { Disc, Track } from '../types'
+import { SongMoodLabel } from './SongMoodLabel'
 
 const time = (ms: number) => {
   const s = Math.max(0, Math.floor(ms / 1000))
@@ -53,7 +54,7 @@ export function TrackPanel({
                 <span className="num">{t.uri === nowUri ? '♪' : i + 1}</span>
                 <span className="name">
                   {t.name}
-                  <small>{t.artists}</small>
+                  <span className="track-detail"><small>{t.artists}</small><SongMoodLabel track={t} /></span>
                 </span>
                 <span className="dur">{time(t.durationMs)}</span>
               </button>
@@ -112,6 +113,7 @@ export function NowPlayingBar({ now, mode, onToggle, onSkip, onEnded }: NowBarPr
         <strong>{now.track?.name ?? now.disc.title}</strong>
         <span>
           {now.track?.artists ?? now.disc.subtitle} · {MODE_NOTE[mode]}
+          {now.track && <> <SongMoodLabel track={now.track} /></>}
         </span>
         <div className="progress">
           <div style={{ width: `${pct}%` }} />

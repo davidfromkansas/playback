@@ -32,8 +32,17 @@ Never use a `VITE_` prefix: the key is server-only. No key is needed for manual 
 Open `/character-preview.html`, enter title, artist, and duration, and select **Find song mood**.
 The preview shows the matched public recording and an estimated mood, or the fallback reason.
 
-In local development the Street host requests a mood when a real track changes.
-Requests are debounced; stale client results are ignored. Pause/resume does not reclassify.
+In local development, all already-loaded real tracks enter a shared lookup queue,
+whether playing or not. Album tracks, shelf/search songs, and opened track lists share
+the same session cache. Only one lookup runs at a time, with a 2.2-second gap after
+each result; missing setup stops the queue after the first request. The current song
+can move ahead of queued tracks. Signing out clears the queue/cache and ignores stale
+responses. The Street host reads the same result as the song label.
+
+Small mood labels appear in track lists (including the booklet), the focused single-song
+shelf label, and the now-playing bar. They show an ellipsis while queued/loading and
+`Unrated` when no reliable estimate exists. Sample mode makes no catalog requests;
+production remains without a classifier endpoint, so its labels are `Unrated`.
 Sample mode and production retain the existing automatic animation cycle.
 
 The Vite middleware is deliberately a local pilot, not a deployed public paid API.
@@ -66,3 +75,12 @@ recovery, real missing-key middleware behavior, a simulated successful classifie
 response, and desktop/phone layout. Evidence: `output/dj-volt/moods-1792636583494/`.
 The desktop and phone sample flows also passed in Street and Paper:
 `output/dj-volt/app-1792636547701/`. `public-mood-preview.png` shows the local setup state.
+
+For background labels, run `node --test scripts/test-song-mood-queue.mjs` and
+`node scripts/verify-mood-labels.mjs` (with `PLAYWRIGHT_MODULE` if needed).
+The browser fixture uses sample songs and simulated classifier responses to verify
+labels before playback; it does not establish live classification accuracy.
+The four queue tests and five source-boundary tests passed. Desktop and phone label
+checks passed in both themes, before playback and after starting the same song:
+`output/dj-volt/labels-1792637528686/`. The duplicate fixture identities produced one
+lookup. `song-mood-labels.png` shows the phone UI with a simulated Dreamy result.

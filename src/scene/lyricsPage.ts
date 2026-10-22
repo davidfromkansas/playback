@@ -7,6 +7,7 @@ import { fetchLyrics, type Lyrics } from '../spotify/lyrics'
 import { livePosition, playerStore } from '../spotify/player'
 import type { Disc, Track } from '../types'
 import { drawTrackList } from './trackListPage'
+import { songMoods } from '../lib/songMood'
 import { fitText, FONT } from './textures'
 
 const PAPER = '#fff7e8'
@@ -70,6 +71,11 @@ export function useBookletPage(
     drawTrackList(page.ctx, w, h, disc, tracks, error, 0)
     page.tex.needsUpdate = true
   }, [page, w, h, disc, tracks, error])
+  useEffect(() => songMoods.subscribe(() => {
+    if (disc.kind === 'track') return
+    drawTrackList(page.ctx, w, h, disc, tracks, error, listOffset.current)
+    page.tex.needsUpdate = true
+  }), [page, w, h, disc, tracks, error])
 
   const size = Math.round(w * LINE_PX)
   const rows = useMemo(() => {
