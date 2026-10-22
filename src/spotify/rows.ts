@@ -99,14 +99,12 @@ export async function loadRows(me: Me, library: Disc[], update: (rows: ShelfRow[
   }
   const picks = contexts.slice(0, CONTEXT_ROWS)
   picks.forEach((d) => put({ id: `songs:${d.id}`, title: d.title, discs: [], loading: true }))
-  await Promise.all([
-    likedDone,
-    ...picks.map((d) =>
-      songsRow(d)
-        .catch(() => ({ id: `songs:${d.id}`, title: d.title, discs: [d], note: "Couldn't load the songs" }))
-        .then(put),
-    ),
-  ])
+  await likedDone
+  for (const disc of picks) {
+    put(await songsRow(disc).catch(() => ({
+      id: `songs:${disc.id}`, title: disc.title, discs: [disc], note: "Couldn't load the songs",
+    })))
+  }
 }
 
 /** Row 1, plus the albums and playlists in it (newest first) for the rows further down. */
@@ -134,15 +132,14 @@ async function recentRow(me: Me, library: Disc[]): Promise<{ row: ShelfRow; cont
   }
   const asSong = (track: ApiTrack) =>
     trackDisc(toTrack(track), { contextUri: track.album?.uri, spotifyUrl: track.external_urls?.spotify })
-  // Look the albums and playlists up together, and don't let a slow one hold up the row: if one
-  // can't be found in time, the song itself stands in for it.
-  const discs = await Promise.all(
-    picks.map(async ({ track, ctx }) => {
-      if (!ctx) return { disc: asSong(track), context: false }
-      const disc = await withTimeout(contextDisc(ctx, track, library, me), 6000).catch(() => null)
-      return disc ? { disc, context: true } : { disc: asSong(track), context: false }
-    }),
-  )
+  // Resolve contexts sequentially so recent history cannot fan out into a request burst.
+  // Missing contexts fall back to their already-loaded song metadata.
+  const discs: { disc: Disc; context: boolean }[] = []
+  for (const { track, ctx } of picks) {
+    if (!ctx) { discs.push({ disc: asSong(track), context: false }); continue }
+    const disc = await contextDisc(ctx, track, library, me).catch(() => null)
+    discs.push(disc ? { disc, context: true } : { disc: asSong(track), context: false })
+  }
   const row = {
     id: 'recent',
     title: 'Recently Played',

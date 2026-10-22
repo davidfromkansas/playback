@@ -14,7 +14,7 @@ import { PulledCD, type CaseStage } from './scene/PulledCD'
 import { type ScrollState } from './scene/scroll'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
-import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
+import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, saveCache, type Me } from './spotify/library'
 import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow } from './spotify/rows'
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
@@ -155,7 +155,9 @@ export default function App() {
       if (user) {
         setRowList(startingRows())
         // Whatever goes wrong, no row should be left saying it's loading forever.
-        void loadRows(user, list, setRowList).catch(() =>
+        void loadRows(user, list, setRowList).then(() => {
+          if (auth.isLoggedIn()) saveCache(user.id, list)
+        }).catch(() =>
           setRowList((rows) => rows.map((r) => (r.loading ? { ...r, loading: false, note: "Couldn't load this row" } : r))),
         )
       } else setRowList(sampleRows(list))
@@ -210,6 +212,7 @@ export default function App() {
 
   const signOut = () => {
     player.stop()
+    player.disconnectPlayer()
     auth.logout()
     clearCache()
     setPulled(null)

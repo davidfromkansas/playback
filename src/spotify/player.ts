@@ -94,6 +94,7 @@ declare global {
 }
 
 let sdk: SdkPlayer | null = null
+let playerGeneration = 0
 let deviceId: string | null = null
 let deviceWaiters: ((id: string | null) => void)[] = []
 
@@ -112,31 +113,38 @@ function waitForDevice(timeoutMs = 8000): Promise<string | null> {
 }
 
 function startSdk(): void {
+  const generation = playerGeneration
   window.onSpotifyWebPlaybackSDKReady = () => {
-    if (!window.Spotify) return
+    if (!window.Spotify || generation !== playerGeneration || sdk) return
     sdk = new window.Spotify.Player({
       name: 'Playback (CD shelf)',
       getOAuthToken: (cb) => void accessToken().then(cb),
       volume: 0.8,
     })
     sdk.addListener('ready', ({ device_id }: { device_id: string }) => {
+      if (generation !== playerGeneration) return
       set({ ready: true })
       resolveDevice(device_id)
     })
     sdk.addListener('not_ready', () => {
+      if (generation !== playerGeneration) return
       deviceId = null
     })
     // Free accounts can't stream in the browser.
     sdk.addListener('account_error', () => {
+      if (generation !== playerGeneration) return
       set({ mode: 'link', ready: true })
       resolveDevice(null)
     })
     // Browser without the DRM support Spotify needs: control the Spotify app instead.
     sdk.addListener('initialization_error', () => {
+      if (generation !== playerGeneration) return
       set({ mode: 'phone', ready: true })
+      startPolling()
       resolveDevice(null)
     })
     sdk.addListener('player_state_changed', (s: SdkState | null) => {
+      if (generation !== playerGeneration) return
       if (!s) return
       const t = s.track_window.current_track
       setNow({
@@ -148,11 +156,17 @@ function startSdk(): void {
     })
     void sdk.connect()
   }
+  if (window.Spotify) { window.onSpotifyWebPlaybackSDKReady(); return }
+  if (document.querySelector('script[data-playback-sdk]')) return
   const script = document.createElement('script')
+  script.dataset.playbackSdk = 'true'
   script.src = 'https://sdk.scdn.co/spotify-player.js'
   script.async = true
   script.onerror = () => {
+    script.remove()
+    if (generation !== playerGeneration) return
     set({ mode: 'phone', ready: true })
+    startPolling()
     resolveDevice(null)
   }
   document.head.appendChild(script)
@@ -161,6 +175,9 @@ function startSdk(): void {
 // ---- Spotify app on a phone (Spotify Connect) -----------------------------
 
 let pollTimer: number | undefined
+let commandPollTimer: ReturnType<typeof setTimeout> | undefined
+let pollController: AbortController | null = null
+let lastPollAt = 0
 
 interface ApiPlayback {
   is_playing: boolean
@@ -169,8 +186,13 @@ interface ApiPlayback {
 }
 
 async function pollPhone(): Promise<void> {
+  if (state.mode !== 'phone' || !state.now.disc || pollController || document.visibilityState !== 'visible') return
+  const controller = new AbortController()
+  pollController = controller
+  lastPollAt = Date.now()
   try {
-    const p = await spotify<ApiPlayback | undefined>('/me/player')
+    const p = await spotify<ApiPlayback | undefined>('/me/player', { signal: controller.signal })
+    if (controller.signal.aborted || state.mode !== 'phone') return
     if (p?.item) {
       setNow({
         paused: !p.is_playing,
@@ -180,20 +202,35 @@ async function pollPhone(): Promise<void> {
       })
     }
   } catch {
-    // Network blips are fine; we'll try again on the next tick.
+    // The shared API cooldown prevents retries while Spotify is limiting us.
+  } finally {
+    if (pollController === controller) pollController = null
   }
 }
 
 function startPolling(): void {
   window.clearInterval(pollTimer)
   pollTimer = window.setInterval(() => {
-    if (document.visibilityState === 'visible') void pollPhone()
-  }, 4000)
+    if (Date.now() - lastPollAt >= (state.now.paused ? 30000 : 10000)) void pollPhone()
+  }, 10000)
 }
 
 // ---- Public API ------------------------------------------------------------
 
+export function disconnectPlayer(): void {
+  playerGeneration++
+  window.clearInterval(pollTimer)
+  clearTimeout(commandPollTimer)
+  pollController?.abort()
+  pollController = null
+  sdk?.disconnect()
+  sdk = null
+  resolveDevice(null)
+  set({ mode: 'sample', ready: true, now: idle })
+}
+
 export function initPlayer(signedIn: boolean): void {
+  disconnectPlayer()
   if (!signedIn) {
     set({ mode: 'sample', ready: true })
     return
@@ -274,7 +311,8 @@ async function phoneCommand(path: string, method: 'PUT' | 'POST'): Promise<void>
   } catch {
     // Ignore; the next poll shows the real state.
   }
-  setTimeout(() => void pollPhone(), 500)
+  clearTimeout(commandPollTimer)
+  if (state.mode === 'phone') commandPollTimer = setTimeout(() => void pollPhone(), 500)
 }
 
 export async function togglePause(): Promise<void> {

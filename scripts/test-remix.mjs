@@ -86,3 +86,13 @@ test('priority preserves newest-first order and duplicate enqueue does not loop 
   assert.equal(queue.get(songMoodKey(track(1))).status, 'queued')
   queue.setEnabled(false)
 })
+
+test('quota failure stops Remix before scanning additional sources', async () => {
+  const calls = []
+  const updates = []
+  const error = Object.assign(new Error('quota reached'), { status: 429 })
+  await assert.rejects(collectRemixMusic([], async path => { calls.push(path); throw error },
+    value => updates.push(value), new AbortController().signal), error)
+  assert.equal(calls.length, 1)
+  assert.equal(updates.at(-1).loading, false)
+})
