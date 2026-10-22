@@ -1,4 +1,4 @@
-// Collections show a paged track list; single songs show lyrics scrolling with playback.
+// Collections show a looping track list; single songs show lyrics scrolling with playback.
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import * as THREE from 'three'
@@ -23,7 +23,7 @@ type State = { status: 'idle' } | { status: 'loading' } | { status: 'ready'; lyr
 
 /** A texture for the booklet's inside page, `w` x `h` pixels. */
 export function useBookletPage(
-  disc: Disc, w: number, h: number, tracks: Track[] | null, error: string | null, index: number,
+  disc: Disc, w: number, h: number, tracks: Track[] | null, error: string | null, open: boolean,
 ): THREE.CanvasTexture {
   const page = useMemo(() => {
     const c = document.createElement('canvas')
@@ -32,6 +32,8 @@ export function useBookletPage(
     const tex = new THREE.CanvasTexture(c)
     tex.colorSpace = THREE.SRGBColorSpace
     tex.anisotropy = 4
+    tex.generateMipmaps = false
+    tex.minFilter = THREE.LinearFilter
     return { c, ctx: c.getContext('2d')!, tex }
   }, [w, h])
   useEffect(() => () => page.tex.dispose(), [page])
@@ -54,11 +56,20 @@ export function useBookletPage(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track?.uri, disc])
 
+  const listOffset = useRef(0)
+  const [reduceMotion, setReduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduceMotion(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+  useEffect(() => {
+    listOffset.current = 0
     if (disc.kind === 'track') return
-    drawTrackList(page.ctx, w, h, disc, tracks, error, index)
+    drawTrackList(page.ctx, w, h, disc, tracks, error, 0)
     page.tex.needsUpdate = true
-  }, [page, w, h, disc, tracks, error, index])
+  }, [page, w, h, disc, tracks, error])
 
   const size = Math.round(w * LINE_PX)
   const rows = useMemo(() => {
@@ -71,7 +82,14 @@ export function useBookletPage(
 
   const view = useRef({ scroll: 0, active: -2, drawn: '' })
   useFrame((_, dt) => {
-    if (disc.kind !== 'track') return
+    if (disc.kind !== 'track') {
+      if (!open || reduceMotion || document.hidden || !disc.tracksAvailable || error || !tracks?.length) return
+      // Constant speed: three seconds per row. Cap suspension gaps so returning to a tab never jumps.
+      listOffset.current = (listOffset.current + Math.min(dt, 0.1) / 3) % tracks.length
+      drawTrackList(page.ctx, w, h, disc, tracks, error, listOffset.current)
+      page.tex.needsUpdate = true
+      return
+    }
     const v = view.current
     const current = playerStore.get().now
     const pos = livePosition(current)

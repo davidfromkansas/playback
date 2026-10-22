@@ -1200,17 +1200,5 @@ select {
   }
 }
 
-.booklet-pages {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 6px 12px;
-  border-bottom: 2px solid var(--ink);
-  flex-shrink: 0;
-}
-.booklet-pages button { min-width: 44px; min-height: 44px; }
-.booklet-pages button:disabled { opacity: 0.35; cursor: default; }
-
 /* Keep the open booklet readable while the host continues dancing. */
 .room:has(.panel) .bubble { display: none; }

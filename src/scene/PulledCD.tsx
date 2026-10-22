@@ -19,7 +19,6 @@ interface Props {
   disc: Disc
   tracks: Track[] | null
   trackError: string | null
-  bookletPage: number
   from: THREE.Vector3
   /** The case's turn where it came from (spines on the shelf face the camera side-on). */
   fromRy?: number
@@ -42,7 +41,6 @@ export function PulledCD({
   disc,
   tracks,
   trackError,
-  bookletPage,
   from,
   fromRy = Math.PI / 2,
   stage,
@@ -100,7 +98,7 @@ export function PulledCD({
 
   const caseColor = colorFor(disc.id + disc.title)
   // Street's booklet is square; Paper's fills the lid.
-  const booklet = useBookletPage(disc, 640, theme === 'street' ? 640 : 563, tracks, trackError, bookletPage)
+  const booklet = useBookletPage(disc, 640, theme === 'street' ? 640 : 563, tracks, trackError, open)
   const lidMaterials = useMemo(() => {
     const edge = new THREE.MeshBasicMaterial({ color: '#e9f7ff' })
     const art = new THREE.MeshBasicMaterial({ color: '#ffffff' })
