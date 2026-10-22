@@ -7,7 +7,7 @@ import type { TimeOfDay } from '../lib/timeOfDay'
 import { pulse } from '../lib/beat'
 import { renderBudget } from '../lib/renderBudget'
 import type { Disc } from '../types'
-import type { ScrollState } from './Shelf'
+import type { ScrollState } from './scroll'
 import { billboardAd, billboardWithCover } from './streetArt'
 import { idleScreen, posterTexture, scanlines, signTexture, surfaceTexture, vendingTexture, trainGlassTexture, rampTexture, roofMetalTexture } from './tokyoArt'
 

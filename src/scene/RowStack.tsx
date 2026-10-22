@@ -7,7 +7,7 @@ import type { ShelfRow } from '../spotify/rows'
 import type { Disc } from '../types'
 import { CaseLine } from './CaseLine'
 import { CASE_H } from './layout'
-import type { ScrollState } from './Shelf'
+import type { ScrollState } from './scroll'
 
 export const ROW_SPACING = 2.7
 const SHOWN = 1.6 // rows further than this from the one you're on aren't drawn

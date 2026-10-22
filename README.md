@@ -3,9 +3,7 @@
 Your Spotify library as a 3D collection of CDs. Sign in with Spotify, swipe through your CDs,
 pull one out, open the case and play it. A dancing host character keeps you company.
 
-Two looks, switched from the top bar:
-- **Street** (default): a Jet Set Radio-style rooftop with a swipeable line of real-looking jewel cases.
-- **Paper**: a pastel paper-cutout room with a shelf of CD spines and a dancing host.
+The app uses a Jet Set Radio-style rooftop with a swipeable collection of jewel cases.
 
 Open an album, playlist or Liked Songs CD to see its track list inside the left cover. The booklet scrolls continuously, looping from the last track back to the first. With reduced motion enabled it stays still; the full track panel remains scrollable. Individual-song CDs show lyrics there during playback.
 

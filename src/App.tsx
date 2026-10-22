@@ -5,13 +5,13 @@ import { sampleLibrary } from './data/sample'
 import { restartBeat } from './lib/beat'
 import { renderBudget } from './lib/renderBudget'
 import { useTimeOfDay } from './lib/timeOfDay'
-import { loadThemeFonts, useTheme } from './lib/theme'
+import { loadThemeFonts } from './lib/theme'
 import { cameraFor, CameraRig } from './scene/CameraRig'
 import { RowStack, type StackState } from './scene/RowStack'
-import { LINE_STEP, ROWS, slot } from './scene/layout'
+import { LINE_STEP } from './scene/layout'
 import { DiscLighting } from './scene/Disc3D'
 import { PulledCD, type CaseStage } from './scene/PulledCD'
-import { Shelf, type ScrollState } from './scene/Shelf'
+import { type ScrollState } from './scene/scroll'
 import { StreetBackdrop } from './scene/StreetBackdrop'
 import * as auth from './spotify/auth'
 import { cachedLibrary, clearCache, fetchMe, loadLibrary, loadTracks, type Me } from './spotify/library'
@@ -54,13 +54,13 @@ function sortDiscs(discs: Disc[], key: SortKey): Disc[] {
 
 export default function App() {
   const [budget] = useState(renderBudget)
-  const [theme, setTheme] = useTheme()
+  const theme = 'street' as const
   const sky = useTimeOfDay()
   const rhymes = rhymesFor(theme)
   const [phase, setPhase] = useState<Phase>('welcome')
   const [me, setMe] = useState<Me | null>(null)
   const [library, setLibrary] = useState<Disc[]>([])
-  const [sortKey, setSortKey] = useState<SortKey>('added')
+  const sortKey: SortKey = 'added'
   const [query, setQuery] = useState('')
   const [pulled, setPulled] = useState<Pulled | null>(null)
   const [showTracks, setShowTracks] = useState(false)
@@ -77,7 +77,6 @@ export default function App() {
   const [notice, setNotice] = useState<{ text: string; openUrl?: string } | null>(null)
   const [starting, setStarting] = useState(false)
   const shelfScroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
-  const rows = ROWS
   const street = theme === 'street'
 
   // Street: rows of CDs stacked top to bottom, each remembering how far along it you've scrolled.
@@ -182,17 +181,6 @@ export default function App() {
 
   // ---- Shelf interactions ----------------------------------------------------
 
-  const highlightId = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return null
-    return discs.find((d) => d.title.toLowerCase().includes(q) || d.subtitle.toLowerCase().includes(q))?.id ?? null
-  }, [query, discs])
-
-  useEffect(() => {
-    if (!highlightId || street) return
-    shelfScroll.target = slot(discs.findIndex((d) => d.id === highlightId), rows).x
-  }, [highlightId, discs, rows, shelfScroll, street])
-
   // Street: pressing Enter in the search box opens the results page.
   const runSearch = useCallback(
     (raw: string) => {
@@ -216,12 +204,6 @@ export default function App() {
     setActiveRow(homeRow.current)
     stack.target = stack.current = homeRow.current
   }, [stack])
-
-  // Switching looks starts the Paper shelf from the beginning again.
-  useEffect(() => {
-    shelfScroll.target = -Infinity
-    shelfScroll.current = NaN
-  }, [theme, shelfScroll])
 
   // Street: the CD at the front of the line, named in a label above it.
   const [focused, setFocused] = useState<Disc | null>(null)
@@ -443,7 +425,7 @@ export default function App() {
               <StreetBackdrop scroll={scroll} discs={discs} sky={sky} />
             </Suspense>
           )}
-          {street ? (
+          {street && (
             <Suspense fallback={null}>
               <RowStack
                 rows={shownRows}
@@ -457,16 +439,6 @@ export default function App() {
                 onFocus={setFocused}
               />
             </Suspense>
-          ) : (
-            <Shelf
-              discs={discs}
-              rows={rows}
-              scroll={shelfScroll}
-              selectedId={pulled?.disc.id ?? null}
-              highlightId={highlightId}
-              playing={playing}
-              onPick={pick}
-            />
           )}
           {pulled && (
             <PulledCD
@@ -509,21 +481,6 @@ export default function App() {
             }
           }}
         />
-        {!street && (
-        <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} aria-label="Sort">
-          <option value="added">Recently added</option>
-          <option value="title">Title</option>
-          <option value="artist">Artist</option>
-          <option value="kind">Type</option>
-        </select>
-        )}
-        <button
-          className="chip theme-toggle"
-          onClick={() => setTheme(theme === 'street' ? 'paper' : 'street')}
-          title="Switch look"
-        >
-          {theme === 'street' ? 'Paper' : 'Street'}<span className="wide-only"> look</span>
-        </button>
         {me ? (
           <>
             <button className="chip" onClick={() => void loadFromSpotify(true)} title="Reload from Spotify">
