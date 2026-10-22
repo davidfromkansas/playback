@@ -107,7 +107,7 @@ public/models/         Exported models (committed): rooftop.glb, jewelcase.glb, 
 
 ## Spotify
 
-- **Client ID** `ef51ad407f124f29acf53858cc1742a4` is public and committed in `.env` on purpose.
+- **Client ID** `1840d923d830409a8888a6460253593e` is public and committed in `.env` on purpose.
   **Never add, ask for or commit the Client Secret.** The PKCE flow doesn't need one.
 - Redirect URIs to register in the new Spotify app: `http://127.0.0.1:5180/` and
   `https://playback-fm.vercel.app/`. A new host or port needs adding there by David.
