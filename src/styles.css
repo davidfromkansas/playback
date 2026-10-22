@@ -1014,17 +1014,17 @@ select {
 /* Keep the open booklet readable while the host continues dancing. */
 .room:has(.panel) .bubble { display: none; }
 
-/* Preserve whole-body cel proportions at the existing host footprint. */
+/* Double the host size while preserving whole-body cel proportions. */
 .street .dj-volt {
   width: auto;
-  height: 198px;
+  height: 396px;
   aspect-ratio: 400 / 380;
   object-fit: contain;
 }
 
 @media (max-width: 700px) {
   .street .dj-volt {
-    height: 137px;
+    height: 274px;
   }
 
   /* Keep the skates above the two-line swipe hint. */
