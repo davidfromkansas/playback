@@ -53,7 +53,7 @@ export function groupRemixTracks(tracks: readonly Track[], get: (track: Track) =
     unsupported ||= result.status === 'unsupported'
     buckets.get(id)!.push(trackDisc(track))
   }
-  const rows: ShelfRow[] = [...buckets].map(([id, discs]) => ({
+  const rows: ShelfRow[] = [...buckets].filter(([, discs]) => !sample || discs.length > 0).map(([id, discs]) => ({
     id: `remix:${id}`, title: id === 'pending' ? 'Finding a mood' : id === 'unrated' ? 'Unrated' : moodTitle(id), discs,
     note: discs.length ? undefined : id === 'pending' ? 'All loaded songs checked' : 'No songs in this mood yet',
   }))

@@ -2,12 +2,18 @@
 import type { Disc, Track } from '../types'
 import catalog from './filming-catalog.json'
 
-const moods = ['playful', 'euphoric', 'melancholic', 'romantic', 'confident', 'joyful',
-  'nostalgic', 'dreamy', 'majestic', 'relaxed', 'defiant', 'driving', 'restless', 'funky']
+const moods: Record<string, string> = {
+  sabrina: 'playful', dua: 'euphoric', billie: 'melancholic', weeknd: 'romantic',
+  labi: 'nostalgic', flume: 'dreamy', tron: 'driving', d4vd: 'dreamy',
+  jid: 'confident', bastille: 'confident', cinema: 'driving',
+}
 
 export function sampleLibrary(): Disc[] {
-  const groups = catalog.map((group, i) => ({ ...group,
-    tracks: group.tracks.slice(0, i < 6 ? 10 : 5).map(track => ({ ...track, demoMood: moods[i] })),
+  const groups = catalog.map(group => ({ ...group,
+    tracks: group.tracks.map((track, i) => ({ ...track, demoMood: moods[group.id]
+      ?? (group.id === 'chappell' ? (i < 5 ? 'playful' : 'euphoric')
+        : group.id === 'taylor' ? (i < 5 ? 'melancholic' : 'romantic')
+          : i < 5 ? 'nostalgic' : 'confident') })),
   }))
   const select = (...ids: string[]): Track[] => {
     const selected = ids.map(id => groups.find(group => group.id === id)?.tracks ?? [])
@@ -20,10 +26,10 @@ export function sampleLibrary(): Disc[] {
     ['Soft Focus', ['billie', 'taylor', 'labi']],
     ['Road Trip', ['sabrina', 'bastille', 'cinema']],
     ['Electronic Escape', ['flume', 'tron', 'weeknd']],
-    ['Hip Hop Mix', ['jid']],
+    ['Hip Hop Mix', ['jid', 'weeknd']],
     ['Golden Hour', ['labi', 'd4vd', 'taylor']],
     ['Funk Classics', ['funk', 'labi']],
-    ['Soundtrack Sessions', ['tron']],
+    ['Soundtrack Sessions', ['tron', 'flume']],
   ]
   const disc = (id: string, kind: Disc['kind'], title: string, tracks: Track[], subtitle: string): Disc => ({
     id, kind, title, subtitle, tracks, trackCount: tracks.length, tracksAvailable: true,
