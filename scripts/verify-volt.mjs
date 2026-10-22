@@ -1,0 +1,63 @@
+import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
+const base = process.env.VOLT_URL || 'http://127.0.0.1:5174'
+const output = `output/dj-volt/${new Date().toISOString().replaceAll(':', '-')}`
+await fs.mkdir(output, { recursive: true })
+const browser = await chromium.launch({ channel: 'chrome', headless: true })
+const results = []
+try {
+  const context = await browser.newContext({ viewport: { width: 1040, height: 850 },
+    recordVideo: { dir: output, size: { width: 1040, height: 850 } } })
+  const page = await context.newPage()
+  const errors = []
+  page.on('pageerror', error => errors.push(error.message))
+  await page.goto(`${base}/character-preview.html`, { waitUntil: 'domcontentloaded', timeout: 60000 })
+  await page.locator('.dj-volt[data-cel]').waitFor()
+  const trace = await page.evaluate(() => window.voltFixture())
+  assert.equal(trace.at(-1).state, 'idle')
+  assert(trace.some(f => f.state === 'playing'))
+  assert(trace.every(f => f.cel >= 0 && f.cel < 36))
+  assert(trace.every((f, i) => !i || Math.abs(f.entry - trace[i - 1].entry) <= 1 / 6 + 1e-8))
+  await fs.writeFile(`${output}/deterministic-trace.json`, JSON.stringify(trace))
+  await page.screenshot({ path: `${output}/idle.png` })
+  await page.evaluate(() => {
+    window.presented = []
+    let frames = 0
+    const sample = time => {
+      const el = document.querySelector('.dj-volt')
+      window.presented.push({ time, cel: el.dataset.cel, state: el.dataset.motion, playing: el.dataset.playing })
+      if (++frames < 720) requestAnimationFrame(sample)
+    }
+    requestAnimationFrame(sample)
+  })
+  await page.getByRole('button', { name: 'Play music', exact: true }).click()
+  await page.waitForFunction(() => document.querySelector('.dj-volt').dataset.motion === 'playing')
+  await page.waitForTimeout(2400)
+  await page.screenshot({ path: `${output}/playing.png` })
+  await page.getByRole('button', { name: 'Pause music', exact: true }).click()
+  await page.waitForTimeout(180)
+  await page.getByRole('button', { name: 'Play music', exact: true }).click()
+  await page.waitForTimeout(1500)
+  await page.getByRole('button', { name: 'Pause music', exact: true }).click()
+  await page.waitForFunction(() => document.querySelector('.dj-volt').dataset.motion === 'idle')
+  await page.getByRole('button', { name: 'Quarter speed' }).click()
+  await page.getByRole('button', { name: 'Play music', exact: true }).click()
+  await page.waitForTimeout(6500)
+  const presented = await page.evaluate(() => window.presented)
+  await fs.writeFile(`${output}/presented-frames.json`, JSON.stringify(presented))
+  const gaps = presented.slice(1).map((f, i) => f.time - presented[i].time).sort((a, b) => a - b)
+  const percentile = p => gaps[Math.floor((gaps.length - 1) * p)]
+  results.push({ surface: 'isolated Chrome preview', frames: presented.length, medianMs: percentile(.5),
+    p95Ms: percentile(.95), p99Ms: percentile(.99), maxMs: gaps.at(-1), gapsOver34ms: gaps.filter(x => x > 34).length })
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.waitForTimeout(100)
+  const staticCel = await page.locator('.dj-volt').getAttribute('data-cel')
+  await page.waitForTimeout(500)
+  assert.equal(await page.locator('.dj-volt').getAttribute('data-cel'), staticCel)
+  assert.deepEqual(errors, [])
+  await context.close()
+  console.log(JSON.stringify(results))
+  await fs.writeFile(`${output}/results.json`, JSON.stringify(results, null, 2))
+  console.log(output)
+} finally { await browser.close() }

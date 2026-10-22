@@ -1,0 +1,11 @@
+[
+  {
+    "surface": "isolated Chrome preview",
+    "frames": 720,
+    "medianMs": 16.699999999999818,
+    "p95Ms": 16.700000000000728,
+    "p99Ms": 16.800000000000182,
+    "maxMs": 16.80000000000109,
+    "gapsOver34ms": 0
+  }
+]

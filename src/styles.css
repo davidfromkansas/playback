@@ -1202,3 +1202,22 @@ select {
 
 /* Keep the open booklet readable while the host continues dancing. */
 .room:has(.panel) .bubble { display: none; }
+
+/* Preserve whole-body cel proportions at the existing host footprint. */
+.street .dj-volt {
+  width: auto;
+  height: 178px;
+  aspect-ratio: 280 / 340;
+  object-fit: contain;
+}
+
+@media (max-width: 700px) {
+  .street .dj-volt {
+    height: 123px;
+  }
+
+  /* Keep the skates above the two-line swipe hint. */
+  .room.street .host {
+    bottom: 148px;
+  }
+}

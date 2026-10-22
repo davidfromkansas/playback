@@ -1,0 +1,945 @@
+{
+  "size": {
+    "width": 280,
+    "height": 340
+  },
+  "columns": 8,
+  "records": [
+    {
+      "id": 0,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 121,
+        "top": 5,
+        "width": 178,
+        "height": 307
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        209,
+        309
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        32,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 1,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 408,
+        "top": 5,
+        "width": 177,
+        "height": 307
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        496,
+        309
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        32,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 2,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 702,
+        "top": 5,
+        "width": 181,
+        "height": 307
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        791.5,
+        309
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        31,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 3,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 992,
+        "top": 5,
+        "width": 180,
+        "height": 307
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        1081,
+        309
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        31,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 4,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 120,
+        "top": 309,
+        "width": 179,
+        "height": 312
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        208.5,
+        618
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        32,
+        15
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 5,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 408,
+        "top": 309,
+        "width": 193,
+        "height": 312
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        498.5,
+        618
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        30,
+        15
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 6,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 702,
+        "top": 310,
+        "width": 203,
+        "height": 311
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        792.5,
+        618
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        30,
+        16
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 7,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 992,
+        "top": 310,
+        "width": 210,
+        "height": 311
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        1085,
+        618
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        27,
+        16
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 8,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 8,
+      "crop": {
+        "left": 112,
+        "top": 619,
+        "width": 210,
+        "height": 306
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        207.5,
+        922
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        25,
+        21
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 9,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 9,
+      "crop": {
+        "left": 407,
+        "top": 618,
+        "width": 219,
+        "height": 306
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        500,
+        921
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        27,
+        21
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 10,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 10,
+      "crop": {
+        "left": 702,
+        "top": 618,
+        "width": 217,
+        "height": 307
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        796,
+        922
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        26,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 11,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 11,
+      "crop": {
+        "left": 992,
+        "top": 620,
+        "width": 234,
+        "height": 305
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        1086.5,
+        922
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        26,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 12,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 12,
+      "crop": {
+        "left": 112,
+        "top": 921,
+        "width": 228,
+        "height": 291
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        211,
+        1209
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        21,
+        36
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 13,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 13,
+      "crop": {
+        "left": 407,
+        "top": 924,
+        "width": 214,
+        "height": 288
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        506,
+        1209
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        21,
+        39
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 14,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 14,
+      "crop": {
+        "left": 701,
+        "top": 924,
+        "width": 215,
+        "height": 288
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        799.5,
+        1209
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        22,
+        39
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 15,
+      "source": "art/dj-volt/sequence-source.png",
+      "sourceIndex": 15,
+      "crop": {
+        "left": 996,
+        "top": 927,
+        "width": 219,
+        "height": 285
+      },
+      "uniformScale": 1,
+      "sourceRoot": [
+        1096,
+        1209
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        20,
+        42
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "456b3fd17d5a3d4af2661c8e588dad61795fabd840add0171c9736748c58b35c"
+    },
+    {
+      "id": 16,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 50,
+        "top": 13,
+        "width": 294,
+        "height": 484
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        196,
+        494
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        28,
+        21
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 17,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 428,
+        "top": 13,
+        "width": 292,
+        "height": 484
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        573.5,
+        494
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        28,
+        21
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 18,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 812,
+        "top": 14,
+        "width": 292,
+        "height": 482
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        957,
+        493
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        29,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 19,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1193,
+        "top": 14,
+        "width": 294,
+        "height": 482
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        1340,
+        493
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        27,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 20,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 49,
+        "top": 522,
+        "width": 302,
+        "height": 483
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        199.5,
+        1002
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        25,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 21,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 426,
+        "top": 522,
+        "width": 298,
+        "height": 483
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        574.5,
+        1002
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        26,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 22,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 809,
+        "top": 522,
+        "width": 325,
+        "height": 483
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        958,
+        1002
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        26,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 23,
+      "source": "art/dj-volt/bridge-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1192,
+        "top": 522,
+        "width": 331,
+        "height": 483
+      },
+      "uniformScale": 0.63,
+      "sourceRoot": [
+        1342,
+        1002
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        26,
+        22
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "c6ee78efd3eea0b2b7594ed7c69a15bf30010ff9179c5dfc76ead3e2848da11b"
+    },
+    {
+      "id": 24,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 0,
+      "crop": {
+        "left": 74,
+        "top": 5,
+        "width": 254,
+        "height": 360
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        185.5,
+        362
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        25,
+        21
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 25,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 1,
+      "crop": {
+        "left": 434,
+        "top": 14,
+        "width": 254,
+        "height": 351
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        547,
+        362
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        24,
+        28
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 26,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 2,
+      "crop": {
+        "left": 793,
+        "top": 32,
+        "width": 260,
+        "height": 333
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        907,
+        362
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        23,
+        44
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 27,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 3,
+      "crop": {
+        "left": 1156,
+        "top": 13,
+        "width": 259,
+        "height": 352
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1270,
+        362
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        23,
+        27
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 28,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 4,
+      "crop": {
+        "left": 71,
+        "top": 365,
+        "width": 257,
+        "height": 362
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        186,
+        724
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        22,
+        19
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 29,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 5,
+      "crop": {
+        "left": 433,
+        "top": 366,
+        "width": 257,
+        "height": 361
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        547,
+        724
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        23,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 30,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 6,
+      "crop": {
+        "left": 794,
+        "top": 384,
+        "width": 259,
+        "height": 343
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        908,
+        724
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        23,
+        35
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 31,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 7,
+      "crop": {
+        "left": 1156,
+        "top": 403,
+        "width": 259,
+        "height": 325
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1272,
+        725
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        21,
+        50
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 32,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 8,
+      "crop": {
+        "left": 71,
+        "top": 760,
+        "width": 269,
+        "height": 324
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        188.5,
+        1081
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        20,
+        51
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 33,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 9,
+      "crop": {
+        "left": 435,
+        "top": 725,
+        "width": 259,
+        "height": 359
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        550,
+        1081
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        22,
+        21
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 34,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 10,
+      "crop": {
+        "left": 795,
+        "top": 723,
+        "width": 258,
+        "height": 361
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        911,
+        1081
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        21,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    },
+    {
+      "id": 35,
+      "source": "art/dj-volt/dance-source.png",
+      "sourceIndex": 11,
+      "crop": {
+        "left": 1157,
+        "top": 723,
+        "width": 259,
+        "height": 361
+      },
+      "uniformScale": 0.85,
+      "sourceRoot": [
+        1272,
+        1081
+      ],
+      "targetRoot": [
+        120,
+        324
+      ],
+      "offset": [
+        22,
+        20
+      ],
+      "contactMethod": "alpha extents of both skate wheels; anatomical contacts require visual review",
+      "sha256": "784fdf52ff1a6322d2fd18772b51d9e2f2b3756e2b81216f23b8274ab45e8908"
+    }
+  ]
+}
