@@ -13,14 +13,21 @@ export class SpotifyError extends Error {
   }
 }
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+const sleep = (ms: number, signal?: AbortSignal | null) => new Promise<void>((resolve, reject) => {
+  signal?.throwIfAborted()
+  const abort = () => { clearTimeout(timer); reject(signal?.reason) }
+  const timer = setTimeout(() => { signal?.removeEventListener('abort', abort); resolve() }, ms)
+  signal?.addEventListener('abort', abort, { once: true })
+})
 
 /** Calls the Web API. Waits and retries when Spotify says we're asking too often. */
 export async function spotify<T = unknown>(path: string, init: RequestInit = {}): Promise<T> {
   const url = path.startsWith('http') ? path : `${API}${path}`
   for (let attempt = 0; ; attempt++) {
+    init.signal?.throwIfAborted()
     const res = await fetch(url, {
       ...init,
+      signal: AbortSignal.any([AbortSignal.timeout(25000), ...(init.signal ? [init.signal] : [])]),
       headers: {
         Authorization: `Bearer ${await accessToken()}`,
         ...(init.body ? { 'Content-Type': 'application/json' } : {}),
@@ -29,7 +36,7 @@ export async function spotify<T = unknown>(path: string, init: RequestInit = {})
     })
     if (res.status === 429 && attempt < MAX_RETRIES) {
       const wait = Number(res.headers.get('Retry-After') ?? '2')
-      await sleep(Math.min(wait, 30) * 1000)
+      await sleep(Math.max(0, Number.isFinite(wait) ? wait : 2) * 1000, init.signal)
       continue
     }
     if (res.status === 204 || res.status === 202) return undefined as T

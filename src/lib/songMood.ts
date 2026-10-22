@@ -44,12 +44,16 @@ export async function classifyPublicSong(title: string, artist: string, duration
 export const songMoods = createSongMoodQueue((track, signal) =>
   classifyPublicSong(track.name, track.artists, track.durationMs, signal))
 
-export function useLoadedSongMoods(tracks: readonly Track[], enabled: boolean) {
+export function useLoadedSongMoods(tracks: readonly Track[], enabled: boolean, priority?: readonly Track[]) {
   useEffect(() => {
     songMoods.setEnabled(enabled)
     return () => songMoods.setEnabled(false)
   }, [enabled])
-  useEffect(() => { if (enabled) songMoods.enqueue(tracks) }, [tracks, enabled])
+  useEffect(() => {
+    if (!enabled) return
+    if (priority?.length) songMoods.enqueue(priority, true)
+    songMoods.enqueue(tracks)
+  }, [tracks, enabled, priority])
 }
 
 export function useSongMoodResult(track: Track | null): MoodResult {

@@ -201,6 +201,17 @@ select,
   pointer-events: auto;
 }
 
+.remix-toggle { white-space: nowrap; }
+.remix-toggle span { font-size: 0.65em; margin-left: 3px; }
+.remix-toggle[aria-checked='true'] { background: #d6ff36; color: #202126; }
+.remixing .row-header { transform: none; pointer-events: auto; max-width: min(360px, calc(100vw - 32px)); }
+.remixing .row-header select { font-family: var(--comic); font-size: 1.3rem; max-width: 100%; width: 100%; }
+.remix-status { font-family: system-ui, sans-serif; font-size: 0.72rem; margin-top: 5px; max-width: 310px; }
+.remix-status small { display: block; margin-top: 3px; }
+.remix-status details { margin-top: 5px; max-height: 120px; overflow: auto; }
+.remix-status summary { cursor: pointer; }
+.remix-status p { margin: 6px 0; }
+
 .brand {
   font-weight: 800;
   font-size: 1.4rem;
@@ -1089,6 +1100,8 @@ select {
   .street .focus-label {
     top: 132px;
   }
+
+  .street.remixing .focus-label { top: 210px; }
 
   .row-arrows {
     top: auto;

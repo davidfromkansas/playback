@@ -16,7 +16,8 @@ export function createSongMoodQueue(
   let stopped = false
   let running: AbortController | null = null
   let timer: ReturnType<typeof setTimeout> | undefined
-  const notify = () => listeners.forEach(listener => listener())
+  let revision = 0
+  const notify = () => { revision++; listeners.forEach(listener => listener()) }
   const pump = async () => {
     if (!enabled || stopped || running || !waiting.size) return
     const [key, track] = waiting.entries().next().value!
@@ -41,6 +42,7 @@ export function createSongMoodQueue(
     timer = setTimeout(() => { timer = undefined; void pump() }, delay)
   }
   return {
+    revision: () => revision,
     subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener) } },
     get: (key: string) => entries.get(key) ?? UNRATED,
     setEnabled(value: boolean) {
@@ -58,20 +60,24 @@ export function createSongMoodQueue(
     },
     enqueue(tracks: readonly Track[], priority = false) {
       if (!enabled) return
+      let changed = false
       for (const track of tracks) {
         if (track.uri.startsWith('sample:') || !track.name || !track.artists) continue
         const key = songMoodKey(track)
-        if (priority && waiting.has(key)) {
-          const remaining = [...waiting]
-          waiting.clear()
-          waiting.set(key, track)
-          for (const [k, t] of remaining) waiting.set(k, t)
-        }
         if (entries.has(key)) continue
+        changed = true
         entries.set(key, { status: stopped ? 'not-configured' : 'queued', profile: null })
         if (!stopped) waiting.set(key, track)
       }
-      notify()
+      if (priority) {
+        const remaining = [...waiting]
+        const first = tracks.map(songMoodKey).filter(key => waiting.has(key))
+        const values = new Map(remaining)
+        waiting.clear()
+        for (const key of first) waiting.set(key, values.get(key)!)
+        for (const [key, track] of remaining) if (!waiting.has(key)) waiting.set(key, track)
+      }
+      if (changed) notify()
       if (!timer) void pump()
     },
   }

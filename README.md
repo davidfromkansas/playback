@@ -41,6 +41,12 @@ facts to Jev. Set `TYPESAFE_API_KEY` in `.env.local` to try it, or use the manua
 at `/character-preview.html` without a key. This endpoint is not deployed in production.
 See [the data flow and setup](docs/dj-volt/public-song-moods.md).
 
+The Street view's **Remix** toggle groups songs into mood rows. It loads recent
+plays first, then all available liked songs, top tracks, saved albums and accessible
+playlists. Sample mode previews the layout with labelled demo moods. Real mood
+sorting uses the local Jev setup above; existing Spotify users may need to sign out
+and back in for the new top-tracks permission. [Remix details](docs/remix/README.md).
+
 ## How playback works
 
 | Where | What happens |
