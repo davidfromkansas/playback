@@ -188,7 +188,7 @@ export function sampleRows(library: Disc[]): ShelfRow[] {
   const playlists = library.filter((d) => d.kind === 'playlist')
   const liked = library.find((d) => d.kind === 'liked')
   const recentContexts = (playlists.length ? playlists : albums).filter(d => d.tracks?.length)
-  const singles = (liked?.tracks ?? []).slice(0, 12).map(track => trackDisc(track))
+  const singles = (liked?.tracks ?? []).slice(0, 25).map(track => trackDisc(track))
   const recent: Disc[] = singles
   const songs = (d: Disc, id = `songs:${d.id}`): ShelfRow => ({
     id,
