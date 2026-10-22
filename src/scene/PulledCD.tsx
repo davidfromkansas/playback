@@ -12,6 +12,7 @@ import { HUB_X, JewelCase } from './JewelCase'
 import type { Theme } from '../lib/theme'
 import { useBookletPage } from './lyricsPage'
 import { spineTexture, useCover } from './textures'
+import { CoverMoodBadge } from './CoverMoodBadge'
 
 export type CaseStage = 'out' | 'open' | 'returning'
 
@@ -168,6 +169,8 @@ export function PulledCD({
                 <boxGeometry args={[CASE_W, CASE_H, LID_D]} />
                 <Outlines thickness={0.02} color={INK} />
               </mesh>
+              <CoverMoodBadge disc={disc} right={CASE_W} bottom={-CASE_H / 2}
+                z={LID_D + 0.0005} coverWidth={CASE_W} />
             </animated.group>
           </>
         )}

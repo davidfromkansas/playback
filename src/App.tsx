@@ -19,6 +19,9 @@ import { loadRows, sampleRows, searchRows, songsRow, startingRows, type ShelfRow
 import * as player from './spotify/player'
 import type { Disc, SortKey, Track } from './types'
 import { Host, rhymesFor } from './ui/Host'
+import { useLoadedSongMoods, useSongMood } from './lib/songMood'
+import { useRemixCollection, useRemixRows } from './lib/remix'
+import { SongMoodLabel } from './ui/SongMoodLabel'
 import { TrackPanel } from './ui/Panels'
 import { NowPlayingBar } from './ui/NowPlayingBar'
 import { LoadingCard, SceneLoading } from './ui/Loading'
@@ -78,13 +81,27 @@ export default function App() {
   const [starting, setStarting] = useState(false)
   const shelfScroll = useRef<ScrollState>({ target: -Infinity, current: NaN, max: 0 }).current
   const street = theme === 'street'
+  const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
+  const [remix, setRemix] = useState(false)
+  const remixHome = useRef(0)
+  const topbarRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const [headerTop, setHeaderTop] = useState(70)
+  const [focusTop, setFocusTop] = useState(132)
 
   // Street: rows of CDs stacked top to bottom, each remembering how far along it you've scrolled.
   const [rowList, setRowList] = useState<ShelfRow[]>([])
   // The search results page: its own rows (Songs, Albums, Playlists) shown instead of yours.
   const [results, setResults] = useState<{ query: string; rows: ShelfRow[] } | null>(null)
   const homeRow = useRef(0) // the row you were on before searching, to come back to
-  const shownRows = results?.rows ?? rowList
+  const collection = useRemixCollection(remix && street && phase === 'shelf', library, mode === 'sample')
+  const remixTracks = useMemo(() => [
+    ...collection.tracks,
+    ...rowList.flatMap(row => row.discs.flatMap(disc => disc.tracks ?? [])),
+    ...library.flatMap(disc => (disc.tracks ?? []).map(track => ({ ...track, imageUrl: track.imageUrl ?? disc.imageUrl }))),
+  ], [collection.tracks, rowList, library])
+  const remixed = useRemixRows(remixTracks, mode === 'sample')
+  const shownRows = results?.rows ?? (remix ? remixed.rows : rowList)
   const [activeRow, setActiveRow] = useState(0)
   const stack = useRef<StackState>({ target: 0, current: NaN }).current
   const rowScrolls = useRef(new Map<string, ScrollState>()).current
@@ -107,8 +124,18 @@ export default function App() {
     },
     [shownRows.length, stack],
   )
-  const { mode, now } = useSyncExternalStore(player.playerStore.subscribe, player.playerStore.get)
   const playing = !!now.disc && !now.paused
+  const loadedSongs = useMemo(() => [
+    ...(tracks ?? []),
+    ...(remix ? collection.tracks : []),
+    ...shownRows.flatMap(row => row.discs.flatMap(disc => disc.tracks ?? [])),
+    ...library.flatMap(disc => disc.tracks ?? []),
+    ...(now.track ? [now.track] : []),
+  ], [tracks, shownRows, library, now.track, remix, collection.tracks])
+  const prioritySongs = useMemo(() => remix ? collection.tracks.slice(0, collection.recentCount) : [],
+    [remix, collection.tracks, collection.recentCount])
+  useLoadedSongMoods(loadedSongs, mode !== 'sample' && phase === 'shelf' && import.meta.env.DEV, prioritySongs)
+  const songMood = useSongMood(now.track, street && mode !== 'sample' && import.meta.env.DEV)
 
   const discs = useMemo(() => sortDiscs(library, sortKey), [library, sortKey])
 
@@ -122,6 +149,7 @@ export default function App() {
       shelfScroll.target = -Infinity
       rowScrolls.clear()
       setResults(null)
+      setRemix(false)
       setActiveRow(0)
       stack.target = 0
       if (user) {
@@ -176,6 +204,9 @@ export default function App() {
     clearCache()
     setPulled(null)
     setMe(null)
+    setRemix(false)
+    setLibrary([])
+    setRowList([])
     setPhase('welcome')
   }
 
@@ -205,8 +236,34 @@ export default function App() {
     stack.target = stack.current = homeRow.current
   }, [stack])
 
+  const toggleRemix = () => {
+    if (pulled) return
+    const next = !remix
+    if (next) remixHome.current = results ? homeRow.current : activeRow
+    setResults(null)
+    setQuery('')
+    const row = next ? Math.max(0, remixed.rows.findIndex(r => r.discs.length && r.id !== 'remix:pending'))
+      : Math.min(remixHome.current, Math.max(0, rowList.length - 1))
+    setRemix(next)
+    setActiveRow(row)
+    stack.target = stack.current = row
+  }
+
   // Street: the CD at the front of the line, named in a label above it.
   const [focused, setFocused] = useState<Disc | null>(null)
+  useEffect(() => {
+    const measure = () => {
+      setHeaderTop((topbarRef.current?.getBoundingClientRect().bottom ?? 58) + 12)
+      setFocusTop((headerRef.current?.getBoundingClientRect().bottom ?? 120) + 12)
+    }
+    const observer = new ResizeObserver(measure)
+    if (topbarRef.current) observer.observe(topbarRef.current)
+    if (headerRef.current) observer.observe(headerRef.current)
+    window.addEventListener('resize', measure)
+    measure()
+    return () => { observer.disconnect(); window.removeEventListener('resize', measure) }
+  }, [pulled, results, remix, activeRow, headerTop])
+
 
   const pick = useCallback(
     (disc: Disc, from: THREE.Vector3, fromRy?: number) => {
@@ -283,7 +340,8 @@ export default function App() {
   useEffect(() => {
     if (phase !== 'shelf') return
     const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).tagName === 'INPUT') return
+      if (e.defaultPrevented || (e.target instanceof HTMLElement &&
+        e.target.closest('input, select, textarea, button, a, [contenteditable="true"]'))) return
       if (e.key === 'Escape') {
         if (showTracks) setShowTracks(false)
         else if (pulled) putBack()
@@ -396,7 +454,7 @@ export default function App() {
   }
 
   return (
-    <main className={`room ${theme} ${playing ? 'grooving' : ''} ${pulled ? 'inspecting' : ''}`} data-sky={street ? sky : undefined}>
+    <main className={`room ${theme} ${playing ? 'grooving' : ''} ${pulled ? 'inspecting' : ''} ${remix && street && !results ? 'remixing' : ''}`} data-sky={street ? sky : undefined}>
       <div
         className="stage"
         onWheel={onWheel}
@@ -465,7 +523,7 @@ export default function App() {
       <SceneLoading text={street ? 'Building the rooftop…' : 'Setting up the shelf…'} />
       {theme === 'street' && <SpeedLines scroll={scroll} />}
 
-      <header className="topbar">
+      <header className="topbar" ref={topbarRef}>
         <div className="brand">PLAYBACK</div>
         <input
           className="search"
@@ -481,6 +539,10 @@ export default function App() {
             }
           }}
         />
+        {street && <button className="chip remix-toggle" role="switch" aria-checked={remix}
+          disabled={!!pulled} onClick={toggleRemix} title="Group your music by mood">
+          Remix <span aria-hidden="true">{remix ? 'ON' : 'OFF'}</span>
+        </button>}
         {me ? (
           <>
             <button className="chip" onClick={() => void loadFromSpotify(true)} title="Reload from Spotify">
@@ -498,7 +560,9 @@ export default function App() {
       </header>
 
 
-      <Host line={line} bouncing={playing} theme={theme} />
+      <Host line={line} bouncing={playing} theme={theme}
+        navigation={{ horizontal: scroll, vertical: stack, enabled: !pulled && theme === 'street' }}
+        songMood={mode !== 'sample' && import.meta.env.DEV ? songMood : undefined} />
 
       {pulled && pulled.stage !== 'returning' && <nav className="case-actions" aria-label="CD actions">
         <button className="chip" onClick={putBack}>← Back to collection</button>
@@ -538,11 +602,27 @@ export default function App() {
         </div>
       )}
       {!pulled && street && currentRow && (
-        <div className={`row-header ${results ? 'below-results' : ''}`} key={`header:${currentRow.id}`}>
-          <strong>{currentRow.title}</strong>
+        <div ref={headerRef} style={{ top: results ? headerTop + 54 : headerTop }} className={`row-header ${results ? 'below-results' : ''}`} key={`header:${currentRow.id}`}>
+          {remix && !results ? <select aria-label="Mood row" value={activeRow} onChange={e => goToRow(Number(e.target.value))}>
+            {shownRows.map((row, index) => <option key={row.id} value={index}>{row.title} · {row.discs.length}</option>)}
+          </select> : <strong>{currentRow.title}</strong>}
           <span>
             Row {activeRow + 1} of {shownRows.length}
           </span>
+          {remix && !results && <div className="remix-status" role="status">
+            {mode === 'sample' ? `Demo moods · ${remixed.total} sample songs`
+              : remixed.setup ? `Jev isn't connected yet · ${remixed.total} songs ready`
+              : !import.meta.env.DEV || remixed.unsupported ? `Mood sorting isn't enabled on this site yet · ${remixed.total} songs ready`
+              : `${remixed.total - remixed.pending} of ${remixed.total} checked · ${remixed.classified} sorted · ${remixed.pending} waiting`}
+            {mode !== 'sample' && remixed.total - remixed.pending > 0 && !remixed.classified && <small>No reliable moods yet. Checked songs remain available in Unrated.</small>}
+            {mode !== 'sample' && (remixed.outcomes.unmatched + remixed.outcomes.uncertain + remixed.outcomes.unavailable > 0) && <small>
+              {remixed.outcomes.unmatched} without a public catalog match · {remixed.outcomes.uncertain} uncertain · {remixed.outcomes.unavailable} lookup errors
+            </small>}
+            {mode !== 'sample' && <small>{collection.loading ? `Loading ${collection.source}…` : `${collection.recentCount} recently played songs included`}</small>}
+            {collection.issues.length > 0 && <details><summary>Some music couldn't be loaded</summary>
+              {collection.issues.map(issue => <p key={issue}>{issue}</p>)}
+            </details>}
+          </div>}
         </div>
       )}
       {!pulled && street && (
@@ -559,10 +639,17 @@ export default function App() {
           </button>
         </div>
       )}
+      {!pulled && street && currentRow && !currentRow.loading && !currentRow.discs.length && (
+        <div className="empty-row" style={{ top: focusTop }} role="status">
+          <strong>{currentRow.title}</strong>
+          <span>{currentRow.note ?? 'No songs here yet'}</span>
+        </div>
+      )}
       {!pulled && street && focused && currentRow?.discs.length ? (
-        <div className={`focus-label ${results ? 'below-results' : ''}`} key={`focus:${focused.id}`}>
+        <div style={{ top: focusTop }} className={`focus-label ${results ? 'below-results' : ''}`} key={`focus:${focused.id}`}>
           <strong>{focused.title}</strong>
           <span>{focused.subtitle}</span>
+          {focused.kind === 'track' && focused.tracks?.[0] && <SongMoodLabel track={focused.tracks[0]} />}
         </div>
       ) : null}
       {!pulled && showHint && (

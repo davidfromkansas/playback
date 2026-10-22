@@ -1,6 +1,8 @@
 import type { Disc, Track } from '../types'
 import { accentFor, INK } from '../lib/colors'
 import { fitText, FONT } from './textures'
+import { moodLabel, songMoods } from '../lib/songMood'
+import { songMoodKey } from '../lib/songMoodQueue'
 
 export function drawTrackList(
   ctx: CanvasRenderingContext2D, w: number, h: number, disc: Disc,
@@ -49,8 +51,11 @@ export function drawTrackList(
       ellipsis(ctx, track.name, nameX, y, nameWidth)
       ctx.globalAlpha = 0.65
       ctx.font = `600 ${w * 0.031}px ${FONT}`
-      ellipsis(ctx, track.artists, nameX, y + rowH * 0.37, nameWidth)
+      ellipsis(ctx, track.artists, nameX, y + rowH * 0.37, nameWidth - w * 0.12)
       ctx.globalAlpha = 1
+      ctx.textAlign = 'right'
+      ctx.font = `500 ${w * 0.025}px ${FONT}`
+      ctx.fillText(moodLabel(songMoods.get(songMoodKey(track))).text, w - pad, y + rowH * 0.37)
       const seconds = Math.max(0, Math.floor(track.durationMs / 1000))
       ctx.textAlign = 'right'
       ctx.font = `600 ${w * 0.033}px ${FONT}`

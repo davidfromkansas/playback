@@ -1,0 +1,14 @@
+[
+  {
+    "device": "desktop",
+    "sampleFlow": "welcome / swipe / pick / open / play / return",
+    "themes": "Street / Paper / Street",
+    "errors": []
+  },
+  {
+    "device": "phone",
+    "sampleFlow": "welcome / swipe / pick / open / play / return",
+    "themes": "Street / Paper / Street",
+    "errors": []
+  }
+]

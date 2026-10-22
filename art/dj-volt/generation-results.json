@@ -1,0 +1,12 @@
+{
+  "tool": "image_gen.imagegen",
+  "baselineCommit": "d8bc898",
+  "results": [
+    { "file": "model-sheet.png", "prompt": "voltPrompt", "result": "exec-50561814-fe0f-4f84-b7b6-848a49a7d91f", "status": "superseded" },
+    { "file": "superseded-idle.png", "prompt": "idlePrompt", "result": "exec-c5167966-7460-4311-949e-a35e48f58ca9", "status": "superseded" },
+    { "file": "asian-model-sheet.png", "prompt": "asianPrompt", "result": "exec-49279525-8c87-4667-a356-ad38f1b6db37", "status": "identity reference" },
+    { "file": "sequence-source.png", "prompt": "sequencePrompt", "result": "exec-af293c48-6622-4269-9fc7-7d666d910b53", "status": "idle source" },
+    { "file": "bridge-source.png", "prompt": "bridgePrompt", "result": "exec-fed00685-d1ad-41c7-a915-4bd483c15850", "status": "transition source" },
+    { "file": "dance-source.png", "prompt": "dancePrompt", "result": "exec-72dfe63d-69ae-42cd-9991-374772f2d91b", "status": "groove source" }
+  ]
+}

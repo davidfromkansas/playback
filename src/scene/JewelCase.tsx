@@ -9,6 +9,7 @@ import type { Disc } from '../types'
 import { CASE_W } from './layout'
 import { streetSpineTexture } from './streetArt'
 import { useCover } from './textures'
+import { CoverMoodBadge } from './CoverMoodBadge'
 
 const MODEL = '/models/jewelcase.glb'
 
@@ -87,6 +88,10 @@ interface Props {
 
 export function JewelCase({ disc, lid = 0, inside, children }: Props) {
   const parts = useParts()
+  const coverBounds = useMemo(() => {
+    parts.Booklet.computeBoundingBox()
+    return parts.Booklet.boundingBox!
+  }, [parts])
   const cover = useCover(disc)
   const mats = useMemo(() => {
     const spine = streetSpineTexture(disc)
@@ -125,6 +130,8 @@ export function JewelCase({ disc, lid = 0, inside, children }: Props) {
       <mesh geometry={parts.BaseShell} material={plastic} renderOrder={2} />
       <animated.group position={HINGE.toArray()} rotation-y={lid}>
         <mesh geometry={parts.Booklet} material={mats.cover} />
+        <CoverMoodBadge disc={disc} right={coverBounds.max.x} bottom={coverBounds.min.y}
+          z={coverBounds.max.z + 0.0005} coverWidth={coverBounds.max.x - coverBounds.min.x} />
         <mesh geometry={parts.BookletBack} material={mats.inside} />
         <mesh geometry={parts.LidShell} material={plastic} renderOrder={3} />
       </animated.group>

@@ -1,0 +1,96 @@
+{
+  "evaluatedAt": "2026-10-22T04:07:14.673Z",
+  "planned": 20,
+  "completed": 4,
+  "note": "Coverage/behavior pilot, not ground-truth accuracy. No Spotify account data. No genre-based labels forced.",
+  "results": [
+    {
+      "query": {
+        "title": "September",
+        "artist": "Earth, Wind & Fire",
+        "durationMs": 215080
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Billie Jean",
+        "artist": "Michael Jackson",
+        "durationMs": 294227
+      },
+      "status": "uncertain",
+      "profile": null,
+      "source": {
+        "source": "MusicBrainz",
+        "license": "CC0-1.0",
+        "recordingId": "23bbe67b-62ec-4bdc-8915-1e1c6b28a25f",
+        "sourceUrl": "https://musicbrainz.org/recording/23bbe67b-62ec-4bdc-8915-1e1c6b28a25f",
+        "title": "Billie Jean",
+        "artists": [
+          "Michael Jackson"
+        ]
+      },
+      "context": [
+        {
+          "source": "Wikidata",
+          "license": "CC0-1.0",
+          "sourceUrl": "https://www.wikidata.org/wiki/Q193319",
+          "entityId": "Q193319",
+          "scope": "Underlying composition, not recording-specific; covers/live versions/remixes may differ",
+          "genres": [
+            {
+              "id": "Q1190485",
+              "name": "post-disco"
+            },
+            {
+              "id": "Q45981",
+              "name": "rhythm and blues"
+            },
+            {
+              "id": "Q164444",
+              "name": "funk"
+            },
+            {
+              "id": "Q211756",
+              "name": "dance-pop"
+            },
+            {
+              "id": "Q850412",
+              "name": "contemporary R&B"
+            },
+            {
+              "id": "Q187760",
+              "name": "new wave"
+            }
+          ],
+          "instruments": []
+        }
+      ],
+      "version": "public-context-2",
+      "model": "jev-1.14.0"
+    },
+    {
+      "query": {
+        "title": "Dancing Queen",
+        "artist": "ABBA",
+        "durationMs": 230400
+      },
+      "status": "no-match",
+      "profile": null,
+      "version": "public-catalog-1"
+    },
+    {
+      "query": {
+        "title": "Smells Like Teen Spirit",
+        "artist": "Nirvana",
+        "durationMs": 301920
+      },
+      "status": "unavailable",
+      "profile": null,
+      "version": "public-catalog-1",
+      "stage": "catalog"
+    }
+  ]
+}

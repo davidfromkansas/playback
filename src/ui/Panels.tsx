@@ -1,5 +1,6 @@
 import { TextLoader } from 'generative-loaders'
 import type { Disc, Track } from '../types'
+import { SongMoodLabel } from './SongMoodLabel'
 
 const time = (ms: number) => {
   const s = Math.max(0, Math.floor(ms / 1000))
@@ -49,7 +50,7 @@ export function TrackPanel({
                 <span className="num">{t.uri === nowUri ? '♪' : i + 1}</span>
                 <span className="name">
                   {t.name}
-                  <small>{t.artists}</small>
+                  <span className="track-detail"><small>{t.artists}</small><SongMoodLabel track={t} /></span>
                 </span>
                 <span className="dur">{time(t.durationMs)}</span>
               </button>

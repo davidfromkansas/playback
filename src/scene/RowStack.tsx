@@ -74,9 +74,9 @@ export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, 
  * page's header instead, so its sign only shows while it's loading or empty.
  */
 function RowSign({ row, active }: { row: ShelfRow; active: boolean }) {
-  const text = row.loading ? `${row.title}: loading…` : !row.discs.length ? `${row.title}: ${row.note ?? 'empty'}` : row.title
-  // The row you're on shows a loader on screen while it loads, so it only needs a sign when empty.
-  const show = !active || (!row.loading && !row.discs.length)
+  const text = row.title
+  // The active row uses responsive DOM status text, including empty and loading states.
+  const show = !active
   const sign = useMemo(() => makeSign(text), [text])
   useEffect(() => () => (sign.material.map?.dispose(), sign.material.dispose()), [sign])
   if (!show) return null
@@ -110,5 +110,5 @@ function makeSign(text: string) {
   const tex = new THREE.CanvasTexture(c)
   tex.colorSpace = THREE.SRGBColorSpace
   const material = new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false })
-  return { material, width: (w / h) * 0.5 }
+  return { material, width: Math.min(2.4, (w / h) * 0.5) }
 }

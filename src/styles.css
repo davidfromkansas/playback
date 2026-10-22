@@ -201,6 +201,17 @@ select,
   pointer-events: auto;
 }
 
+.remix-toggle { white-space: nowrap; }
+.remix-toggle span { font-size: 0.65em; margin-left: 3px; }
+.remix-toggle[aria-checked='true'] { background: #d6ff36; color: #202126; }
+.remixing .row-header { transform: none; pointer-events: auto; max-width: min(360px, calc(100vw - 32px)); }
+.remixing .row-header select { font-family: var(--comic); font-size: 1.3rem; max-width: 100%; width: 100%; }
+.remix-status { font-family: system-ui, sans-serif; font-size: 0.72rem; margin-top: 5px; max-width: 310px; }
+.remix-status small { display: block; margin-top: 3px; }
+.remix-status details { margin-top: 5px; max-height: 120px; overflow: auto; }
+.remix-status summary { cursor: pointer; }
+.remix-status p { margin: 6px 0; }
+
 .brand {
   font-weight: 800;
   font-size: 1.4rem;
@@ -401,6 +412,37 @@ select {
 .tracks .dur {
   font-weight: 600;
   opacity: 0.7;
+}
+
+.track-detail {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 3px;
+  min-width: 0;
+}
+.track-detail small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.song-mood,
+.focus-label .song-mood,
+.now-text .song-mood {
+  display: inline-block;
+  flex-shrink: 0;
+  width: fit-content;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.7;
+  vertical-align: middle;
 }
 
 .panel footer {
@@ -826,6 +868,8 @@ select {
     top: 132px;
   }
 
+  .street.remixing .focus-label { top: 210px; }
+
   .row-arrows {
     top: auto;
     bottom: 200px;
@@ -969,3 +1013,43 @@ select {
 
 /* Keep the open booklet readable while the host continues dancing. */
 .room:has(.panel) .bubble { display: none; }
+
+/* Double the host size while preserving whole-body cel proportions. */
+.street .dj-volt {
+  margin-left: -48px;
+  width: auto;
+  height: 396px;
+  aspect-ratio: 400 / 380;
+  object-fit: contain;
+}
+
+@media (max-width: 700px) {
+  .street .dj-volt {
+    margin-left: -32px;
+    height: 274px;
+  }
+
+  /* Keep the skates above the two-line swipe hint. */
+  .room.street .host {
+    bottom: 148px;
+  }
+}
+
+/* Keep the search usable and stack status above the focused song. */
+.topbar { z-index: 5; }
+.row-header { z-index: 3; }
+.empty-row {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: min(440px, calc(100vw - 32px)); padding: 12px;
+  border: 3px solid var(--ink); background: white; box-shadow: var(--shadow);
+  text-align: center; overflow-wrap: anywhere; pointer-events: none;
+}
+.empty-row strong, .empty-row span { display: block; }
+.empty-row strong { font-family: var(--comic); font-size: 1.4rem; }
+@media (max-width: 700px) {
+  .topbar { flex-wrap: wrap; }
+  .street .topbar .search { order: -1; flex: 1 0 100%; width: 100%; min-width: 0; box-sizing: border-box; }
+  .topbar .chip { flex-shrink: 0; }
+  .results-bar { top: 110px; }
+  .case-actions { top: 112px; }
+}
