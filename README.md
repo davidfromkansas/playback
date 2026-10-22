@@ -7,6 +7,8 @@ Two looks, switched from the top bar:
 - **Street** (default): a Jet Set Radio-style rooftop with a swipeable line of real-looking jewel cases.
 - **Paper**: a pastel paper-cutout room with a shelf of CD spines, tap-along rhythm buttons and a mood meter.
 
+Open an album, playlist or Liked Songs CD to see its track list inside the left cover. The booklet scrolls continuously, looping from the last track back to the first. With reduced motion enabled it stays still; the full track panel remains scrollable. Individual-song CDs show lyrics there during playback.
+
 Working on the code? Start with [AGENTS.md](AGENTS.md).
 
 Built with Vite, React, Three.js (React Three Fiber) and React Spring.

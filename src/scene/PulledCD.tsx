@@ -5,18 +5,20 @@ import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { pulse } from '../lib/beat'
 import { colorFor, INK } from '../lib/colors'
-import type { Disc } from '../types'
+import type { Disc, Track } from '../types'
 import { CASE_H, CASE_W } from './layout'
 import { Disc3D } from './Disc3D'
 import { HUB_X, JewelCase } from './JewelCase'
 import type { Theme } from '../lib/theme'
-import { useLyricsPage } from './lyricsPage'
+import { useBookletPage } from './lyricsPage'
 import { spineTexture, useCover } from './textures'
 
 export type CaseStage = 'out' | 'open' | 'returning'
 
 interface Props {
   disc: Disc
+  tracks: Track[] | null
+  trackError: string | null
   from: THREE.Vector3
   /** The case's turn where it came from (spines on the shelf face the camera side-on). */
   fromRy?: number
@@ -37,6 +39,8 @@ const WOBBLY = { mass: 1, tension: 190, friction: 15 }
 
 export function PulledCD({
   disc,
+  tracks,
+  trackError,
   from,
   fromRy = Math.PI / 2,
   stage,
@@ -93,8 +97,8 @@ export function PulledCD({
   })
 
   const caseColor = colorFor(disc.id + disc.title)
-  // Inside the booklet: the lyrics of the song playing. Street's booklet is square; Paper's fills the lid.
-  const booklet = useLyricsPage(disc, 640, theme === 'street' ? 640 : 563)
+  // Street's booklet is square; Paper's fills the lid.
+  const booklet = useBookletPage(disc, 640, theme === 'street' ? 640 : 563, tracks, trackError, open)
   const lidMaterials = useMemo(() => {
     const edge = new THREE.MeshBasicMaterial({ color: '#e9f7ff' })
     const art = new THREE.MeshBasicMaterial({ color: '#ffffff' })

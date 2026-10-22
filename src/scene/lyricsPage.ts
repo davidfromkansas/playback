@@ -1,12 +1,12 @@
-// The inside page of the CD booklet: the title, then the lyrics of the song playing from this CD,
-// scrolling along with the music. Drawn on a canvas and redrawn only when something moves.
+// Collections show a looping track list; single songs show lyrics scrolling with playback.
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import * as THREE from 'three'
 import { accentFor, INK } from '../lib/colors'
 import { fetchLyrics, type Lyrics } from '../spotify/lyrics'
 import { livePosition, playerStore } from '../spotify/player'
-import type { Disc } from '../types'
+import type { Disc, Track } from '../types'
+import { drawTrackList } from './trackListPage'
 import { fitText, FONT } from './textures'
 
 const PAPER = '#fff7e8'
@@ -22,7 +22,9 @@ interface Row {
 type State = { status: 'idle' } | { status: 'loading' } | { status: 'ready'; lyrics: Lyrics }
 
 /** A texture for the booklet's inside page, `w` x `h` pixels. */
-export function useLyricsPage(disc: Disc, w: number, h: number): THREE.CanvasTexture {
+export function useBookletPage(
+  disc: Disc, w: number, h: number, tracks: Track[] | null, error: string | null, open: boolean,
+): THREE.CanvasTexture {
   const page = useMemo(() => {
     const c = document.createElement('canvas')
     c.width = w
@@ -30,13 +32,15 @@ export function useLyricsPage(disc: Disc, w: number, h: number): THREE.CanvasTex
     const tex = new THREE.CanvasTexture(c)
     tex.colorSpace = THREE.SRGBColorSpace
     tex.anisotropy = 4
+    tex.generateMipmaps = false
+    tex.minFilter = THREE.LinearFilter
     return { c, ctx: c.getContext('2d')!, tex }
   }, [w, h])
   useEffect(() => () => page.tex.dispose(), [page])
 
   // The song playing from this CD, if any.
   const { now } = useSyncExternalStore(playerStore.subscribe, playerStore.get)
-  const track = now.disc?.id === disc.id ? now.track : null
+  const track = disc.kind === 'track' && now.disc?.id === disc.id ? now.track : null
   const [state, setState] = useState<State>({ status: 'idle' })
   useEffect(() => {
     if (!track) return setState({ status: 'idle' })
@@ -52,6 +56,21 @@ export function useLyricsPage(disc: Disc, w: number, h: number): THREE.CanvasTex
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track?.uri, disc])
 
+  const listOffset = useRef(0)
+  const [reduceMotion, setReduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduceMotion(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+  useEffect(() => {
+    listOffset.current = 0
+    if (disc.kind === 'track') return
+    drawTrackList(page.ctx, w, h, disc, tracks, error, 0)
+    page.tex.needsUpdate = true
+  }, [page, w, h, disc, tracks, error])
+
   const size = Math.round(w * LINE_PX)
   const rows = useMemo(() => {
     if (state.status !== 'ready') return []
@@ -63,6 +82,14 @@ export function useLyricsPage(disc: Disc, w: number, h: number): THREE.CanvasTex
 
   const view = useRef({ scroll: 0, active: -2, drawn: '' })
   useFrame((_, dt) => {
+    if (disc.kind !== 'track') {
+      if (!open || reduceMotion || document.hidden || !disc.tracksAvailable || error || !tracks?.length) return
+      // Constant speed: three seconds per row. Cap suspension gaps so returning to a tab never jumps.
+      listOffset.current = (listOffset.current + Math.min(dt, 0.1) / 3) % tracks.length
+      drawTrackList(page.ctx, w, h, disc, tracks, error, listOffset.current)
+      page.tex.needsUpdate = true
+      return
+    }
     const v = view.current
     const current = playerStore.get().now
     const pos = livePosition(current)

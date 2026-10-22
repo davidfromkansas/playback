@@ -20,7 +20,9 @@ interface TrackPanelProps {
 }
 
 /** The case insert: song list for the open CD. */
-export function TrackPanel({ disc, tracks, error, nowUri, onPlay, onClose, starting }: TrackPanelProps) {
+export function TrackPanel({
+  disc, tracks, error, nowUri, onPlay, onClose, starting,
+}: TrackPanelProps) {
   return (
     <aside className="panel">
       <header>

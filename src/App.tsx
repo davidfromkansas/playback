@@ -479,6 +479,8 @@ export default function App() {
             <PulledCD
               key={pulled.disc.id}
               disc={pulled.disc}
+              tracks={tracks}
+              trackError={trackError}
               from={pulled.from}
               fromRy={pulled.fromRy}
               stage={pulled.stage}

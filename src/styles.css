@@ -1199,3 +1199,6 @@ select {
       linear-gradient(#0aa8ff 0%, #34c6ff 45%, #bfefff 75%);
   }
 }
+
+/* Keep the open booklet readable while the host continues dancing. */
+.room:has(.panel) .bubble { display: none; }
