@@ -1053,3 +1053,59 @@ select {
   .results-bar { top: 110px; }
   .case-actions { top: 112px; }
 }
+
+/* ======================================================================
+   iPhone (portrait phones). The CDs are bigger and centred (see cameraFor), so the overlays get
+   out of their way: a compact header up top, DJ Volt small in the bottom-left corner, the row arrows
+   bottom-right, everything clear of the notch, Dynamic Island and home bar.
+   ====================================================================== */
+@media (max-width: 700px) and (orientation: portrait) {
+  .room.street .topbar {
+    top: max(10px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+    row-gap: 10px;
+  }
+  .room.street .topbar .search { height: 44px; font-size: 1rem; }
+  .room.street .topbar .chip { min-height: 40px; padding: 4px 12px; font-size: 0.95rem; }
+
+  /* Row name and count on one compact sticker. */
+  .room.street .row-header {
+    left: max(12px, env(safe-area-inset-left));
+    max-width: calc(100vw - 24px);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 3px 12px 4px;
+  }
+  .room.street .row-header strong { font-size: 1.2rem; min-width: 0; }
+  .room.street .row-header span { flex-shrink: 0; font-size: 0.75rem; }
+  .room.street.remixing .row-header { display: block; }
+
+  .room.street .focus-label { max-width: calc(100vw - 48px); padding: 4px 14px 6px; }
+  .room.street .focus-label strong { font-size: 1.3rem; }
+  .room.street .focus-label span { font-size: 0.8rem; }
+
+  /* DJ Volt keeps dancing, but small and in the corner so he never covers a CD. */
+  .room.street .host { left: 0; bottom: calc(env(safe-area-inset-bottom) + 6px); max-width: 64vw; }
+  .room.street .dj-volt { margin-left: -22px; height: 168px; }
+  .room.street .bubble { font-size: 0.8rem; margin-left: 12px; }
+  .room.street:has(.miniamp:not(.is-compact)) .host { display: none; }
+
+  /* Thumb-sized row arrows, side by side, above the home bar. */
+  .room.street .row-arrows {
+    top: auto;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: calc(env(safe-area-inset-bottom) + 22px);
+    transform: none;
+    flex-direction: row;
+  }
+  .room.street .row-arrows button { width: 52px; height: 52px; }
+
+  .room.street .hint { bottom: calc(env(safe-area-inset-bottom) + 92px); max-width: calc(100vw - 32px); }
+  .room.street:has(.miniamp:not(.is-compact)) .hint { bottom: calc(env(safe-area-inset-bottom) + 240px); }
+
+  /* With a CD out: the actions sit under the search, thumb-sized. */
+  .room.street .case-actions { top: calc(max(10px, env(safe-area-inset-top)) + 106px); }
+  .room.street .case-actions button { min-height: 40px; font-size: 0.85rem; padding: 6px 12px; }
+}

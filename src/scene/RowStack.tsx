@@ -1,6 +1,6 @@
 // Street theme: rows of CDs stacked top to bottom. The row you're on sits in the middle of the
 // screen; the ones above and below peek in. Swiping up or down slides the whole stack.
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import type { ShelfRow } from '../spotify/rows'
@@ -10,6 +10,8 @@ import { CASE_H } from './layout'
 import type { ScrollState } from './scroll'
 
 export const ROW_SPACING = 2.7
+// Phones show the CDs bigger, so rows sit further apart and only the edge of the next one peeks in.
+const ROW_SPACING_TALL = 3.3
 const SHOWN = 1.6 // rows further than this from the one you're on aren't drawn
 
 export interface StackState {
@@ -33,6 +35,7 @@ interface Props {
 
 export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, onTap, onActivate, onFocus }: Props) {
   const groups = useRef<(THREE.Group | null)[]>([])
+  const spacing = useThree((s) => s.size.width < s.size.height) ? ROW_SPACING_TALL : ROW_SPACING
 
   useFrame((_, dt) => {
     if (!Number.isFinite(stack.current)) stack.current = stack.target
@@ -41,7 +44,7 @@ export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, 
       if (!g) return
       const d = k - stack.current
       // Rows below sit lower, rows above higher; both lean back a little so the middle row stands out.
-      g.position.set(0, -d * ROW_SPACING, -Math.abs(d) * 0.9)
+      g.position.set(0, -d * spacing, -Math.abs(d) * 0.9)
       g.visible = Math.abs(d) < SHOWN
     })
   })
@@ -75,8 +78,10 @@ export function RowStack({ rows, active, stack, scrollFor, selectedId, playing, 
  */
 function RowSign({ row, active }: { row: ShelfRow; active: boolean }) {
   const text = row.title
-  // The active row uses responsive DOM status text, including empty and loading states.
-  const show = !active
+  // The active row uses responsive DOM status text, including empty and loading states. Phones skip the
+  // signs altogether: the next row only peeks in at the bottom, where DJ Volt stands.
+  const tall = useThree((s) => s.size.width < s.size.height)
+  const show = !active && !tall
   const sign = useMemo(() => makeSign(text), [text])
   useEffect(() => () => (sign.material.map?.dispose(), sign.material.dispose()), [sign])
   if (!show) return null
