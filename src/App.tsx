@@ -275,7 +275,7 @@ export default function App() {
     window.addEventListener('resize', measure)
     measure()
     return () => { observer.disconnect(); window.removeEventListener('resize', measure) }
-  }, [pulled, results, remix, activeRow, headerTop])
+  }, [phase, pulled, results, remix, activeRow, headerTop])
 
 
   const pick = useCallback(

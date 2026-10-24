@@ -63,6 +63,8 @@ export function PulledCD({
   const fwd = camera.getWorldDirection(new THREE.Vector3())
   const midY = camera.position.y + ((FRONT_Z - camera.position.z) * fwd.y) / fwd.z
   const scale = Math.min(1, (front.width * 0.92) / (CASE_W * 2.05), (front.height * 0.5) / CASE_H)
+  // Closed, it's one case wide, so on phones it can fill most of the screen's width.
+  const outScale = portrait ? Math.min((front.width * 0.84) / CASE_W, (front.height * 0.42) / CASE_H) : scale
   // On wide screens the song list covers the right side, so the open case moves left of center.
   const openX = portrait ? (CASE_W * scale) / 2 : -front.width * 0.12 + (CASE_W * scale) / 2
   const open = stage === 'open'
@@ -79,7 +81,7 @@ export function PulledCD({
           pz: open && !portrait ? FRONT_Z - 0.8 : FRONT_Z,
           rx: open ? -0.08 : 0.05,
           ry: open ? 0.12 : -0.18,
-          s: open && !portrait ? scale * 0.85 : scale,
+          s: open ? (portrait ? scale : scale * 0.85) : outScale,
         },
     config: WOBBLY,
     onRest: () => {
